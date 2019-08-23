@@ -39,7 +39,7 @@ class BallViewController: UIViewController {
 // MARK: - Helpers:
 extension BallViewController {
     
-    private func updeteAnswerLabel(with answer: String) {
+    private func updateAnswerLabel(with answer: String) {
         DispatchQueue.main.async {
             self.setLabelsVisibility(to: false)
             self.statusLabel.alpha = 0
