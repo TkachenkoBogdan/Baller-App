@@ -11,3 +11,23 @@ import Foundation
 protocol AnswerProviding {
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void)
 }
+
+class AnswerProvider: AnswerProviding {
+    
+    private let offlineProvider = OfflineProvider()
+    private let onlineProvider = OnlineProvider()
+    
+    func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
+        onlineProvider.getAnswer { (result) in
+            switch result {
+            case .success:
+                completionHandler(result)
+            case .failure:
+                self.offlineProvider.getAnswer { (offlineResult) in
+                    completionHandler(offlineResult)
+                }
+            }
+        }
+    }
+    
+}
