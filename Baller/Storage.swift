@@ -8,7 +8,7 @@
 
 import Foundation
 
- class Storage {
+class Storage {
     
     enum Directory {
         case documents
@@ -50,7 +50,7 @@ import Foundation
     }
     
     /// Retrieve and convert a struct from a file on disk
-
+    
     static func retrieve<T: Decodable>(_ fileName: String, from directory: Directory, as type: T.Type) -> T? {
         let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
         

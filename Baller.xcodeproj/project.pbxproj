@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */; };
-		BD8C3A6123100D0800F8D896 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6023100D0800F8D896 /* .swiftlint.yml */; };
 		BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */; };
 		BD8C3A68231011A800F8D896 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* Answer.swift */; };
 		BD8C3A6C231012B100F8D896 /* AnswerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A6B231012B100F8D896 /* AnswerStore.swift */; };
@@ -28,8 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD8B4145231034AD001A3698 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
-		BD8C3A6023100D0800F8D896 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD8C3A67231011A700F8D896 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BD8C3A6B231012B100F8D896 /* AnswerStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerStore.swift; sourceTree = "<group>"; };
@@ -150,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				BDFA23AE2306528400807EB8 /* AppDelegate.swift */,
-				BD8C3A6023100D0800F8D896 /* .swiftlint.yml */,
+				BD8B4145231034AD001A3698 /* .swiftlint.yml */,
 				BDDAFFF823102290002B3BEF /* DefaultAnswers.txt */,
 				BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */,
 				BDFA23B52306528500807EB8 /* Assets.xcassets */,
@@ -219,7 +218,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */,
-				BD8C3A6123100D0800F8D896 /* .swiftlint.yml in Resources */,
 				BDFA23B62306528500807EB8 /* Assets.xcassets in Resources */,
 				BDFA23B42306528400807EB8 /* Main.storyboard in Resources */,
 				BDDAFFF923102290002B3BEF /* DefaultAnswers.txt in Resources */,

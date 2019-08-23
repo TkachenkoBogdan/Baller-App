@@ -19,7 +19,7 @@ class JSONStore: AnswerStore {
             save()
         }
     }
-
+    
     // MARK: - Protocol Conformance:
     func allAnswers() -> [Answer] {
         return answers
@@ -35,7 +35,7 @@ class JSONStore: AnswerStore {
     func answersCount() -> Int {
         return answers.count
     }
-
+    
     func appendAnswer(_ answer: Answer) {
         self.answers.append(answer)
     }

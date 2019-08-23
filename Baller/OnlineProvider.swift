@@ -10,20 +10,10 @@ import Foundation
 
 struct OnlineProvider: AnswerProviding {
     
-    private struct Endpoint {
-        let host: String
-        let path: String
-        
-        var url: URL? {
-            return URL(string: host + path)
-        }
-    }
-    
-    private let endpoint = Endpoint(host: "https://8ball.delegator.com",
-                                    path: "/magic/JSON/whatislove?")
+    private let endpoint = "https://8ball.delegator.com/magic/JSON/whatislove?"
     
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
-        guard let url = endpoint.url else { return }
+        guard let url = URL(string: endpoint) else { return }
         let request = URLRequest(url: url, timeoutInterval: 2.5)
         
         URLSession.shared.dataTask(with: request) { (data, _, error) in

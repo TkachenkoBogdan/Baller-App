@@ -11,7 +11,7 @@ import UIKit
 class AnswersTableViewController: UITableViewController {
     
     let store: AnswerStore = JSONStore.shared
-
+    
     @IBAction func addButtonPressed(_ sender: Any) {
         presentUserInputAlert("Please provide your answer") { [weak self] (answer) in
             guard let `self` = self else { return }
@@ -30,10 +30,10 @@ extension AnswersTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let answer = store.answer(at: indexPath.row),
             let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell",
-                                                    for: indexPath) as? AnswerCell else {
-            return UITableViewCell()
+                                                     for: indexPath) as? AnswerCell else {
+                                                        return UITableViewCell()
         }
-            cell.answer = answer.title
+        cell.answer = answer.title
         return cell
     }
     
