@@ -15,6 +15,7 @@
 		BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerProvider.swift */; };
 		BDDAFFEC231017E1002B3BEF /* OnlineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* OnlineProvider.swift */; };
 		BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* Storage.swift */; };
+		BDDAFFF223101F65002B3BEF /* JSONStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* JSONStore.swift */; };
 		BDFA23AF2306528400807EB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFA23AE2306528400807EB8 /* AppDelegate.swift */; };
 		BDFA23B12306528400807EB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFA23B02306528400807EB8 /* ViewController.swift */; };
 		BDFA23B42306528400807EB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDFA23B22306528400807EB8 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 		BDDAFFE923101721002B3BEF /* AnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEB231017E1002B3BEF /* OnlineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEF23101E64002B3BEF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		BDDAFFF123101F65002B3BEF /* JSONStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStore.swift; sourceTree = "<group>"; };
 		BDFA23AB2306528400807EB8 /* Baller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDFA23AE2306528400807EB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDFA23B02306528400807EB8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				BD8C3A6B231012B100F8D896 /* AnswerStore.swift */,
+				BDDAFFF123101F65002B3BEF /* JSONStore.swift */,
 				BDDAFFEF23101E64002B3BEF /* Storage.swift */,
 			);
 			name = Persistence;
@@ -230,6 +233,7 @@
 				BD8C3A6C231012B100F8D896 /* AnswerStore.swift in Sources */,
 				BDDAFFEC231017E1002B3BEF /* OnlineProvider.swift in Sources */,
 				BDFA23AF2306528400807EB8 /* AppDelegate.swift in Sources */,
+				BDDAFFF223101F65002B3BEF /* JSONStore.swift in Sources */,
 				BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */,
 				BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */,
 				BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */,

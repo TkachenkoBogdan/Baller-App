@@ -16,7 +16,7 @@ public class Storage {
     }
     
     /// Returns URL constructed from specified directory:
-    static fileprivate func getURL(for directory: Directory) -> URL {
+    static private func getURL(for directory: Directory) -> URL {
         var searchPathDirectory: FileManager.SearchPathDirectory
         
         switch directory {
@@ -32,7 +32,6 @@ public class Storage {
             fatalError("Could not create URL for specified directory!")
         }
     }
-    
     
     /// Stores an encodable struct to the specified directory on disk:
     static func store<T: Encodable>(_ object: T, to directory: Directory, as fileName: String) {
