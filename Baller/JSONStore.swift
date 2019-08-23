@@ -8,7 +8,7 @@
 
 import Foundation
 
-class JSONStore: AnswerStore {
+class JSONStore {
     
     private let answerFileName = "answers.json"
     
@@ -19,8 +19,35 @@ class JSONStore: AnswerStore {
             save()
         }
     }
+
+    private init() {
+        if !Storage.fileExists(answerFileName, in: .documents) {
+            self.answers = defaultAnswers()
+            save()
+        } else {
+            self.answers = Storage.retrieve(answerFileName,
+                                            from: .documents,
+                                            as: [Answer].self) ?? [Answer]()
+        }
+    }
     
-    // MARK: - Protocol Conformance:
+    private func save() {
+        Storage.store(self.answers, to: .documents, as: answerFileName)
+    }
+    
+    private func defaultAnswers () -> [Answer] {
+        guard let answers = Storage.pathInBundle("DefaultAnswers.txt"),
+            let answersData = try? Data(contentsOf: answers),
+            let defaultAnswers = try? JSONDecoder().decode([Answer].self, from: answersData) else {
+                return [Answer(withTitle: "Just do a moonwalk...")]
+        }
+        return defaultAnswers
+    }
+}
+
+// MARK: - AnswerStore Protocol Conformance:
+extension JSONStore: AnswerStore {
+    
     func allAnswers() -> [Answer] {
         return answers
     }
@@ -44,29 +71,5 @@ class JSONStore: AnswerStore {
         if 0..<answers.count ~= index {
             answers.remove(at: index)
         }
-    }
-    
-    private init() {
-        if !Storage.fileExists(answerFileName, in: .documents) {
-            self.answers = defaultAnswers()
-            save()
-        } else {
-            self.answers = Storage.retrieve(answerFileName,
-                                            from: .documents,
-                                            as: [Answer].self) ?? [Answer]()
-        }
-    }
-    
-    private func save() {
-        Storage.store(self.answers, to: .documents, as: answerFileName)
-    }
-    
-    private func defaultAnswers () -> [Answer] {
-        guard let answers = Storage.pathInBundle("DefaultAnswers.txt"),
-            let answersData = try? Data(contentsOf: answers),
-            let defaultAnswers = try? JSONDecoder().decode([Answer].self, from: answersData) else {
-                return [Answer(withTitle: "Just do a moonwalk...")]
-        }
-        return defaultAnswers
     }
 }
