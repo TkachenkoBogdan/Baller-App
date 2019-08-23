@@ -13,24 +13,24 @@ class BallViewController: UIViewController {
     private let answerProvider: AnswerProviding = AnswerProvider()
     
     // MARK: - Outlets:
-    @IBOutlet private weak var ballImageView: UIImageView!
-    @IBOutlet private weak var answerLabel: UILabel!
-    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet private var ballImageView: UIImageView?
+    @IBOutlet private var answerLabel: UILabel?
+    @IBOutlet private var statusLabel: UILabel?
     
     override var canBecomeFirstResponder: Bool {
         return true
     }
     
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        self.ballImageView.shake()
+        self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
         
         answerProvider.getAnswer { (result) in
             switch result {
             case .success(let answer):
-                self.updeteAnswerLabel(with: answer.title)
+                self.updateAnswerLabel(with: answer.title)
             case .failure:
-                self.updeteAnswerLabel(with: "Oh, snap! Try again")
+                self.updateAnswerLabel(with: "Oh, snap! Try again")
             }
         }
     }
@@ -42,21 +42,21 @@ extension BallViewController {
     private func updateAnswerLabel(with answer: String) {
         DispatchQueue.main.async {
             self.setLabelsVisibility(to: false)
-            self.statusLabel.alpha = 0
-            self.answerLabel.alpha = 1
+            self.statusLabel?.alpha = 0
+            self.answerLabel?.alpha = 1
             DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
                 UIView.animate(withDuration: 1, animations: {
-                    self.statusLabel.alpha = 1
-                    self.answerLabel.alpha = 0
+                    self.statusLabel?.alpha = 1
+                    self.answerLabel?.alpha = 0
                 })
             })
-            self.answerLabel.fadeTransition(withDuration: 1)
-            self.answerLabel.text = answer
+            self.answerLabel?.fadeTransition(withDuration: 1)
+            self.answerLabel?.text = answer
         }
     }
     
     private func setLabelsVisibility(to isHidden: Bool) {
-        self.answerLabel.isHidden = isHidden
-        self.statusLabel.isHidden = isHidden
+        self.answerLabel?.isHidden = isHidden
+        self.statusLabel?.isHidden = isHidden
     }
 }
