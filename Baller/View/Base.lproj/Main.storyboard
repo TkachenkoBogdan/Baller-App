@@ -70,7 +70,7 @@
         <!--Answers-->
         <scene sceneID="TJe-Zh-CN3">
             <objects>
-                <tableViewController id="z5e-Kc-65A" sceneMemberID="viewController">
+                <tableViewController id="z5e-Kc-65A" customClass="AnswersTableViewController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="G9u-mX-chG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,7 +82,26 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6cm-YP-XIV" id="285-1b-olG">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaZ-3h-IzH">
+                                            <rect key="frame" x="26" y="11" width="288" height="22"/>
+                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="TaZ-3h-IzH" secondAttribute="bottom" id="F9b-7w-XRQ"/>
+                                        <constraint firstItem="TaZ-3h-IzH" firstAttribute="top" secondItem="285-1b-olG" secondAttribute="topMargin" id="XWZ-s6-EHd"/>
+                                        <constraint firstItem="TaZ-3h-IzH" firstAttribute="trailing" secondItem="285-1b-olG" secondAttribute="trailingMargin" constant="10" id="j6h-Tw-L5p"/>
+                                        <constraint firstItem="TaZ-3h-IzH" firstAttribute="leading" secondItem="285-1b-olG" secondAttribute="leadingMargin" constant="10" id="tdP-Y2-eAs"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="answerLabel" destination="TaZ-3h-IzH" id="0C1-xU-pg7"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -91,12 +110,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Answers" id="x5L-JC-wli">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="efP-tU-kzc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="efP-tU-kzc">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="z5e-Kc-65A" id="YRI-63-5g5"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTd-Vy-QQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1764" y="108"/>
+            <point key="canvasLocation" x="1762.5" y="107.74647887323944"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GbJ-P9-xng">

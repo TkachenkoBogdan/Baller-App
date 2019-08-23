@@ -9,7 +9,13 @@
 import UIKit
 
 class AnswerCell: UITableViewCell {
-    @IBOutlet weak var answerLabel: UILabel!
+    @IBOutlet private var answerLabel: UILabel?
+    
+    var answer: String? {
+        didSet {
+            self.answerLabel?.text = answer
+        }
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
