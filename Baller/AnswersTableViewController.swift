@@ -10,9 +10,9 @@ import UIKit
 
 class AnswersTableViewController: UITableViewController {
     
-    let store: AnswerStore = JSONStore.shared
+    private let store: AnswerStore = JSONStore.shared
     
-    @IBAction func addButtonPressed(_ sender: Any) {
+    @IBAction private func addButtonPressed(_ sender: Any) {
         presentUserInputAlert("Please provide your answer") { [weak self] (answer) in
             guard let `self` = self else { return }
             self.store.appendAnswer(Answer(withTitle: answer))
