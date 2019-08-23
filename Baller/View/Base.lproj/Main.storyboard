@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Ball View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="BallViewController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,12 +27,20 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vd-zi-Jmp">
+                                <rect key="frame" x="119.5" y="434" width="81.5" height="44.5"/>
+                                <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="37"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.20121470458788304" green="0.21359267456734843" blue="0.23332343404339628" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="8vd-zi-Jmp" firstAttribute="top" secondItem="6OV-nc-aFh" secondAttribute="bottom" constant="8" id="71T-Yx-V9w"/>
                             <constraint firstItem="6OV-nc-aFh" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="DQf-rm-oZK"/>
                             <constraint firstItem="cfn-YJ-Pkk" firstAttribute="centerY" secondItem="6OV-nc-aFh" secondAttribute="centerY" constant="10" id="Ehi-PB-9VM"/>
+                            <constraint firstItem="8vd-zi-Jmp" firstAttribute="centerX" secondItem="6OV-nc-aFh" secondAttribute="centerX" id="GC3-3x-w16"/>
                             <constraint firstItem="6OV-nc-aFh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="cCW-8D-EFK"/>
                             <constraint firstItem="cfn-YJ-Pkk" firstAttribute="centerX" secondItem="6OV-nc-aFh" secondAttribute="centerX" id="hmB-eN-mdX"/>
                             <constraint firstItem="cfn-YJ-Pkk" firstAttribute="height" secondItem="6OV-nc-aFh" secondAttribute="height" multiplier="0.5" id="id6-j3-ScI"/>
@@ -50,8 +58,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="ballImageView" destination="6OV-nc-aFh" id="gB9-xO-RBL"/>
-                        <outlet property="questionAnswerLabel" destination="cfn-YJ-Pkk" id="Jdr-8a-eYc"/>
+                        <outlet property="answerLabel" destination="cfn-YJ-Pkk" id="yRT-ql-JXC"/>
+                        <outlet property="ballImageView" destination="6OV-nc-aFh" id="oEo-lZ-XAU"/>
+                        <outlet property="statusLabel" destination="8vd-zi-Jmp" id="nSD-xJ-S3M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
