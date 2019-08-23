@@ -71,14 +71,14 @@
 			name = Persistence;
 			sourceTree = "<group>";
 		};
-		BDDAFFE823101705002B3BEF /* Networking */ = {
+		BDDAFFE823101705002B3BEF /* AnswerProvider */ = {
 			isa = PBXGroup;
 			children = (
 				BDDAFFE923101721002B3BEF /* AnswerProvider.swift */,
 				BDDAFFEB231017E1002B3BEF /* OnlineProvider.swift */,
 				BDDAFFF323102053002B3BEF /* OfflineProvider.swift */,
 			);
-			name = Networking;
+			name = AnswerProvider;
 			sourceTree = "<group>";
 		};
 		BDDAFFF523102185002B3BEF /* Extensions */ = {
@@ -109,7 +109,7 @@
 		BDFA23AD2306528400807EB8 /* Baller */ = {
 			isa = PBXGroup;
 			children = (
-				BDDAFFE823101705002B3BEF /* Networking */,
+				BDDAFFE823101705002B3BEF /* AnswerProvider */,
 				BD8C3A642310100400F8D896 /* Persistence */,
 				BDFA23C22306538400807EB8 /* Model */,
 				BDFA23C12306538200807EB8 /* View */,

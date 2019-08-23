@@ -36,7 +36,6 @@ class JSONStore: AnswerStore {
         return answers.count
     }
 
-    
     func appendAnswer(_ answer: Answer) {
         self.answers.append(answer)
     }
@@ -65,14 +64,9 @@ class JSONStore: AnswerStore {
     private func defaultAnswers () -> [Answer] {
         guard let answers = Storage.pathInBundle("DefaultAnswers.txt"),
             let answersData = try? Data(contentsOf: answers),
-            let defaultAnswers = try? JSONDecoder().decode([Answer].self,
-                     from: answersData) else {
-                return [Answer(withTitle: "Do what Jesus Did...")]
+            let defaultAnswers = try? JSONDecoder().decode([Answer].self, from: answersData) else {
+                return [Answer(withTitle: "Just do a moonwalk...")]
         }
         return defaultAnswers
     }
-    
- 
- 
-    
 }

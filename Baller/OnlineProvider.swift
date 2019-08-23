@@ -30,8 +30,8 @@ struct OnlineProvider: AnswerProviding {
             if let data = data, error == nil,
                 let answer = try? JSONDecoder().decode(Answer.self, from: data) {
                 completionHandler(Result.success(answer))
-            } else {
-                completionHandler(Result.failure(error!))
+            } else if let error = error {
+                completionHandler(Result.failure(error))
             }
         }.resume()
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Storage {
+ class Storage {
     
     enum Directory {
         case documents

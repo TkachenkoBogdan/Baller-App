@@ -23,9 +23,7 @@ struct OfflineProvider: AnswerProviding {
             completionHandler(Result.failure(OfflineServiceError.unknownError))
         }
     }
-    
-   
-    
+
     private func getRandomAnswer() -> Answer? {
         let answers = store.allAnswers()
         return answers.randomElement()
