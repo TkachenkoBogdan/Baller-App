@@ -22,6 +22,8 @@ class BallViewController: UIViewController {
     }
     
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        guard motion == .motionShake else { return }
+        
         self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
         
