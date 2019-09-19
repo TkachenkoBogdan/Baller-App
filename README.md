@@ -1,3 +1,5 @@
+THIS README HAS BEEN MODIFIED.
+
 # Baller-App
 
 My Technical Task for Yalantis iOS School.
