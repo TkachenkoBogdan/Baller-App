@@ -30,7 +30,7 @@ extension AnswersTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let answer = store.answer(at: indexPath.row),
-            let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell",
+            let cell = tableView.dequeueReusableCell(withIdentifier: L10n.Sb.CellIdentifiers.answerCell,
                                                      for: indexPath) as? AnswerCell else {
                                                         return UITableViewCell()
         }

@@ -14,7 +14,7 @@ import Foundation
 
 class AnswerSourceJSON {
     
-    private let answerFileName = "answers.json"
+    private let answerFileName = L10n.Filenames.answerFile
     
     public static let shared = AnswerSourceJSON()
     
@@ -42,7 +42,7 @@ class AnswerSourceJSON {
     /// Fetches default set of answers included in the bundle:
     private func defaultAnswers () -> [Answer] {
         
-        guard let answers = Storage.pathInBundle("DefaultAnswers.txt"),
+        guard let answers = Storage.pathInBundle(L10n.Filenames.defaultAnswers),
             let answersData = try? Data(contentsOf: answers),
             let defaultAnswers = try? JSONDecoder().decode([Answer].self, from: answersData) else {
                 preconditionFailure("Failed to decode a valid set of answers from the bundle.")

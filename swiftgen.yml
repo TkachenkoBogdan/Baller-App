@@ -1,0 +1,14 @@
+xcassets:
+  inputs:
+    - Baller/Resources/Assets.xcassets
+  outputs:
+    - templateName: swift4
+      output: Generated/assets-images.swift
+
+strings:
+  inputs: Baller/Resources/
+  filter: .+\.strings$
+  outputs:
+    - templateName: structured-swift4
+      output: Generated/strings.swift
+
