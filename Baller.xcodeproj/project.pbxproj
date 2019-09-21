@@ -10,11 +10,11 @@
 		BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */; };
 		BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */; };
 		BD8C3A68231011A800F8D896 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* Answer.swift */; };
-		BD8C3A6C231012B100F8D896 /* AnswerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A6B231012B100F8D896 /* AnswerStore.swift */; };
+		BD8C3A6C231012B100F8D896 /* AnswerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A6B231012B100F8D896 /* AnswerSource.swift */; };
 		BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerProvider.swift */; };
 		BDDAFFEC231017E1002B3BEF /* OnlineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* OnlineProvider.swift */; };
 		BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* Storage.swift */; };
-		BDDAFFF223101F65002B3BEF /* JSONStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* JSONStore.swift */; };
+		BDDAFFF223101F65002B3BEF /* AnswerSourceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* AnswerSourceJSON.swift */; };
 		BDDAFFF423102053002B3BEF /* OfflineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF323102053002B3BEF /* OfflineProvider.swift */; };
 		BDDAFFF923102290002B3BEF /* DefaultAnswers.txt in Resources */ = {isa = PBXBuildFile; fileRef = BDDAFFF823102290002B3BEF /* DefaultAnswers.txt */; };
 		BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFFA231022E0002B3BEF /* BallViewController.swift */; };
@@ -33,11 +33,11 @@
 		BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD8C3A67231011A700F8D896 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
-		BD8C3A6B231012B100F8D896 /* AnswerStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerStore.swift; sourceTree = "<group>"; };
+		BD8C3A6B231012B100F8D896 /* AnswerSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerSource.swift; sourceTree = "<group>"; };
 		BDDAFFE923101721002B3BEF /* AnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEB231017E1002B3BEF /* OnlineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEF23101E64002B3BEF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		BDDAFFF123101F65002B3BEF /* JSONStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStore.swift; sourceTree = "<group>"; };
+		BDDAFFF123101F65002B3BEF /* AnswerSourceJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerSourceJSON.swift; sourceTree = "<group>"; };
 		BDDAFFF323102053002B3BEF /* OfflineProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineProvider.swift; sourceTree = "<group>"; };
 		BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputAlert.swift; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 		BD8C3A642310100400F8D896 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				BD8C3A6B231012B100F8D896 /* AnswerStore.swift */,
-				BDDAFFF123101F65002B3BEF /* JSONStore.swift */,
+				BD8C3A6B231012B100F8D896 /* AnswerSource.swift */,
+				BDDAFFF123101F65002B3BEF /* AnswerSourceJSON.swift */,
 				BDDAFFEF23101E64002B3BEF /* Storage.swift */,
 			);
 			name = Persistence;
@@ -318,11 +318,11 @@
 			files = (
 				BDDAFFFF231024D9002B3BEF /* AnswersTableViewController.swift in Sources */,
 				BDDAFFFC23102313002B3BEF /* UIView+Extension.swift in Sources */,
-				BD8C3A6C231012B100F8D896 /* AnswerStore.swift in Sources */,
+				BD8C3A6C231012B100F8D896 /* AnswerSource.swift in Sources */,
 				BDDAFFFD23102315002B3BEF /* UserInputAlert.swift in Sources */,
 				BDDAFFEC231017E1002B3BEF /* OnlineProvider.swift in Sources */,
 				BDFA23AF2306528400807EB8 /* AppDelegate.swift in Sources */,
-				BDDAFFF223101F65002B3BEF /* JSONStore.swift in Sources */,
+				BDDAFFF223101F65002B3BEF /* AnswerSourceJSON.swift in Sources */,
 				BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */,
 				BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */,
 				BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */,
@@ -467,14 +467,18 @@
 			baseConfigurationReference = C0F2C387B5651EF1721E7A43 /* Pods-Baller.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Baller/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = bogdantkachenko.com.Baller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -485,14 +489,18 @@
 			baseConfigurationReference = C8516DAD31581E3105E51C2F /* Pods-Baller.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Baller/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = bogdantkachenko.com.Baller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

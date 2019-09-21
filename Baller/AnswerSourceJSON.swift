@@ -8,19 +8,22 @@
 
 import Foundation
 
-class JSONStore {
+
+/// A concrete class that that can
+/// store/retrieve answers from disk and act as a DataSource.
+
+class AnswerSourceJSON {
     
     private let answerFileName = "answers.json"
     
-    public static let shared = JSONStore()
+    public static let shared = AnswerSourceJSON()
     
     private var answers = [Answer]() {
-        didSet {
-            save()
-        }
+        didSet { save() }
     }
 
     private init() {
+        
         if !Storage.fileExists(answerFileName, in: .documents) {
             self.answers = defaultAnswers()
             save()
@@ -31,24 +34,29 @@ class JSONStore {
         }
     }
     
+    /// Saves all asnwers atomically to the disk:
     private func save() {
         Storage.store(self.answers, to: .documents, as: answerFileName)
     }
     
+    /// Fetches default set of answers included in the bundle:
     private func defaultAnswers () -> [Answer] {
+        
         guard let answers = Storage.pathInBundle("DefaultAnswers.txt"),
             let answersData = try? Data(contentsOf: answers),
             let defaultAnswers = try? JSONDecoder().decode([Answer].self, from: answersData) else {
-                return [Answer(withTitle: "Just do a moonwalk...")]
+                preconditionFailure("Failed to decode a valid set of answers from the bundle.")
         }
+        
         return defaultAnswers
     }
 }
 
 // MARK: - AnswerStore Protocol Conformance:
-extension JSONStore: AnswerStore {
-    
-    func allAnswers() -> [Answer] {
+
+extension AnswerSourceJSON: AnswerSource {
+   
+    func getAllAnswers() -> [Answer] {
         return answers
     }
     
@@ -59,7 +67,7 @@ extension JSONStore: AnswerStore {
         return nil
     }
     
-    func answersCount() -> Int {
+    func count() -> Int {
         return answers.count
     }
     
@@ -72,4 +80,5 @@ extension JSONStore: AnswerStore {
             answers.remove(at: index)
         }
     }
+    
 }

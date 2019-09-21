@@ -10,7 +10,7 @@ import UIKit
 
 class BallViewController: UIViewController {
     
-    private let answerProvider: AnswerProviding = AnswerProvider()
+    private let provider: AnswerProviding = AnswerProvider()
     
     // MARK: - Outlets:
     @IBOutlet private var ballImageView: UIImageView?
@@ -27,7 +27,7 @@ class BallViewController: UIViewController {
         self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
         
-        answerProvider.getAnswer { (result) in
+        provider.getAnswer { (result) in
             switch result {
             case .success(let answer):
                 self.updateAnswerLabel(with: answer.title)

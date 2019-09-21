@@ -6,7 +6,11 @@
 //  Copyright © 2019 Богдан Ткаченко. All rights reserved.
 //
 
+
+/// A simple model struct to represent answers.
+
 struct Answer: Codable {
+    
     enum CodingKeys: String, CodingKey {
         case containerDictionary  = "magic"
         case title = "answer"

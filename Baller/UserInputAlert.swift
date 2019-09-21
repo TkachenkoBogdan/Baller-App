@@ -10,6 +10,7 @@
 import UIKit
 
 extension UIViewController {
+    
     func presentUserInputAlert(_ title: String, isSecure: Bool = false,
                                callback: @escaping (String) -> Void) {
         

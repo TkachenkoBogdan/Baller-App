@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// A common interface abstracting away concrete providers.
+
 protocol AnswerProviding {
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void)
 }

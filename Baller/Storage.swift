@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// A helper class responsible for storing/retrieving Codable objects to a disk.
+
 class Storage {
     
     enum Directory {
@@ -33,7 +35,7 @@ class Storage {
         }
     }
     
-    /// Stores an encodable struct to the specified directory on disk:
+    /// Stores an encodable struct to the specified directory on a disk:
     static func store<T: Encodable>(_ object: T, to directory: Directory, as fileName: String) {
         let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
         
@@ -49,8 +51,7 @@ class Storage {
         }
     }
     
-    /// Retrieve and convert a struct from a file on disk
-    
+    /// Retrieves and converts a struct from a file on a disk:
     static func retrieve<T: Decodable>(_ fileName: String, from directory: Directory, as type: T.Type) -> T? {
         let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
         

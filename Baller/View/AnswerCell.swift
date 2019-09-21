@@ -9,6 +9,7 @@
 import UIKit
 
 class AnswerCell: UITableViewCell {
+    
     @IBOutlet private var answerLabel: UILabel?
     
     var answer: String? {
