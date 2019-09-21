@@ -49,7 +49,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="B9Z-xV-PGp">
-                        <barButtonItem key="rightBarButtonItem" title="Options" id="YvC-Bk-Bew">
+                        <barButtonItem key="rightBarButtonItem" title="Options" image="default_answers" id="YvC-Bk-Bew">
                             <connections>
                                 <segue destination="z5e-Kc-65A" kind="show" id="EGe-rx-K8g"/>
                             </connections>
@@ -65,7 +65,7 @@
             </objects>
             <point key="canvasLocation" x="1001" y="109"/>
         </scene>
-        <!--Answers-->
+        <!--Default Answers-->
         <scene sceneID="TJe-Zh-CN3">
             <objects>
                 <tableViewController id="z5e-Kc-65A" customClass="AnswersTableViewController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
@@ -108,7 +108,7 @@
                             <outlet property="delegate" destination="z5e-Kc-65A" id="KCh-b3-n12"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Answers" id="x5L-JC-wli">
+                    <navigationItem key="navigationItem" title="Default Answers" id="x5L-JC-wli">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="efP-tU-kzc">
                             <connections>
                                 <action selector="addButtonPressed:" destination="z5e-Kc-65A" id="YRI-63-5g5"/>
@@ -128,7 +128,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="WHH-41-5SB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" systemColor="quaternarySystemFillColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.50196078431372548" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="quaternarySystemFillColor" red="0.4549019608" green="0.4549019608" blue="0.50196078430000002" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
@@ -148,6 +148,7 @@
     </scenes>
     <resources>
         <image name="8ball" width="1080" height="1091"/>
+        <image name="default_answers" width="37.5" height="37.5"/>
     </resources>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
