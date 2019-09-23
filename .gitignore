@@ -74,7 +74,7 @@ Dependencies/
 *.generated.swift
 
 #Swiftgen:
-/Generated
+#/Generated
 
 # fastlane
 #
