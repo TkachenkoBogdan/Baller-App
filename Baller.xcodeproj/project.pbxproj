@@ -15,12 +15,12 @@
 		BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */; };
 		BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */; };
 		BD8C3A68231011A800F8D896 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* Answer.swift */; };
-		BD8C3A6C231012B100F8D896 /* AnswerSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A6B231012B100F8D896 /* AnswerSource.swift */; };
+		BD8C3A6C231012B100F8D896 /* AnswerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A6B231012B100F8D896 /* AnswerStore.swift */; };
 		BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerProvider.swift */; };
-		BDDAFFEC231017E1002B3BEF /* OnlineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* OnlineProvider.swift */; };
+		BDDAFFEC231017E1002B3BEF /* OnlineAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */; };
 		BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* Storage.swift */; };
-		BDDAFFF223101F65002B3BEF /* AnswerSourceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* AnswerSourceJSON.swift */; };
-		BDDAFFF423102053002B3BEF /* OfflineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF323102053002B3BEF /* OfflineProvider.swift */; };
+		BDDAFFF223101F65002B3BEF /* AnswerStoreJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */; };
+		BDDAFFF423102053002B3BEF /* OfflineAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF323102053002B3BEF /* OfflineAnswerProvider.swift */; };
 		BDDAFFF923102290002B3BEF /* DefaultAnswers.txt in Resources */ = {isa = PBXBuildFile; fileRef = BDDAFFF823102290002B3BEF /* DefaultAnswers.txt */; };
 		BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFFA231022E0002B3BEF /* BallViewController.swift */; };
 		BDDAFFFC23102313002B3BEF /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */; };
@@ -43,12 +43,12 @@
 		BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD8C3A67231011A700F8D896 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
-		BD8C3A6B231012B100F8D896 /* AnswerSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerSource.swift; sourceTree = "<group>"; };
+		BD8C3A6B231012B100F8D896 /* AnswerStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerStore.swift; sourceTree = "<group>"; };
 		BDDAFFE923101721002B3BEF /* AnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerProvider.swift; sourceTree = "<group>"; };
-		BDDAFFEB231017E1002B3BEF /* OnlineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineProvider.swift; sourceTree = "<group>"; };
+		BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEF23101E64002B3BEF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		BDDAFFF123101F65002B3BEF /* AnswerSourceJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerSourceJSON.swift; sourceTree = "<group>"; };
-		BDDAFFF323102053002B3BEF /* OfflineProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineProvider.swift; sourceTree = "<group>"; };
+		BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerStoreJSON.swift; sourceTree = "<group>"; };
+		BDDAFFF323102053002B3BEF /* OfflineAnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputAlert.swift; sourceTree = "<group>"; };
 		BDDAFFF823102290002B3BEF /* DefaultAnswers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DefaultAnswers.txt; sourceTree = "<group>"; };
@@ -96,8 +96,8 @@
 		BD8C3A642310100400F8D896 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				BD8C3A6B231012B100F8D896 /* AnswerSource.swift */,
-				BDDAFFF123101F65002B3BEF /* AnswerSourceJSON.swift */,
+				BD8C3A6B231012B100F8D896 /* AnswerStore.swift */,
+				BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */,
 				BDDAFFEF23101E64002B3BEF /* Storage.swift */,
 			);
 			name = Persistence;
@@ -107,8 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				BDDAFFE923101721002B3BEF /* AnswerProvider.swift */,
-				BDDAFFEB231017E1002B3BEF /* OnlineProvider.swift */,
-				BDDAFFF323102053002B3BEF /* OfflineProvider.swift */,
+				BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */,
+				BDDAFFF323102053002B3BEF /* OfflineAnswerProvider.swift */,
 			);
 			name = AnswerProvider;
 			sourceTree = "<group>";
@@ -372,15 +372,15 @@
 				BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */,
 				BDDAFFFF231024D9002B3BEF /* AnswersTableViewController.swift in Sources */,
 				BDDAFFFC23102313002B3BEF /* UIView+Extension.swift in Sources */,
-				BD8C3A6C231012B100F8D896 /* AnswerSource.swift in Sources */,
+				BD8C3A6C231012B100F8D896 /* AnswerStore.swift in Sources */,
 				BDDAFFFD23102315002B3BEF /* UserInputAlert.swift in Sources */,
-				BDDAFFEC231017E1002B3BEF /* OnlineProvider.swift in Sources */,
+				BDDAFFEC231017E1002B3BEF /* OnlineAnswerProvider.swift in Sources */,
 				BDFA23AF2306528400807EB8 /* AppDelegate.swift in Sources */,
-				BDDAFFF223101F65002B3BEF /* AnswerSourceJSON.swift in Sources */,
+				BDDAFFF223101F65002B3BEF /* AnswerStoreJSON.swift in Sources */,
 				BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */,
 				BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */,
 				BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */,
-				BDDAFFF423102053002B3BEF /* OfflineProvider.swift in Sources */,
+				BDDAFFF423102053002B3BEF /* OfflineAnswerProvider.swift in Sources */,
 				BD8C3A68231011A800F8D896 /* Answer.swift in Sources */,
 				BD5C3F2623391F380026F1B8 /* strings.swift in Sources */,
 				BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */,

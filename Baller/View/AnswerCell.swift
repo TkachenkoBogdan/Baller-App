@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Reusable
 
-class AnswerCell: UITableViewCell {
-    
+final class AnswerCell: UITableViewCell, Reusable {
+
     @IBOutlet private var answerLabel: UILabel?
-    
+
     var answer: String? {
         didSet {
             self.answerLabel?.text = answer

@@ -18,13 +18,6 @@ internal enum L10n {
     /// DefaultAnswers.txt
     internal static let defaultAnswers = L10n.tr("Localizable", "Filenames.defaultAnswers")
   }
-
-  internal enum Sb {
-    internal enum CellIdentifiers {
-      /// answerCell
-      internal static let answerCell = L10n.tr("Localizable", "SB.cellIdentifiers.answerCell")
-    }
-  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name

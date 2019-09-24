@@ -15,10 +15,10 @@ protocol AnswerProviding {
 }
 
 class AnswerProvider: AnswerProviding {
-    
-    private let onlineProvider = OnlineProvider()
-    private let offlineProvider = OfflineProvider()
-    
+
+    private let onlineProvider = OnlineAnswerProvider()
+    private let offlineProvider = OfflineAnswerProvider()
+
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
         onlineProvider.getAnswer { (result) in
             switch result {
@@ -31,5 +31,5 @@ class AnswerProvider: AnswerProviding {
             }
         }
     }
-    
+
 }

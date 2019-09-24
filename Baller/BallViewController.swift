@@ -9,25 +9,25 @@
 import UIKit
 
 class BallViewController: UIViewController {
-    
-    private let provider: AnswerProviding = AnswerProvider()
-    
+
+    private let answerProvider: AnswerProviding = AnswerProvider()
+
     // MARK: - Outlets:
     @IBOutlet private var ballImageView: UIImageView?
     @IBOutlet private var answerLabel: UILabel?
     @IBOutlet private var statusLabel: UILabel?
-    
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
-    
+
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        
+
         self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
-        
-        provider.getAnswer { (result) in
+
+        answerProvider.getAnswer { (result) in
             switch result {
             case .success(let answer):
                 self.updateAnswerLabel(with: answer.title)
@@ -40,7 +40,7 @@ class BallViewController: UIViewController {
 
 // MARK: - Helpers:
 extension BallViewController {
-    
+
     private func updateAnswerLabel(with answer: String) {
         DispatchQueue.main.async {
             self.setLabelsVisibility(to: false)
@@ -56,7 +56,7 @@ extension BallViewController {
             self.answerLabel?.text = answer
         }
     }
-    
+
     private func setLabelsVisibility(to isHidden: Bool) {
         self.answerLabel?.isHidden = isHidden
         self.statusLabel?.isHidden = isHidden

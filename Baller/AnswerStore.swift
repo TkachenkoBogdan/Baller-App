@@ -8,15 +8,13 @@
 
 /// A common interface for objects that are able to act as a data source.
 
-protocol AnswerSource {
-    
-    func getAllAnswers() -> [Answer]
-    
+protocol AnswerStore {
+
     func appendAnswer(_ answer: Answer)
     func removeAnswer(at index: Int)
-    
+
     func count() -> Int
-    
+
     func answer(at index: Int) -> Answer?
-    
+
 }
