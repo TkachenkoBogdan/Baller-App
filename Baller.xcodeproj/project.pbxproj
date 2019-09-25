@@ -16,6 +16,8 @@
 		BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */; };
 		BD8C3A68231011A800F8D896 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* Answer.swift */; };
 		BD8C3A6C231012B100F8D896 /* AnswerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A6B231012B100F8D896 /* AnswerStore.swift */; };
+		BDA0E4CE233BAFDD00403703 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0E4CD233BAFDD00403703 /* colors.swift */; };
+		BDA0E4D0233BB06800403703 /* colors.json in Resources */ = {isa = PBXBuildFile; fileRef = BDA0E4CF233BB06800403703 /* colors.json */; };
 		BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerProvider.swift */; };
 		BDDAFFEC231017E1002B3BEF /* OnlineAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */; };
 		BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* Storage.swift */; };
@@ -44,6 +46,8 @@
 		BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD8C3A67231011A700F8D896 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BD8C3A6B231012B100F8D896 /* AnswerStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerStore.swift; sourceTree = "<group>"; };
+		BDA0E4CD233BAFDD00403703 /* colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
+		BDA0E4CF233BB06800403703 /* colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = colors.json; sourceTree = "<group>"; };
 		BDDAFFE923101721002B3BEF /* AnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEF23101E64002B3BEF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -79,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				BD5C3F2523391F380026F1B8 /* assets-images.swift */,
+				BDA0E4CD233BAFDD00403703 /* colors.swift */,
 				BD5C3F2423391F380026F1B8 /* strings.swift */,
 			);
 			path = Generated;
@@ -88,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				BDFA23B52306528500807EB8 /* Assets.xcassets */,
+				BDA0E4CF233BB06800403703 /* colors.json */,
 				BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */,
 			);
 			path = Resources;
@@ -220,8 +226,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BDFA23BD2306528500807EB8 /* Build configuration list for PBXNativeTarget "Baller" */;
 			buildPhases = (
-				BAEA1D8D824F3A4CA10EE908 /* [CP] Check Pods Manifest.lock */,
 				BD0F0A192335F322005FEEAD /* SwiftGen */,
+				BAEA1D8D824F3A4CA10EE908 /* [CP] Check Pods Manifest.lock */,
 				BDFA23A72306528300807EB8 /* Sources */,
 				BDFA23A82306528300807EB8 /* Frameworks */,
 				BDFA23A92306528300807EB8 /* Resources */,
@@ -280,6 +286,7 @@
 				BD0F0A2C2335FEC2005FEEAD /* Localizable.strings in Resources */,
 				BD0F0A232335FB8E005FEEAD /* swiftgen.yml in Resources */,
 				BDFA23B62306528500807EB8 /* Assets.xcassets in Resources */,
+				BDA0E4D0233BB06800403703 /* colors.json in Resources */,
 				BDFA23B42306528400807EB8 /* Main.storyboard in Resources */,
 				BDDAFFF923102290002B3BEF /* DefaultAnswers.txt in Resources */,
 			);
@@ -369,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA0E4CE233BAFDD00403703 /* colors.swift in Sources */,
 				BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */,
 				BDDAFFFF231024D9002B3BEF /* AnswersTableViewController.swift in Sources */,
 				BDDAFFFC23102313002B3BEF /* UIView+Extension.swift in Sources */,
