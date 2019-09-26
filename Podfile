@@ -7,4 +7,6 @@ target 'Baller' do
 
   # Pods for Baller
   pod 'Alamofire', '~> 5.0.0-beta.5'
+  pod 'SwiftGen', '~> 6.0'
+  pod 'Reusable', '~> 4.1'
 end

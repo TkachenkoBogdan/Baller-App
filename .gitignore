@@ -73,6 +73,9 @@ Dependencies/
 #R.Swift:
 *.generated.swift
 
+#Swiftgen:
+#/Generated
+
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo.

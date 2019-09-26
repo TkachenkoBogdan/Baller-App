@@ -8,14 +8,16 @@
 
 import Foundation
 
-struct OfflineProvider: AnswerProviding {
-    
+/// A concrete provider that fetches answers from a local storage.
+
+struct OfflineAnswerProvider: AnswerProviding {
+
     enum OfflineServiceError: Error {
         case unknownError
     }
-    
-    private let store: AnswerStore = JSONStore.shared
-    
+
+    private let store: AnswerStore = AnswerStoreJSON.shared
+
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
         if let answer = getRandomAnswer() {
             completionHandler(Result.success(answer))
@@ -23,9 +25,10 @@ struct OfflineProvider: AnswerProviding {
             completionHandler(Result.failure(OfflineServiceError.unknownError))
         }
     }
-    
+
     private func getRandomAnswer() -> Answer? {
-        let answers = store.allAnswers()
-        return answers.randomElement()
+
+        let randomIndex = Int.random(in: 0..<store.count())
+        return store.answer(at: randomIndex)
     }
 }

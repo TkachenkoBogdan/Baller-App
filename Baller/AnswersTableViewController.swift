@@ -9,11 +9,11 @@
 import UIKit
 
 class AnswersTableViewController: UITableViewController {
-    
-    private let store: AnswerStore = JSONStore.shared
-    
+
+    private let store: AnswerStore = AnswerStoreJSON.shared
+
     @IBAction private func addButtonPressed(_ sender: Any) {
-        presentUserInputAlert("Please provide your answer") { [weak self] (answer) in
+        presentUserInputAlert("Provide a default answer") { [weak self] (answer) in
             guard let `self` = self else { return }
             self.store.appendAnswer(Answer(withTitle: answer))
             self.tableView.reloadData()
@@ -22,28 +22,30 @@ class AnswersTableViewController: UITableViewController {
 }
 
 extension AnswersTableViewController {
+
     // MARK: - TableView DataSource:
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return store.answersCount()
+        return store.count()
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let answer = store.answer(at: indexPath.row),
-            let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell",
-                                                     for: indexPath) as? AnswerCell else {
-                                                        return UITableViewCell()
-        }
+
+        let cell: AnswerCell = tableView.dequeueReusableCell(for: indexPath)
+
+        guard let answer = store.answer(at: indexPath.row) else { return cell }
+
         cell.answer = answer.title
         return cell
     }
-    
+
     // MARK: - TablewViewDelegate:
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
+
         if editingStyle == .delete {
             store.removeAnswer(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)

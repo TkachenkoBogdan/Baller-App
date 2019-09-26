@@ -8,19 +8,21 @@
 
 import Foundation
 
-class JSONStore {
-    
-    private let answerFileName = "answers.json"
-    
-    public static let shared = JSONStore()
-    
+/// A concrete class that that can
+/// store/retrieve answers from disk and act as a DataSource.
+
+class AnswerStoreJSON {
+
+    private let answerFileName = L10n.Filenames.answerFile
+
+    public static let shared = AnswerStoreJSON()
+
     private var answers = [Answer]() {
-        didSet {
-            save()
-        }
+        didSet { save() }
     }
 
     private init() {
+
         if !Storage.fileExists(answerFileName, in: .documents) {
             self.answers = defaultAnswers()
             save()
@@ -30,46 +32,48 @@ class JSONStore {
                                             as: [Answer].self) ?? [Answer]()
         }
     }
-    
+
+    /// Saves all asnwers atomically to the disk:
     private func save() {
         Storage.store(self.answers, to: .documents, as: answerFileName)
     }
-    
+
+    /// Fetches default set of answers included in the bundle:
     private func defaultAnswers () -> [Answer] {
-        guard let answers = Storage.pathInBundle("DefaultAnswers.txt"),
+
+        guard let answers = Storage.pathInBundle(L10n.Filenames.defaultAnswers),
             let answersData = try? Data(contentsOf: answers),
             let defaultAnswers = try? JSONDecoder().decode([Answer].self, from: answersData) else {
-                return [Answer(withTitle: "Just do a moonwalk...")]
+                preconditionFailure("Failed to decode a valid set of answers from the bundle.")
         }
+
         return defaultAnswers
     }
 }
 
 // MARK: - AnswerStore Protocol Conformance:
-extension JSONStore: AnswerStore {
-    
-    func allAnswers() -> [Answer] {
-        return answers
-    }
-    
+
+extension AnswerStoreJSON: AnswerStore {
+
     func answer(at index: Int) -> Answer? {
         if 0..<answers.count ~= index {
             return answers[index]
         }
         return nil
     }
-    
-    func answersCount() -> Int {
+
+    func count() -> Int {
         return answers.count
     }
-    
+
     func appendAnswer(_ answer: Answer) {
         self.answers.append(answer)
     }
-    
+
     func removeAnswer(at index: Int) {
         if 0..<answers.count ~= index {
             answers.remove(at: index)
         }
     }
+
 }
