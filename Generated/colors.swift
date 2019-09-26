@@ -28,6 +28,9 @@ internal struct ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#33fe66"></span>
   /// Alpha: 100% <br/> (0x33fe66ff)
   internal static let articleTitle = ColorName(rgbaValue: 0x33fe66ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ff2d55"></span>
+  /// Alpha: 100% <br/> (0xff2d55ff)
+  internal static let customPink = ColorName(rgbaValue: 0xff2d55ff)
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ffffff"></span>
   /// Alpha: 80% <br/> (0xffffffcc)
   internal static let `private` = ColorName(rgbaValue: 0xffffffcc)

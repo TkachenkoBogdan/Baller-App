@@ -17,6 +17,10 @@ class BallViewController: UIViewController {
     @IBOutlet private var answerLabel: UILabel?
     @IBOutlet private var statusLabel: UILabel?
 
+    override func viewDidLoad() {
+        answerLabel?.textColor = ColorName.customPink.color
+    }
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
