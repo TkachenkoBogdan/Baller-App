@@ -9,4 +9,10 @@
 import Foundation
 
 class AnswersViewModel {
+
+    let store: AnswerStore
+
+    init(with store: AnswerStore) {
+        self.store = store
+    }
 }

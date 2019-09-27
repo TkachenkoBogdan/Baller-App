@@ -15,8 +15,6 @@ class MainScreenViewController: UIViewController, StoryboardSceneBased {
 
     var viewModel: MainScreenViewModel?
 
-    //private let answerProvider: AnswerProviding = AnswerProvider()
-
     // MARK: - Outlets:
     @IBOutlet private var ballImageView: UIImageView?
     @IBOutlet private var answerLabel: UILabel?
@@ -32,34 +30,40 @@ class MainScreenViewController: UIViewController, StoryboardSceneBased {
         self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
 
-        viewModel?.answerProvider.getAnswer { (result) in
-            switch result {
-            case .success(let answer):
-                self.updateAnswerLabel(with: answer.title)
-            case .failure:
-                self.updateAnswerLabel(with: "Oh, snap! Try again")
-            }
+        viewModel?.getAnswer(completion: { (answer) in
+            self.updateAnswerLabel(with: answer)
+        })
+    }
+
+    // MARK: - Navigation:
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch StoryboardSegue.Main(segue) {
+        case .toAnswers:
+            guard let destintaion = segue.destination as? AnswersViewController else { return }
+            destintaion.viewModel = AnswersViewModel(with: AnswerStoreJSON.shared)
+        default:
+            return
         }
     }
+
 }
 
 // MARK: - Helpers:
 extension MainScreenViewController {
 
     private func updateAnswerLabel(with answer: String) {
-        DispatchQueue.main.async {
-            self.setLabelsVisibility(to: false)
-            self.statusLabel?.alpha = 0
-            self.answerLabel?.alpha = 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                UIView.animate(withDuration: 1, animations: {
-                    self.statusLabel?.alpha = 1
-                    self.answerLabel?.alpha = 0
-                })
+
+        self.setLabelsVisibility(to: false)
+        self.statusLabel?.alpha = 0
+        self.answerLabel?.alpha = 1
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            UIView.animate(withDuration: 1, animations: {
+                self.statusLabel?.alpha = 1
+                self.answerLabel?.alpha = 0
             })
-            self.answerLabel?.fadeTransition(withDuration: 1)
-            self.answerLabel?.text = answer
-        }
+        })
+        self.answerLabel?.fadeTransition(withDuration: 1)
+        self.answerLabel?.text = answer
     }
 
     private func setLabelsVisibility(to isHidden: Bool) {

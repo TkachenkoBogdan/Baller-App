@@ -10,11 +10,11 @@
 
 protocol AnswerStore {
 
+    func answer(at index: Int) -> Answer?
+
     func appendAnswer(_ answer: Answer)
     func removeAnswer(at index: Int)
 
     func count() -> Int
-
-    func answer(at index: Int) -> Answer?
 
 }
