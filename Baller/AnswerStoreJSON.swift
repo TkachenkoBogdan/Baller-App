@@ -8,6 +8,19 @@
 
 import Foundation
 
+/// A common interface for objects that are able to act as a data source.
+
+protocol AnswerStore {
+
+    func answer(at index: Int) -> Answer?
+
+    func appendAnswer(_ answer: Answer)
+    func removeAnswer(at index: Int)
+
+    func count() -> Int
+
+}
+
 /// A concrete class that that can
 /// store/retrieve answers from disk and act as a DataSource.
 
@@ -15,13 +28,11 @@ class AnswerStoreJSON {
 
     private let answerFileName = L10n.Filenames.answerFile
 
-    public static let shared = AnswerStoreJSON()
-
     private var answers = [Answer]() {
         didSet { save() }
     }
 
-    private init() {
+    init() {
 
         if !Storage.fileExists(answerFileName, in: .documents) {
             self.answers = defaultAnswers()

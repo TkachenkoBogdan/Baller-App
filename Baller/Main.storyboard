@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main Screen View Controller-->
+        <!--Ball View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="MainScreenViewController" id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BallViewController" id="BYZ-38-t0r" customClass="BallViewController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,8 +25,11 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ric-Yg-jGU">
+                                <rect key="frame" x="188.5" y="660.5" width="37" height="37"/>
+                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vd-zi-Jmp">
-                                <rect key="frame" x="166" y="597.5" width="82" height="44"/>
+                                <rect key="frame" x="166" y="586" width="82" height="44.5"/>
                                 <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="37"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -35,15 +38,17 @@
                         <color key="backgroundColor" red="0.20121470458788304" green="0.21359267456734843" blue="0.23332343404339628" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="8vd-zi-Jmp" firstAttribute="top" secondItem="6OV-nc-aFh" secondAttribute="bottom" constant="15" id="71T-Yx-V9w"/>
+                            <constraint firstItem="ric-Yg-jGU" firstAttribute="top" secondItem="8vd-zi-Jmp" secondAttribute="bottom" constant="30" id="6XC-oU-efO"/>
                             <constraint firstItem="6OV-nc-aFh" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="DQf-rm-oZK"/>
                             <constraint firstItem="cfn-YJ-Pkk" firstAttribute="centerY" secondItem="6OV-nc-aFh" secondAttribute="centerY" constant="10" id="Ehi-PB-9VM"/>
                             <constraint firstItem="8vd-zi-Jmp" firstAttribute="centerX" secondItem="6OV-nc-aFh" secondAttribute="centerX" id="GC3-3x-w16"/>
+                            <constraint firstItem="ric-Yg-jGU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wdj-ea-Pc0"/>
                             <constraint firstItem="6OV-nc-aFh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.8" id="cCW-8D-EFK"/>
                             <constraint firstItem="cfn-YJ-Pkk" firstAttribute="centerX" secondItem="6OV-nc-aFh" secondAttribute="centerX" id="hmB-eN-mdX"/>
                             <constraint firstItem="cfn-YJ-Pkk" firstAttribute="height" secondItem="6OV-nc-aFh" secondAttribute="height" multiplier="0.5" id="id6-j3-ScI"/>
                             <constraint firstItem="cfn-YJ-Pkk" firstAttribute="width" secondItem="6OV-nc-aFh" secondAttribute="width" multiplier="0.7" id="jGh-iX-qLd"/>
                             <constraint firstItem="6OV-nc-aFh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oHu-AM-6ZS"/>
+                            <constraint firstItem="8vd-zi-Jmp" firstAttribute="top" secondItem="6OV-nc-aFh" secondAttribute="bottom" constant="3.5" id="r5r-wC-aPr"/>
                             <constraint firstItem="6OV-nc-aFh" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="sPa-oI-6VI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -58,6 +63,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="ric-Yg-jGU" id="wfp-Zj-alc"/>
                         <outlet property="answerLabel" destination="cfn-YJ-Pkk" id="yRT-ql-JXC"/>
                         <outlet property="ballImageView" destination="6OV-nc-aFh" id="oEo-lZ-XAU"/>
                         <outlet property="statusLabel" destination="8vd-zi-Jmp" id="nSD-xJ-S3M"/>
@@ -70,7 +76,7 @@
         <!--Default Answers-->
         <scene sceneID="O3F-Af-ubb">
             <objects>
-                <tableViewController storyboardIdentifier="UITableViewController-z5e-Kc-65A" id="uOu-kb-yKo" customClass="AnswersViewController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UITableViewController-z5e-Kc-65A" id="uOu-kb-yKo" customClass="AnswersListController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="teN-6g-hEx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,14 +84,14 @@
                         <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AnswerCell" id="lsN-lX-9Yi" customClass="AnswerCell" customModule="Baller" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lsN-lX-9Yi" id="jua-Le-hXr">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zI-Xa-svt">
-                                            <rect key="frame" x="30" y="11" width="374" height="21.5"/>
+                                            <rect key="frame" x="30" y="11" width="374" height="21"/>
                                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>

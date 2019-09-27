@@ -33,3 +33,9 @@ struct Answer: Codable {
         try dictionary.encode(self.title, forKey: .title)
     }
 }
+
+extension Answer {
+    func toPresentableAnswer() -> PresentableAnswer {
+        return PresentableAnswer(withTitle: self.title)
+    }
+}

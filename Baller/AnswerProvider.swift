@@ -16,8 +16,13 @@ protocol AnswerProviding {
 
 class AnswerProvider: AnswerProviding {
 
-    private let onlineProvider = OnlineAnswerProvider()
-    private let offlineProvider = OfflineAnswerProvider()
+    private let onlineProvider: AnswerProviding
+    private let offlineProvider: AnswerProviding
+
+    init(onlineProvider: AnswerProviding, offlineProvider: AnswerProviding) {
+        self.onlineProvider = onlineProvider
+        self.offlineProvider = offlineProvider
+    }
 
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
         onlineProvider.getAnswer { (result) in

@@ -16,7 +16,11 @@ struct OfflineAnswerProvider: AnswerProviding {
         case unknownError
     }
 
-    private let store: AnswerStore = AnswerStoreJSON.shared
+    private let store: AnswerStore
+
+    init(with store: AnswerStore) {
+        self.store = store
+    }
 
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
         if let answer = getRandomAnswer() {
