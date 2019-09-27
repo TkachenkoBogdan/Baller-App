@@ -10,5 +10,22 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
     var window: UIWindow?
+
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+
+        let mainVC = MainScreenViewController.instantiate()
+        mainVC.viewModel = MainScreenViewModel(answerProvider: AnswerProvider())
+
+        let navVC = UINavigationController(rootViewController: mainVC)
+        navVC.navigationBar.barStyle = .blackOpaque
+        navVC.navigationBar.isTranslucent = false
+
+        window?.rootViewController = navVC
+        window?.makeKeyAndVisible()
+
+    }
 }

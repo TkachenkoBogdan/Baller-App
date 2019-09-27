@@ -15,7 +15,7 @@ internal enum L10n {
   internal enum Filenames {
     /// answers.json
     internal static let answerFile = L10n.tr("Localizable", "Filenames.answerFile")
-    /// DefaultAnswers.txt
+    /// defaultAnswers.txt
     internal static let defaultAnswers = L10n.tr("Localizable", "Filenames.defaultAnswers")
   }
 }

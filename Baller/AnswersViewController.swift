@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AnswersTableViewController: UITableViewController {
+class AnswersViewController: UITableViewController {
 
     private let store: AnswerStore = AnswerStoreJSON.shared
 
@@ -21,7 +21,7 @@ class AnswersTableViewController: UITableViewController {
     }
 }
 
-extension AnswersTableViewController {
+extension AnswersViewController {
 
     // MARK: - TableView DataSource:
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import Reusable
 
-class BallViewController: UIViewController {
+class MainScreenViewController: UIViewController, StoryboardSceneBased {
 
-    private let answerProvider: AnswerProviding = AnswerProvider()
+    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
+    var viewModel: MainScreenViewModel?
+
+    //private let answerProvider: AnswerProviding = AnswerProvider()
 
     // MARK: - Outlets:
     @IBOutlet private var ballImageView: UIImageView?
     @IBOutlet private var answerLabel: UILabel?
     @IBOutlet private var statusLabel: UILabel?
-
-    override func viewDidLoad() {
-        answerLabel?.textColor = ColorName.customPink.color
-    }
 
     override var canBecomeFirstResponder: Bool {
         return true
@@ -31,7 +32,7 @@ class BallViewController: UIViewController {
         self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
 
-        answerProvider.getAnswer { (result) in
+        viewModel?.answerProvider.getAnswer { (result) in
             switch result {
             case .success(let answer):
                 self.updateAnswerLabel(with: answer.title)
@@ -43,7 +44,7 @@ class BallViewController: UIViewController {
 }
 
 // MARK: - Helpers:
-extension BallViewController {
+extension MainScreenViewController {
 
     private func updateAnswerLabel(with answer: String) {
         DispatchQueue.main.async {
