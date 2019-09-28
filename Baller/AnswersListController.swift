@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Reusable
 
-class AnswersListController: UITableViewController {
+class AnswersListController: UITableViewController, StoryboardSceneBased {
+
+    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
     var viewModel: AnswersListViewModel!
 

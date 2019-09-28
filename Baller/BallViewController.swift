@@ -13,6 +13,7 @@ class BallViewController: UIViewController, StoryboardSceneBased {
 
     static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
+    var factory: AnswersListViewControllerFactory!
     var viewModel: BallViewModel!
 
     // MARK: - Outlets:
@@ -43,7 +44,7 @@ class BallViewController: UIViewController, StoryboardSceneBased {
         self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
 
-        viewModel?.getAnswer(completion: { (answer) in
+        viewModel.getAnswer(completion: { (answer) in
             self.updateAnswerLabel(with: answer)
         })
     }
@@ -54,18 +55,9 @@ class BallViewController: UIViewController, StoryboardSceneBased {
         }
 
       }
-
-    // MARK: - Navigation:
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch StoryboardSegue.Main(segue) {
-        case .toAnswers:
-            guard let destination = segue.destination as? AnswersListController else { return }
-            let model = AnswerListModel(with: AnswerStoreJSON())
-            let viewModel = AnswersListViewModel(model: model)
-            destination.viewModel = viewModel
-        default:
-            return
-        }
+    @IBAction func optionsPressed(_ sender: Any) {
+        let answersVC = factory.makeAnswersListController()
+        show(answersVC, sender: nil)
     }
 
 }

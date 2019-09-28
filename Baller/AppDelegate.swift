@@ -13,25 +13,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    let answerProvider: AnswerProviding =
-         AnswerProvider(onlineProvider: OnlineAnswerProvider(),
-                       offlineProvider: OfflineAnswerProvider(with: AnswerStoreJSON()))
-
     func applicationDidFinishLaunching(_ application: UIApplication) {
 
-        window = UIWindow.init(frame: UIScreen.main.bounds)
-
-        let mainVC = BallViewController.instantiate()
-
-        let model = BallModel(with: answerProvider)
-        mainVC.viewModel = BallViewModel(model: model)
+        let container = DependencyContainer()
+        let mainVC = container.makeBallViewController()
 
         let navVC = UINavigationController(rootViewController: mainVC)
         navVC.navigationBar.barStyle = .blackOpaque
         navVC.navigationBar.isTranslucent = false
 
+        window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.rootViewController = navVC
         window?.makeKeyAndVisible()
-
+        window?.tintColor = ColorName.customPink.color
     }
 }
