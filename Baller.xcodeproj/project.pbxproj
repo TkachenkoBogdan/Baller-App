@@ -122,6 +122,15 @@
 			name = Persistence;
 			sourceTree = "<group>";
 		};
+		BDAD481E233F37A400782B74 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				BDFA23AE2306528400807EB8 /* AppDelegate.swift */,
+				BDAD481B233F313200782B74 /* DependencyContainer.swift */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
 		BDDAFFE823101705002B3BEF /* AnswerProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,8 +218,7 @@
 		BDFA23AD2306528400807EB8 /* Baller */ = {
 			isa = PBXGroup;
 			children = (
-				BDFA23AE2306528400807EB8 /* AppDelegate.swift */,
-				BDAD481B233F313200782B74 /* DependencyContainer.swift */,
+				BDAD481E233F37A400782B74 /* App */,
 				BDE1BF4C233DCE2D00AFAD63 /* Scenes */,
 				BDE1BF65233E19C600AFAD63 /* Services */,
 				BDFA23C22306538400807EB8 /* Models */,

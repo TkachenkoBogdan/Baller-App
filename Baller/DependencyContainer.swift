@@ -18,7 +18,8 @@ protocol ViewControllerFactory: BallViewControllerFactory, AnswersListViewContro
 
 class DependencyContainer {
 
-    private lazy var answerStore: AnswerStore = AnswerStoreJSON()
+    private lazy var storage: DiskManaging = Storage()
+    private lazy var answerStore: AnswerStore = AnswerStoreJSON(storageManager: storage)
 
     private lazy var answerProvider: AnswerProviding =
      AnswerProvider(onlineProvider: OnlineAnswerProvider(),

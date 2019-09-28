@@ -27,32 +27,33 @@ protocol AnswerStore {
 class AnswerStoreJSON {
 
     private let answerFileName = L10n.Filenames.answerFile
+    private let manager: DiskManaging
 
     private var answers = [Answer]() {
         didSet { save() }
     }
 
-    init() {
-
-        if !Storage.fileExists(answerFileName, in: .documents) {
+    init(storageManager manager: DiskManaging) {
+        self.manager = manager
+        if !manager.fileExists(answerFileName, in: .documents) {
             self.answers = defaultAnswers()
             save()
         } else {
-            self.answers = Storage.retrieve(answerFileName,
+            self.answers = manager.retrieve(answerFileName,
                                             from: .documents,
                                             as: [Answer].self) ?? [Answer]()
         }
     }
 
-    /// Saves all asnwers atomically to the disk:
+    /// Saves all answers to the disk atomically:
     private func save() {
-        Storage.store(self.answers, to: .documents, as: answerFileName)
+        manager.store(self.answers, to: .documents, as: answerFileName)
     }
 
     /// Fetches default set of answers included in the bundle:
     private func defaultAnswers () -> [Answer] {
 
-        guard let answers = Storage.pathInBundle(L10n.Filenames.defaultAnswers),
+        guard let answers = manager.pathInBundle(L10n.Filenames.defaultAnswers),
             let answersData = try? Data(contentsOf: answers),
             let defaultAnswers = try? JSONDecoder().decode([Answer].self, from: answersData) else {
                 preconditionFailure("Failed to decode a valid set of answers from the bundle.")
