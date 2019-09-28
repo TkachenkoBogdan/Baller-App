@@ -23,3 +23,9 @@ ib:
     outputs:
     - templateName: segues-swift4
       output: Baller/Generated/segues.swift
+
+fonts:
+    inputs: Baller/Resources/Futura.ttc
+    outputs:
+    - templateName: swift4
+      output: Baller/Generated/fonts.swift

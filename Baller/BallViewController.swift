@@ -9,9 +9,7 @@
 import UIKit
 import Reusable
 
-class BallViewController: UIViewController, StoryboardSceneBased {
-
-    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
+class BallViewController: UIViewController {
 
     var factory: AnswersListViewControllerFactory!
     var viewModel: BallViewModel!
@@ -88,4 +86,8 @@ extension BallViewController {
         self.answerLabel?.isHidden = isHidden
         self.statusLabel?.isHidden = isHidden
     }
+}
+
+extension BallViewController: StoryboardSceneBased {
+    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 }

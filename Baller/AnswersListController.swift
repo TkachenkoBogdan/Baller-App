@@ -9,9 +9,7 @@
 import UIKit
 import Reusable
 
-class AnswersListController: UITableViewController, StoryboardSceneBased {
-
-    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
+class AnswersListController: UITableViewController {
 
     var viewModel: AnswersListViewModel!
 
@@ -59,4 +57,8 @@ extension AnswersListController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+}
+
+extension AnswersListController: StoryboardSceneBased {
+    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 }
