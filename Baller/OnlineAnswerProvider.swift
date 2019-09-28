@@ -15,7 +15,7 @@ struct OnlineAnswerProvider: AnswerProviding {
 
     private let endpoint = "https://8ball.delegator.com/magic/JSON/whatislove?"
 
-    func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
+    func getAnswer(completionHandler: @escaping (Result<PersistableAnswer, Error>) -> Void) {
         guard let url = URL(string: endpoint) else { return }
 
         let request = URLRequest(url: url, timeoutInterval: 2.5)
@@ -23,7 +23,7 @@ struct OnlineAnswerProvider: AnswerProviding {
         URLSession.shared.dataTask(with: request) { (data, _, error) in
 
             if let data = data, error == nil,
-                let answer = try? JSONDecoder().decode(Answer.self, from: data) {
+                let answer = try? JSONDecoder().decode(PersistableAnswer.self, from: data) {
                 completionHandler(Result.success(answer))
             } else if let error = error {
                 completionHandler(Result.failure(error))

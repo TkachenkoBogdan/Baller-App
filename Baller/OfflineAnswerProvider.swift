@@ -22,7 +22,7 @@ struct OfflineAnswerProvider: AnswerProviding {
         self.store = store
     }
 
-    func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
+    func getAnswer(completionHandler: @escaping (Result<PersistableAnswer, Error>) -> Void) {
         if let answer = getRandomAnswer() {
             completionHandler(Result.success(answer))
         } else {
@@ -30,7 +30,7 @@ struct OfflineAnswerProvider: AnswerProviding {
         }
     }
 
-    private func getRandomAnswer() -> Answer? {
+    private func getRandomAnswer() -> PersistableAnswer? {
 
         let randomIndex = Int.random(in: 0..<store.count())
         return store.answer(at: randomIndex)

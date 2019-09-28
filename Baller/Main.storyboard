@@ -72,12 +72,12 @@
             </objects>
             <point key="canvasLocation" x="1091" y="108"/>
         </scene>
-        <!--Default Answers-->
+        <!--Defaults-->
         <scene sceneID="O3F-Af-ubb">
             <objects>
                 <tableViewController storyboardIdentifier="AnswersListController" id="uOu-kb-yKo" customClass="AnswersListController" customModule="Baller" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="teN-6g-hEx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" id="teN-6g-hEx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -89,7 +89,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zI-Xa-svt">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A default answer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zI-Xa-svt">
                                             <rect key="frame" x="30" y="11" width="374" height="21"/>
                                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -115,7 +115,8 @@
                             <outlet property="delegate" destination="uOu-kb-yKo" id="Agb-ve-N2k"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Default Answers" id="JiT-ly-qaF">
+                    <navigationItem key="navigationItem" title="Defaults" prompt="Click on + to add an answer" id="JiT-ly-qaF">
+                        <barButtonItem key="backBarButtonItem" title="Roll Back" id="5fx-g1-hC8"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Zq-GA-9KR">
                             <connections>
                                 <action selector="addButtonPressed:" destination="uOu-kb-yKo" id="enJ-9W-x4i"/>

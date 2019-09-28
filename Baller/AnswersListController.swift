@@ -16,12 +16,17 @@ class AnswersListController: UITableViewController, StoryboardSceneBased {
     var viewModel: AnswersListViewModel!
 
     @IBAction private func addButtonPressed(_ sender: Any) {
-        presentUserInputAlert("Provide a default answer") { [weak self] (_) in
+
+        presentUserInputAlert("Provide an answer") { [weak self] (answerString) in
             guard let `self` = self else { return }
-           // self.viewModel.appendAnswer(Answer(withTitle: answer))
+
+            self.viewModel.itemAppended(answerString)
+
             self.tableView.reloadData()
         }
+
     }
+
 }
 
 extension AnswersListController {
@@ -34,15 +39,14 @@ extension AnswersListController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell: AnswerCell = tableView.dequeueReusableCell(for: indexPath)
-
         guard let answer = self.viewModel.answer(at: indexPath.row) else { return cell }
-
-        cell.answer = answer.title
+        cell.answer = answer
 
         return cell
     }
 
     // MARK: - TablewViewDelegate:
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -51,8 +55,7 @@ extension AnswersListController {
                             forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {
-            //self.viewModel?.store.removeAnswer(at: indexPath.row)
-            viewModel.removeAnswer(at: indexPath.row)
+            viewModel.itemDeleted(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

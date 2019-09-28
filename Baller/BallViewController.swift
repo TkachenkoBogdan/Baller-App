@@ -28,9 +28,13 @@ class BallViewController: UIViewController, StoryboardSceneBased {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // VC passes observation closure to ViewModel to process loading state changes
-        viewModel.shouldAnimateLoadingStateHandler = { [weak self] shouldAnimate in
-            self?.setAnimationEnabled(shouldAnimate)
+        // Observation closures:
+        viewModel.shouldAnimateLoadingStateHandler = { [unowned self] shouldAnimate in
+            self.setAnimationEnabled(shouldAnimate)
+        }
+
+        viewModel.answerReceivedHandler = { [unowned self] answer in
+            self.updateAnswerLabel(with: answer)
         }
     }
 
@@ -44,9 +48,7 @@ class BallViewController: UIViewController, StoryboardSceneBased {
         self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
 
-        viewModel.getAnswer(completion: { (answer) in
-            self.updateAnswerLabel(with: answer)
-        })
+        viewModel.shakeDetected()
     }
 
       private func setAnimationEnabled(_ enabled: Bool) {

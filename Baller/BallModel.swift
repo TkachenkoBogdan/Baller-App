@@ -11,7 +11,7 @@ class BallModel {
         self.answerProvider = provider
     }
 
-    func getAnswer(completion: @escaping(Answer) -> Void) {
+    func getAnswer(completion: @escaping(PersistableAnswer) -> Void) {
         isLoadingData = true
 
         self.answerProvider.getAnswer { (result) in

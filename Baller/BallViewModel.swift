@@ -22,7 +22,16 @@ class BallViewModel {
         }
     }
 
-    func getAnswer(completion: @escaping (_ answer: String) -> Void) {
+    var answerReceivedHandler: ((String) -> Void)?
+
+    func shakeDetected() {
+        getAnswer { [unowned self] (answerString) in
+            self.answerReceivedHandler?(answerString)
+        }
+
+    }
+
+   private func getAnswer(completion: @escaping (_ answer: String) -> Void) {
         ballModel.getAnswer { (answer) in
             completion(answer.title)
         }
