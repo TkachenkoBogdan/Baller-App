@@ -58,7 +58,3 @@ extension AnswersListController {
         }
     }
 }
-
-extension AnswersListController: StoryboardSceneBased {
-    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
-}

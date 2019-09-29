@@ -87,7 +87,3 @@ extension BallViewController {
         self.statusLabel?.isHidden = isHidden
     }
 }
-
-extension BallViewController: StoryboardSceneBased {
-    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
-}
