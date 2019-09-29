@@ -32,7 +32,7 @@ class BallViewController: UIViewController {
         }
 
         viewModel.answerReceivedHandler = { [unowned self] answer in
-            self.updateAnswerLabel(with: answer)
+            self.updateAnswerLabel(with: answer.title)
         }
     }
 

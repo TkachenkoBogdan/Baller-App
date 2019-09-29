@@ -22,8 +22,8 @@ struct Answer {
 
 extension Answer {
 
-    func toPresentableAnswer() -> PresentableAnswer {
-        let title = self.title.uppercased()
+    func toPresentableAnswer(uppercased: Bool = false) -> PresentableAnswer {
+        let title =  uppercased ? self.title.uppercased() : self.title
         let date = self.date.toString(withStyle: .long)
 
         return PresentableAnswer(withTitle: title, date: date)

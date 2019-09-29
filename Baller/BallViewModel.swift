@@ -16,24 +16,26 @@ class BallViewModel {
         self.ballModel = model
     }
 
+    // MARK: - Observation closures:
+
     var shouldAnimateLoadingStateHandler: ((Bool) -> Void)? {
         didSet {
             ballModel.isLoadingDataStateHandler = shouldAnimateLoadingStateHandler
         }
     }
 
-    var answerReceivedHandler: ((String) -> Void)?
+    var answerReceivedHandler: ((PresentableAnswer) -> Void)?
 
     func shakeDetected() {
-        getAnswer { [unowned self] (answerString) in
-            self.answerReceivedHandler?(answerString)
+        getAnswer { [unowned self] (answer) in
+            self.answerReceivedHandler?(answer.toPresentableAnswer(uppercased: true))
         }
-
     }
 
-   private func getAnswer(completion: @escaping (_ answer: String) -> Void) {
-        ballModel.getAnswer { (answer) in
-            completion(answer.title)
+    // MARK: - Private:
+    private func getAnswer(completion: @escaping (_ answer: Answer) -> Void) {
+        ballModel.getAnswer { answer in
+            completion(answer)
         }
     }
 
