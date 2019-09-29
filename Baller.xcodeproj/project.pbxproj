@@ -21,6 +21,7 @@
 		BDAD4820233F487400782B74 /* PresentableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD481F233F487400782B74 /* PresentableAnswer.swift */; };
 		BDAD4823233F4EE700782B74 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD4822233F4EE700782B74 /* fonts.swift */; };
 		BDB4A47723406A7900DDE8B1 /* storyboardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4A47623406A7900DDE8B1 /* storyboardScene.swift */; };
+		BDD43E6023407CBB00D9DA2D /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD43E5F23407CBB00D9DA2D /* Date.swift */; };
 		BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerProvider.swift */; };
 		BDDAFFEC231017E1002B3BEF /* OnlineAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */; };
 		BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* Storage.swift */; };
@@ -61,6 +62,7 @@
 		BDAD4821233F4E9C00782B74 /* Futura.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Futura.ttc; sourceTree = "<group>"; };
 		BDAD4822233F4EE700782B74 /* fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
 		BDB4A47623406A7900DDE8B1 /* storyboardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storyboardScene.swift; sourceTree = "<group>"; };
+		BDD43E5F23407CBB00D9DA2D /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		BDDAFFE923101721002B3BEF /* AnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEF23101E64002B3BEF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		BDDAFFF523102185002B3BEF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BDD43E5F23407CBB00D9DA2D /* Date.swift */,
 				BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */,
 				BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */,
 			);
@@ -449,6 +452,7 @@
 				BDE1BF67233E1CB600AFAD63 /* BallModel.swift in Sources */,
 				BDDAFFFD23102315002B3BEF /* UserInputAlert.swift in Sources */,
 				BDAD4820233F487400782B74 /* PresentableAnswer.swift in Sources */,
+				BDD43E6023407CBB00D9DA2D /* Date.swift in Sources */,
 				BDDAFFEC231017E1002B3BEF /* OnlineAnswerProvider.swift in Sources */,
 				BDFA23AF2306528400807EB8 /* AppDelegate.swift in Sources */,
 				BDE1BF53233DD1EA00AFAD63 /* BallViewModel.swift in Sources */,

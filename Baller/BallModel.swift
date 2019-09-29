@@ -4,7 +4,6 @@ class BallModel {
 
     private let answerProvider: AnswerProviding
 
-    // upper layer (view model) may observe `isLoadingData` changes using closure
     var isLoadingDataStateHandler: ((Bool) -> Void)?
 
     init(with provider: AnswerProviding) {
@@ -27,17 +26,10 @@ class BallModel {
 
     }
 
-    // model stores "state", it knows if data is loading right now
     private var isLoadingData = false {
         didSet {
             isLoadingDataStateHandler?(isLoadingData)
         }
-    }
-
-    private func loadData() {
-        isLoadingData = true
-
-        isLoadingData = false
     }
 
 }

@@ -11,9 +11,11 @@ import Foundation
 struct Answer {
 
     let title: String
+    let date: Date
 
-    init(withTitle title: String) {
+    init(withTitle title: String, date: Date) {
         self.title = title
+        self.date = date
     }
 
 }
@@ -21,6 +23,9 @@ struct Answer {
 extension Answer {
 
     func toPresentableAnswer() -> PresentableAnswer {
-        return self.title.uppercased()
+        let title = self.title.uppercased()
+        let date = self.date.toString(withStyle: .long)
+
+        return PresentableAnswer(withTitle: title, date: date)
     }
 }

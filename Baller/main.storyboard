@@ -84,31 +84,44 @@
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AnswerCell" id="lsN-lX-9Yi" customClass="AnswerCell" customModule="Baller" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AnswerCell" rowHeight="89" id="lsN-lX-9Yi" customClass="AnswerCell" customModule="Baller" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="89"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lsN-lX-9Yi" id="jua-Le-hXr">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A default answer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zI-Xa-svt">
-                                            <rect key="frame" x="30" y="11" width="374" height="21"/>
-                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here is a default answer to test the layout of the cell." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zI-Xa-svt">
+                                            <rect key="frame" x="10" y="5" width="394" height="63.5"/>
+                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="15"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21/10/2019" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOY-We-9h5">
+                                            <rect key="frame" x="248" y="69.5" width="156" height="14.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="156" id="8XO-7q-DLO"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="0zI-Xa-svt" firstAttribute="top" secondItem="jua-Le-hXr" secondAttribute="topMargin" id="KgT-aZ-lw6"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="0zI-Xa-svt" secondAttribute="bottom" id="anb-e1-Xby"/>
-                                        <constraint firstItem="0zI-Xa-svt" firstAttribute="leading" secondItem="jua-Le-hXr" secondAttribute="leadingMargin" constant="10" id="heg-Rl-E9u"/>
-                                        <constraint firstItem="0zI-Xa-svt" firstAttribute="trailing" secondItem="jua-Le-hXr" secondAttribute="trailingMargin" constant="10" id="vuZ-EC-Rmc"/>
+                                        <constraint firstAttribute="bottom" secondItem="kOY-We-9h5" secondAttribute="bottom" constant="5" id="CpX-aQ-TAT"/>
+                                        <constraint firstItem="0zI-Xa-svt" firstAttribute="centerX" secondItem="jua-Le-hXr" secondAttribute="centerX" id="kOx-oZ-ShO"/>
+                                        <constraint firstItem="0zI-Xa-svt" firstAttribute="leading" secondItem="jua-Le-hXr" secondAttribute="leading" constant="10" id="pWT-pb-KB3"/>
+                                        <constraint firstAttribute="trailing" secondItem="kOY-We-9h5" secondAttribute="trailing" constant="10" id="q2q-Ez-FHS"/>
+                                        <constraint firstItem="kOY-We-9h5" firstAttribute="top" secondItem="0zI-Xa-svt" secondAttribute="bottom" constant="1" id="t06-hI-I4S"/>
+                                        <constraint firstAttribute="trailing" secondItem="0zI-Xa-svt" secondAttribute="trailing" constant="10" id="t8s-yV-1gZ"/>
+                                        <constraint firstItem="0zI-Xa-svt" firstAttribute="top" secondItem="jua-Le-hXr" secondAttribute="top" constant="5" id="uoJ-bS-gI0"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="answerLabel" destination="0zI-Xa-svt" id="6cg-hX-sIx"/>
+                                    <outlet property="dateLabel" destination="kOY-We-9h5" id="qXc-W2-cCJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -128,7 +141,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Hc-o6-cmd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1838" y="108"/>
+            <point key="canvasLocation" x="1837.68115942029" y="107.8125"/>
         </scene>
     </scenes>
     <resources>

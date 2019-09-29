@@ -6,4 +6,14 @@
 //  Copyright © 2019 Богдан Ткаченко. All rights reserved.
 //
 
-typealias PresentableAnswer = String
+struct PresentableAnswer {
+
+    let title: String
+    let dateAdded: String
+
+    init(withTitle title: String, date: String) {
+        self.title = title
+        self.dateAdded = date
+    }
+
+}

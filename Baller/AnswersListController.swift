@@ -38,7 +38,7 @@ extension AnswersListController {
 
         let cell: AnswerCell = tableView.dequeueReusableCell(for: indexPath)
         guard let answer = self.viewModel.answer(at: indexPath.row) else { return cell }
-        cell.answer = answer
+        cell.configure(with: answer)
 
         return cell
     }
