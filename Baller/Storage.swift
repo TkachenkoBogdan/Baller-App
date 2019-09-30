@@ -22,7 +22,7 @@ protocol DiskManaging {
     func pathInBundle(_ name: String) -> URL?
 }
 
-class Storage: DiskManaging {
+final class Storage: DiskManaging {
 
     /// Stores an encodable struct to the specified directory on a disk:
     func store<T: Encodable>(_ object: T, to directory: Directory, as fileName: String) {

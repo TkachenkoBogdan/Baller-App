@@ -1,6 +1,6 @@
 import Foundation
 
-class BallModel {
+final class BallModel {
 
     private let answerProvider: AnswerProviding
 

@@ -9,7 +9,7 @@
 import UIKit
 import Reusable
 
-class BallViewController: UIViewController {
+final class BallViewController: UIViewController {
 
     var factory: AnswersListViewControllerFactory!
     var viewModel: BallViewModel!
@@ -27,6 +27,7 @@ class BallViewController: UIViewController {
         super.viewDidLoad()
 
         // Observation closures:
+
         viewModel.shouldAnimateLoadingStateHandler = { [unowned self] shouldAnimate in
             self.setAnimationEnabled(shouldAnimate)
         }

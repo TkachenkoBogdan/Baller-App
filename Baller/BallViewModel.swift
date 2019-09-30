@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BallViewModel {
+final class BallViewModel {
 
     private let ballModel: BallModel
 

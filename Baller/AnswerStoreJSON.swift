@@ -24,7 +24,7 @@ protocol AnswerStore {
 /// A concrete class that that can
 /// store/retrieve answers from disk and act as a DataSource.
 
-class AnswerStoreJSON {
+final class AnswerStoreJSON {
 
     private let answerFileName = L10n.Filenames.answerFile
     private let manager: DiskManaging

@@ -14,7 +14,7 @@ protocol AnswerProviding {
     func getAnswer(completionHandler: @escaping (Result<PersistableAnswer, Error>) -> Void)
 }
 
-class AnswerProvider: AnswerProviding {
+final class AnswerProvider: AnswerProviding {
 
     private let onlineProvider: AnswerProviding
     private let offlineProvider: AnswerProviding

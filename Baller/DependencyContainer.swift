@@ -16,7 +16,7 @@ protocol AnswersListViewControllerFactory {
 
 protocol ViewControllerFactory: BallViewControllerFactory, AnswersListViewControllerFactory {}
 
-class DependencyContainer {
+final class DependencyContainer {
 
     private lazy var storage: DiskManaging = Storage()
     private lazy var answerStore: AnswerStore = AnswerStoreJSON(storageManager: storage)

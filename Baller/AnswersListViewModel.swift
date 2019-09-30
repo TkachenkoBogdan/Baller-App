@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AnswersListViewModel {
+final class AnswersListViewModel {
 
     private let model: AnswerListModel
 

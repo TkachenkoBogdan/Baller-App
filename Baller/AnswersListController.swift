@@ -9,7 +9,7 @@
 import UIKit
 import Reusable
 
-class AnswersListController: UITableViewController {
+final class AnswersListController: UITableViewController {
 
     var viewModel: AnswersListViewModel!
 

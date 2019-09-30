@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AnswerListModel {
+final class AnswerListModel {
 
     private let store: AnswerStore
 //    private var answers: [Answer] = []
