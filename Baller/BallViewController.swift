@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Reusable
 
 final class BallViewController: UIViewController {
 
@@ -21,20 +20,12 @@ final class BallViewController: UIViewController {
     @IBOutlet private var statusLabel: UILabel?
     @IBOutlet private var activityIndicator: UIActivityIndicatorView?
 
-    // MARK: - Lifecycle and events:
+    // MARK: - Lifecycle and Events:
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Observation closures:
-
-        viewModel.shouldAnimateLoadingStateHandler = { [unowned self] shouldAnimate in
-            self.setAnimationEnabled(shouldAnimate)
-        }
-
-        viewModel.answerReceivedHandler = { [unowned self] answer in
-            self.updateAnswerLabel(with: answer.title)
-        }
+        setUpObservationClosures()
     }
 
     override var canBecomeFirstResponder: Bool {
@@ -50,12 +41,6 @@ final class BallViewController: UIViewController {
         viewModel.shakeDetected()
     }
 
-      private func setAnimationEnabled(_ enabled: Bool) {
-        DispatchQueue.main.async {
-            enabled ? self.activityIndicator?.startAnimating() : self.activityIndicator?.stopAnimating()
-        }
-
-      }
     @IBAction func optionsPressed(_ sender: Any) {
         let answersVC = factory.makeAnswersListController()
         show(answersVC, sender: nil)
@@ -63,8 +48,24 @@ final class BallViewController: UIViewController {
 
 }
 
-// MARK: - Helpers:
+// MARK: - Private Helpers:
 extension BallViewController {
+
+    private func setUpObservationClosures() {
+        viewModel.shouldAnimateLoadingStateHandler = { [unowned self] shouldAnimate in
+            self.setAnimationEnabled(shouldAnimate)
+        }
+
+        viewModel.answerReceivedHandler = { [unowned self] answer in
+            self.updateAnswerLabel(with: answer.title)
+        }
+    }
+
+    private func setAnimationEnabled(_ enabled: Bool) {
+        DispatchQueue.main.async {
+            enabled ? self.activityIndicator?.startAnimating() : self.activityIndicator?.stopAnimating()
+        }
+    }
 
     private func updateAnswerLabel(with answer: String) {
         DispatchQueue.main.async {

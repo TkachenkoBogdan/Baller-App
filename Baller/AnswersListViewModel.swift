@@ -24,16 +24,12 @@ final class AnswersListViewModel {
         return model.answer(at: index)?.toPresentableAnswer()
     }
 
-    func itemDeleted(at index: Int) {
-        removeAnswer(at: index)
+    func answerAppended(withTitle title: String) {
+        self.model.appendAnswer(with: title)
     }
 
-    func itemAppended(withTitle title: String) {
-        self.model.appendAnswer(Answer(withTitle: title))
-    }
-
-    private func removeAnswer(at index: Int) {
-        self.model.remove(at: index)
+    func answerDeleted(at index: Int) {
+         self.model.remove(at: index)
     }
 
 }

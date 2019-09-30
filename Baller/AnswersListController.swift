@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Reusable
 
 final class AnswersListController: UITableViewController {
 
@@ -18,7 +17,7 @@ final class AnswersListController: UITableViewController {
         presentUserInputAlert("Provide an answer") { [weak self] (answerString) in
             guard let `self` = self else { return }
 
-            self.viewModel.itemAppended(withTitle: answerString)
+            self.viewModel.answerAppended(withTitle: answerString)
 
             self.tableView.reloadData()
         }
@@ -30,6 +29,7 @@ final class AnswersListController: UITableViewController {
 extension AnswersListController {
 
     // MARK: - TableView DataSource:
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.count()
     }
@@ -53,7 +53,7 @@ extension AnswersListController {
                             forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {
-            viewModel.itemDeleted(at: indexPath.row)
+            viewModel.answerDeleted(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

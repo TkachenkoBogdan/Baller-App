@@ -2,18 +2,18 @@ import Foundation
 
 final class BallModel {
 
-    private let answerProvider: AnswerService
+    private let answerService: AnswerProvider
 
     var isLoadingDataStateHandler: ((Bool) -> Void)?
 
-    init(with provider: AnswerService) {
-        self.answerProvider = provider
+    init(with provider: AnswerProvider) {
+        self.answerService = provider
     }
 
     func getAnswer(completion: @escaping(Answer) -> Void) {
         isLoadingData = true
 
-        self.answerProvider.getAnswer { (result) in
+        self.answerService.getAnswer { (result) in
 
             self.isLoadingData = false
                 switch result {

@@ -24,11 +24,11 @@
 		BDAD4823233F4EE700782B74 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD4822233F4EE700782B74 /* fonts.swift */; };
 		BDB4A47723406A7900DDE8B1 /* storyboardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4A47623406A7900DDE8B1 /* storyboardScene.swift */; };
 		BDD43E6023407CBB00D9DA2D /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD43E5F23407CBB00D9DA2D /* Date.swift */; };
-		BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerProvider.swift */; };
-		BDDAFFEC231017E1002B3BEF /* OnlineAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */; };
+		BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerService.swift */; };
+		BDDAFFEC231017E1002B3BEF /* NetworkAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */; };
 		BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* Storage.swift */; };
 		BDDAFFF223101F65002B3BEF /* AnswerStoreJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */; };
-		BDDAFFF423102053002B3BEF /* OfflineAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF323102053002B3BEF /* OfflineAnswerProvider.swift */; };
+		BDDAFFF423102053002B3BEF /* DatabaseAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */; };
 		BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFFA231022E0002B3BEF /* BallViewController.swift */; };
 		BDDAFFFC23102313002B3BEF /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */; };
 		BDDAFFFD23102315002B3BEF /* UserInputAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */; };
@@ -65,11 +65,11 @@
 		BDAD4822233F4EE700782B74 /* fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
 		BDB4A47623406A7900DDE8B1 /* storyboardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storyboardScene.swift; sourceTree = "<group>"; };
 		BDD43E5F23407CBB00D9DA2D /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		BDDAFFE923101721002B3BEF /* AnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerProvider.swift; sourceTree = "<group>"; };
-		BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineAnswerProvider.swift; sourceTree = "<group>"; };
+		BDDAFFE923101721002B3BEF /* AnswerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerService.swift; sourceTree = "<group>"; };
+		BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFEF23101E64002B3BEF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerStoreJSON.swift; sourceTree = "<group>"; };
-		BDDAFFF323102053002B3BEF /* OfflineAnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineAnswerProvider.swift; sourceTree = "<group>"; };
+		BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputAlert.swift; sourceTree = "<group>"; };
 		BDDAFFFA231022E0002B3BEF /* BallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallViewController.swift; sourceTree = "<group>"; };
@@ -125,13 +125,13 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		BD8C3A642310100400F8D896 /* Persistence */ = {
+		BD8C3A642310100400F8D896 /* Database */ = {
 			isa = PBXGroup;
 			children = (
 				BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */,
 				BDDAFFEF23101E64002B3BEF /* Storage.swift */,
 			);
-			name = Persistence;
+			name = Database;
 			sourceTree = "<group>";
 		};
 		BDAD481E233F37A400782B74 /* App */ = {
@@ -143,14 +143,14 @@
 			name = App;
 			sourceTree = "<group>";
 		};
-		BDDAFFE823101705002B3BEF /* AnswerProvider */ = {
+		BDDAFFE823101705002B3BEF /* Answer */ = {
 			isa = PBXGroup;
 			children = (
-				BDDAFFE923101721002B3BEF /* AnswerProvider.swift */,
-				BDDAFFEB231017E1002B3BEF /* OnlineAnswerProvider.swift */,
-				BDDAFFF323102053002B3BEF /* OfflineAnswerProvider.swift */,
+				BDDAFFE923101721002B3BEF /* AnswerService.swift */,
+				BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */,
+				BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */,
 			);
-			name = AnswerProvider;
+			name = Answer;
 			sourceTree = "<group>";
 		};
 		BDDAFFF523102185002B3BEF /* Extensions */ = {
@@ -204,8 +204,8 @@
 		BDE1BF65233E19C600AFAD63 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BDDAFFE823101705002B3BEF /* AnswerProvider */,
-				BD8C3A642310100400F8D896 /* Persistence */,
+				BDDAFFE823101705002B3BEF /* Answer */,
+				BD8C3A642310100400F8D896 /* Database */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -453,17 +453,17 @@
 				BDDAFFFD23102315002B3BEF /* UserInputAlert.swift in Sources */,
 				BDAD4820233F487400782B74 /* PresentableAnswer.swift in Sources */,
 				BDD43E6023407CBB00D9DA2D /* Date.swift in Sources */,
-				BDDAFFEC231017E1002B3BEF /* OnlineAnswerProvider.swift in Sources */,
+				BDDAFFEC231017E1002B3BEF /* NetworkAnswerProvider.swift in Sources */,
 				BDFA23AF2306528400807EB8 /* AppDelegate.swift in Sources */,
 				BDE1BF53233DD1EA00AFAD63 /* BallViewModel.swift in Sources */,
 				BDDAFFF223101F65002B3BEF /* AnswerStoreJSON.swift in Sources */,
 				BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */,
 				BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */,
 				BDAD4823233F4EE700782B74 /* fonts.swift in Sources */,
-				BDDAFFEA23101721002B3BEF /* AnswerProvider.swift in Sources */,
+				BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */,
 				BDAD481C233F313200782B74 /* DependencyContainer.swift in Sources */,
 				BDE1BF69233E1CC200AFAD63 /* AnswersListModel.swift in Sources */,
-				BDDAFFF423102053002B3BEF /* OfflineAnswerProvider.swift in Sources */,
+				BDDAFFF423102053002B3BEF /* DatabaseAnswerProvider.swift in Sources */,
 				BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */,
 				BD5C3F2623391F380026F1B8 /* strings.swift in Sources */,
 				BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */,

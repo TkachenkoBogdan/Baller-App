@@ -11,14 +11,9 @@ import Foundation
 final class AnswerListModel {
 
     private let store: AnswerStore
-//    private var answers: [Answer] = []
 
     init(with store: AnswerStore) {
         self.store = store
-    }
-
-    func appendAnswer(_ answer: Answer) {
-        self.store.appendAnswer(answer)
     }
 
     func numberOfAnswers() -> Int {
@@ -27,6 +22,11 @@ final class AnswerListModel {
 
     func answer(at index: Int) -> Answer? {
         return store.answer(at: index)
+    }
+
+    func appendAnswer(with title: String) {
+        let answer = Answer(withTitle: title)
+        self.store.appendAnswer(answer)
     }
 
     func remove(at index: Int) {

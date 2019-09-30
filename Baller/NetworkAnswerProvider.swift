@@ -11,7 +11,7 @@ import Alamofire
 
 /// A concrete provider that fetches answers online.
 
-struct OnlineAnswerProvider: AnswerService {
+struct NetworkAnswerProvider: AnswerProvider {
 
     private let endpoint = "https://8ball.delegator.com/magic/JSON/whatislove?"
 

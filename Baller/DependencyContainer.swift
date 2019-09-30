@@ -18,12 +18,12 @@ protocol ViewControllerFactory: BallViewControllerFactory, AnswersListViewContro
 
 final class DependencyContainer {
 
-    private lazy var storage: DiskManaging = Storage()
-    private lazy var answerStore: AnswerStore = AnswerStoreJSON(storageManager: storage)
+    private lazy var answerService: AnswerProvider =
+        AnswerService(onlineProvider: NetworkAnswerProvider(),
+                      offlineProvider: DatabaseAnswerProvider(with: answerStore))
 
-    private lazy var answerProvider: AnswerService =
-     AnswerProvider(onlineProvider: OnlineAnswerProvider(),
-                   offlineProvider: OfflineAnswerProvider(with: answerStore))
+    private lazy var answerStore: AnswerStore = AnswerStoreJSON(storageManager: storage)
+    private lazy var storage: DiskManaging = Storage()
 
 }
 
@@ -31,7 +31,7 @@ extension DependencyContainer: ViewControllerFactory {
 
     func makeBallViewController() -> BallViewController {
 
-        let ballModel = BallModel(with: answerProvider)
+        let ballModel = BallModel(with: answerService)
         let ballViewModel = BallViewModel(model: ballModel)
 
         let mainController = StoryboardScene.Main.ballViewController.instantiate()

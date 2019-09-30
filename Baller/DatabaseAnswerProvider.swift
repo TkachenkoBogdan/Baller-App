@@ -10,7 +10,7 @@ import Foundation
 
 /// A concrete provider that fetches answers from a local storage.
 
-struct OfflineAnswerProvider: AnswerService {
+struct DatabaseAnswerProvider: AnswerProvider {
 
     enum OfflineServiceError: Error {
         case unknownError
