@@ -10,7 +10,7 @@ import Foundation
 
 /// A concrete provider that fetches answers from a local storage.
 
-struct OfflineAnswerProvider: AnswerProviding {
+struct OfflineAnswerProvider: AnswerService {
 
     enum OfflineServiceError: Error {
         case unknownError
@@ -22,7 +22,7 @@ struct OfflineAnswerProvider: AnswerProviding {
         self.store = store
     }
 
-    func getAnswer(completionHandler: @escaping (Result<PersistableAnswer, Error>) -> Void) {
+    func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
         if let answer = getRandomAnswer() {
             completionHandler(Result.success(answer))
         } else {
@@ -30,7 +30,7 @@ struct OfflineAnswerProvider: AnswerProviding {
         }
     }
 
-    private func getRandomAnswer() -> PersistableAnswer? {
+    private func getRandomAnswer() -> Answer? {
 
         let randomIndex = Int.random(in: 0..<store.count())
         return store.answer(at: randomIndex)

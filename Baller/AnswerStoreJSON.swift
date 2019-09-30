@@ -12,9 +12,9 @@ import Foundation
 
 protocol AnswerStore {
 
-    func answer(at index: Int) -> PersistableAnswer?
+    func answer(at index: Int) -> Answer?
 
-    func appendAnswer(_ answer: PersistableAnswer)
+    func appendAnswer(_ answer: Answer)
     func removeAnswer(at index: Int)
 
     func count() -> Int
@@ -29,7 +29,7 @@ final class AnswerStoreJSON {
     private let answerFileName = L10n.Filenames.answerFile
     private let manager: DiskManaging
 
-    private var answers = [PersistableAnswer]() {
+    private var answers = [SerializableAnswer]() {
         didSet { save() }
     }
 
@@ -41,7 +41,7 @@ final class AnswerStoreJSON {
         } else {
             self.answers = manager.retrieve(answerFileName,
                                             from: .documents,
-                                            as: [PersistableAnswer].self) ?? [PersistableAnswer]()
+                                            as: [SerializableAnswer].self) ?? [SerializableAnswer]()
         }
     }
 
@@ -51,11 +51,11 @@ final class AnswerStoreJSON {
     }
 
     /// Fetches default set of answers included in the bundle:
-    private func defaultAnswers () -> [PersistableAnswer] {
+    private func defaultAnswers () -> [SerializableAnswer] {
 
         guard let answers = manager.pathInBundle(L10n.Filenames.defaultAnswers),
             let answersData = try? Data(contentsOf: answers),
-            let defaultAnswers = try? JSONDecoder().decode([PersistableAnswer].self, from: answersData) else {
+            let defaultAnswers = try? JSONDecoder().decode([SerializableAnswer].self, from: answersData) else {
                 preconditionFailure("Failed to decode a valid set of answers from the bundle.")
         }
 
@@ -67,9 +67,9 @@ final class AnswerStoreJSON {
 
 extension AnswerStoreJSON: AnswerStore {
 
-    func answer(at index: Int) -> PersistableAnswer? {
+    func answer(at index: Int) -> Answer? {
         if 0..<answers.count ~= index {
-            return answers[index]
+            return answers[index].toAnswer()
         }
         return nil
     }
@@ -78,8 +78,8 @@ extension AnswerStoreJSON: AnswerStore {
         return answers.count
     }
 
-    func appendAnswer(_ answer: PersistableAnswer) {
-        self.answers.append(answer)
+    func appendAnswer(_ answer: Answer) {
+        self.answers.append(answer.toPersistableAnswer())
     }
 
     func removeAnswer(at index: Int) {

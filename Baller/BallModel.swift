@@ -2,11 +2,11 @@ import Foundation
 
 final class BallModel {
 
-    private let answerProvider: AnswerProviding
+    private let answerProvider: AnswerService
 
     var isLoadingDataStateHandler: ((Bool) -> Void)?
 
-    init(with provider: AnswerProviding) {
+    init(with provider: AnswerService) {
         self.answerProvider = provider
     }
 
@@ -17,8 +17,8 @@ final class BallModel {
 
             self.isLoadingData = false
                 switch result {
-                case .success(let persistentAnswer):
-                    completion(persistentAnswer.toAnswer())
+                case .success(let answer):
+                    completion(answer)
                 case .failure:
                     preconditionFailure("Failed to provide local answer")
                 }

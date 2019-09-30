@@ -16,7 +16,7 @@
 		BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C3F2523391F380026F1B8 /* assets-images.swift */; };
 		BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */; };
 		BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */; };
-		BD8C3A68231011A800F8D896 /* PersistableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* PersistableAnswer.swift */; };
+		BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* SerializableAnswer.swift */; };
 		BDA0E4CE233BAFDD00403703 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0E4CD233BAFDD00403703 /* colors.swift */; };
 		BDA0E4D0233BB06800403703 /* colors.json in Resources */ = {isa = PBXBuildFile; fileRef = BDA0E4CF233BB06800403703 /* colors.json */; };
 		BDAD481C233F313200782B74 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD481B233F313200782B74 /* DependencyContainer.swift */; };
@@ -56,7 +56,7 @@
 		BD8B4145231034AD001A3698 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BD8C3A67231011A700F8D896 /* PersistableAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistableAnswer.swift; sourceTree = "<group>"; };
+		BD8C3A67231011A700F8D896 /* SerializableAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializableAnswer.swift; sourceTree = "<group>"; };
 		BDA0E4CD233BAFDD00403703 /* colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		BDA0E4CF233BB06800403703 /* colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = colors.json; sourceTree = "<group>"; };
 		BDAD481B233F313200782B74 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
@@ -234,21 +234,21 @@
 				BDAD481E233F37A400782B74 /* App */,
 				BDE1BF4C233DCE2D00AFAD63 /* Scenes */,
 				BDE1BF65233E19C600AFAD63 /* Services */,
-				BDFA23C22306538400807EB8 /* Models */,
+				BDFA23C22306538400807EB8 /* DTO */,
 				BDDAFFF523102185002B3BEF /* Extensions */,
 				BDFA23C3230653B900807EB8 /* Support */,
 			);
 			path = Baller;
 			sourceTree = "<group>";
 		};
-		BDFA23C22306538400807EB8 /* Models */ = {
+		BDFA23C22306538400807EB8 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				BD8C3A67231011A700F8D896 /* PersistableAnswer.swift */,
+				BD8C3A67231011A700F8D896 /* SerializableAnswer.swift */,
 				BDE1BF6A233E20D800AFAD63 /* Answer.swift */,
 				BDAD481F233F487400782B74 /* PresentableAnswer.swift */,
 			);
-			name = Models;
+			name = DTO;
 			sourceTree = "<group>";
 		};
 		BDFA23C3230653B900807EB8 /* Support */ = {
@@ -464,7 +464,7 @@
 				BDAD481C233F313200782B74 /* DependencyContainer.swift in Sources */,
 				BDE1BF69233E1CC200AFAD63 /* AnswersListModel.swift in Sources */,
 				BDDAFFF423102053002B3BEF /* OfflineAnswerProvider.swift in Sources */,
-				BD8C3A68231011A800F8D896 /* PersistableAnswer.swift in Sources */,
+				BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */,
 				BD5C3F2623391F380026F1B8 /* strings.swift in Sources */,
 				BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */,
 			);

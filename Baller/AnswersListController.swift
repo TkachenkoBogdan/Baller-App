@@ -18,7 +18,7 @@ final class AnswersListController: UITableViewController {
         presentUserInputAlert("Provide an answer") { [weak self] (answerString) in
             guard let `self` = self else { return }
 
-            self.viewModel.itemAppended(answerString)
+            self.viewModel.itemAppended(withTitle: answerString)
 
             self.tableView.reloadData()
         }

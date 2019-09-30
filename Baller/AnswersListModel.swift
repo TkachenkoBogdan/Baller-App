@@ -17,7 +17,7 @@ final class AnswerListModel {
         self.store = store
     }
 
-    func appendAnswer(_ answer: PersistableAnswer) {
+    func appendAnswer(_ answer: Answer) {
         self.store.appendAnswer(answer)
     }
 
@@ -26,7 +26,7 @@ final class AnswerListModel {
     }
 
     func answer(at index: Int) -> Answer? {
-        return store.answer(at: index)?.toAnswer()
+        return store.answer(at: index)
     }
 
     func remove(at index: Int) {

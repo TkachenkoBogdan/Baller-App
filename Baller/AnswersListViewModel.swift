@@ -28,8 +28,8 @@ final class AnswersListViewModel {
         removeAnswer(at: index)
     }
 
-    func itemAppended(_ title: String) {
-        self.model.appendAnswer(PersistableAnswer(withTitle: title))
+    func itemAppended(withTitle title: String) {
+        self.model.appendAnswer(Answer(withTitle: title))
     }
 
     private func removeAnswer(at index: Int) {

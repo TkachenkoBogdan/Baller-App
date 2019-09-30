@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PersistableAnswer: Codable {
+struct SerializableAnswer: Codable {
 
     enum CodingKeys: String, CodingKey {
         case containerDictionary  = "magic"
@@ -39,7 +39,7 @@ struct PersistableAnswer: Codable {
     }
 }
 
-extension PersistableAnswer {
+extension SerializableAnswer {
     func toAnswer() -> Answer {
         return Answer(withTitle: title, date: dateReceived)
     }

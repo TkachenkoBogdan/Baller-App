@@ -21,7 +21,7 @@ final class DependencyContainer {
     private lazy var storage: DiskManaging = Storage()
     private lazy var answerStore: AnswerStore = AnswerStoreJSON(storageManager: storage)
 
-    private lazy var answerProvider: AnswerProviding =
+    private lazy var answerProvider: AnswerService =
      AnswerProvider(onlineProvider: OnlineAnswerProvider(),
                    offlineProvider: OfflineAnswerProvider(with: answerStore))
 
