@@ -1,2 +1,3 @@
 "Filenames.defaultAnswers" = "defaultAnswers.txt";
 "Filenames.answerFile" = "answers.json";
+"Prompts.newAnswer" = "Provide an answer";

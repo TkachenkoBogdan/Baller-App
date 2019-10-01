@@ -18,6 +18,11 @@ internal enum L10n {
     /// defaultAnswers.txt
     internal static let defaultAnswers = L10n.tr("Localizable", "Filenames.defaultAnswers")
   }
+
+  internal enum Prompts {
+    /// Provide an answer
+    internal static let newAnswer = L10n.tr("Localizable", "Prompts.newAnswer")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name

@@ -19,7 +19,7 @@ struct SerializableAnswer: Codable {
     let title: String
     let dateReceived: Date
 
-    init(withTitle title: String, date: Date = Date()) {
+    init(title: String, date: Date = Date()) {
         self.title = title
         self.dateReceived = date
     }
@@ -41,6 +41,6 @@ struct SerializableAnswer: Codable {
 
 extension SerializableAnswer {
     func toAnswer() -> Answer {
-        return Answer(withTitle: title, date: dateReceived)
+        return Answer(title: title, date: dateReceived)
     }
 }

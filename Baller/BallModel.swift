@@ -6,7 +6,7 @@ final class BallModel {
 
     var isLoadingDataStateHandler: ((Bool) -> Void)?
 
-    init(with provider: AnswerProvider) {
+    init(provider: AnswerProvider) {
         self.answerService = provider
     }
 

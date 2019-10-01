@@ -23,11 +23,10 @@
 		BDAD4820233F487400782B74 /* PresentableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD481F233F487400782B74 /* PresentableAnswer.swift */; };
 		BDAD4823233F4EE700782B74 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD4822233F4EE700782B74 /* fonts.swift */; };
 		BDB4A47723406A7900DDE8B1 /* storyboardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4A47623406A7900DDE8B1 /* storyboardScene.swift */; };
-		BDD43E6023407CBB00D9DA2D /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD43E5F23407CBB00D9DA2D /* Date.swift */; };
 		BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerService.swift */; };
 		BDDAFFEC231017E1002B3BEF /* NetworkAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */; };
-		BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* Storage.swift */; };
-		BDDAFFF223101F65002B3BEF /* AnswerStoreJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */; };
+		BDDAFFF023101E64002B3BEF /* FileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* FileDataManager.swift */; };
+		BDDAFFF223101F65002B3BEF /* AnswerJSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* AnswerJSONStorage.swift */; };
 		BDDAFFF423102053002B3BEF /* DatabaseAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */; };
 		BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFFA231022E0002B3BEF /* BallViewController.swift */; };
 		BDDAFFFC23102313002B3BEF /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */; };
@@ -65,11 +64,10 @@
 		BDAD4821233F4E9C00782B74 /* Futura.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Futura.ttc; sourceTree = "<group>"; };
 		BDAD4822233F4EE700782B74 /* fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
 		BDB4A47623406A7900DDE8B1 /* storyboardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storyboardScene.swift; sourceTree = "<group>"; };
-		BDD43E5F23407CBB00D9DA2D /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		BDDAFFE923101721002B3BEF /* AnswerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerService.swift; sourceTree = "<group>"; };
 		BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnswerProvider.swift; sourceTree = "<group>"; };
-		BDDAFFEF23101E64002B3BEF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerStoreJSON.swift; sourceTree = "<group>"; };
+		BDDAFFEF23101E64002B3BEF /* FileDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDataManager.swift; sourceTree = "<group>"; };
+		BDDAFFF123101F65002B3BEF /* AnswerJSONStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerJSONStorage.swift; sourceTree = "<group>"; };
 		BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputAlert.swift; sourceTree = "<group>"; };
@@ -130,8 +128,8 @@
 		BD8C3A642310100400F8D896 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				BDDAFFF123101F65002B3BEF /* AnswerStoreJSON.swift */,
-				BDDAFFEF23101E64002B3BEF /* Storage.swift */,
+				BDDAFFF123101F65002B3BEF /* AnswerJSONStorage.swift */,
+				BDDAFFEF23101E64002B3BEF /* FileDataManager.swift */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -158,7 +156,6 @@
 		BDDAFFF523102185002B3BEF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				BDD43E5F23407CBB00D9DA2D /* Date.swift */,
 				BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */,
 				BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */,
 			);
@@ -455,14 +452,13 @@
 				BDE1BF67233E1CB600AFAD63 /* BallModel.swift in Sources */,
 				BDDAFFFD23102315002B3BEF /* UserInputAlert.swift in Sources */,
 				BDAD4820233F487400782B74 /* PresentableAnswer.swift in Sources */,
-				BDD43E6023407CBB00D9DA2D /* Date.swift in Sources */,
 				BDDAFFEC231017E1002B3BEF /* NetworkAnswerProvider.swift in Sources */,
 				BDFA23AF2306528400807EB8 /* AppDelegate.swift in Sources */,
 				BDE1BF53233DD1EA00AFAD63 /* BallViewModel.swift in Sources */,
-				BDDAFFF223101F65002B3BEF /* AnswerStoreJSON.swift in Sources */,
+				BDDAFFF223101F65002B3BEF /* AnswerJSONStorage.swift in Sources */,
 				BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */,
-				BDDAFFF023101E64002B3BEF /* Storage.swift in Sources */,
 				BDEA0EC323432D0300B85355 /* BallView.swift in Sources */,
+				BDDAFFF023101E64002B3BEF /* FileDataManager.swift in Sources */,
 				BDAD4823233F4EE700782B74 /* fonts.swift in Sources */,
 				BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */,
 				BDAD481C233F313200782B74 /* DependencyContainer.swift in Sources */,

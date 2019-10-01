@@ -18,7 +18,7 @@ struct DatabaseAnswerProvider: AnswerProvider {
 
     private let store: AnswerStore
 
-    init(with store: AnswerStore) {
+    init(store: AnswerStore) {
         self.store = store
     }
 

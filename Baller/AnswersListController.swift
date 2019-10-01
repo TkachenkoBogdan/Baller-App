@@ -15,10 +15,10 @@ final class AnswersListController: UITableViewController {
 
     @IBAction private func addButtonPressed(_ sender: Any) {
 
-        presentUserInputAlert("Provide an answer") { [weak self] (answerString) in
+        presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (answerString) in
             guard let `self` = self else { return }
 
-            self.viewModel.answerAppended(withTitle: answerString)
+            self.viewModel.appendAnswer(withTitle: answerString)
 
             self.tableView.reloadData()
         }
@@ -32,7 +32,7 @@ extension AnswersListController {
     // MARK: - TableView DataSource:
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.count()
+        return viewModel.count()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,7 +54,7 @@ extension AnswersListController {
                             forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {
-            viewModel.answerDeleted(at: indexPath.row)
+            viewModel.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
