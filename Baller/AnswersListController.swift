@@ -8,37 +8,43 @@
 
 import UIKit
 
-class AnswersTableViewController: UITableViewController {
+final class AnswersListController: UITableViewController {
 
-    private let store: AnswerStore = AnswerStoreJSON.shared
+    var viewModel: AnswersListViewModel!
 
     @IBAction private func addButtonPressed(_ sender: Any) {
-        presentUserInputAlert("Provide a default answer") { [weak self] (answer) in
+
+        presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (answerString) in
             guard let `self` = self else { return }
-            self.store.appendAnswer(Answer(withTitle: answer))
+
+            self.viewModel.appendAnswer(withTitle: answerString)
+
             self.tableView.reloadData()
         }
+
     }
+
 }
 
-extension AnswersTableViewController {
+extension AnswersListController {
 
     // MARK: - TableView DataSource:
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return store.count()
+        return viewModel.count()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell: AnswerCell = tableView.dequeueReusableCell(for: indexPath)
+        guard let answer = self.viewModel.answer(at: indexPath.row) else { return cell }
+        cell.configure(with: answer)
 
-        guard let answer = store.answer(at: indexPath.row) else { return cell }
-
-        cell.answer = answer.title
         return cell
     }
 
     // MARK: - TablewViewDelegate:
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -47,7 +53,7 @@ extension AnswersTableViewController {
                             forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {
-            store.removeAnswer(at: indexPath.row)
+            viewModel.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

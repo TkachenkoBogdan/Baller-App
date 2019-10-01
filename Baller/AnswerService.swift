@@ -10,14 +10,19 @@ import Foundation
 
 /// A common interface abstracting away concrete providers.
 
-protocol AnswerProviding {
+protocol AnswerProvider {
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void)
 }
 
-class AnswerProvider: AnswerProviding {
+final class AnswerService: AnswerProvider {
 
-    private let onlineProvider = OnlineAnswerProvider()
-    private let offlineProvider = OfflineAnswerProvider()
+    private let onlineProvider: AnswerProvider
+    private let offlineProvider: AnswerProvider
+
+    init(onlineProvider: AnswerProvider, offlineProvider: AnswerProvider) {
+        self.onlineProvider = onlineProvider
+        self.offlineProvider = offlineProvider
+    }
 
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
         onlineProvider.getAnswer { (result) in

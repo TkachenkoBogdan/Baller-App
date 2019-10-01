@@ -11,7 +11,7 @@ import Alamofire
 
 /// A concrete provider that fetches answers online.
 
-struct OnlineAnswerProvider: AnswerProviding {
+struct NetworkAnswerProvider: AnswerProvider {
 
     private let endpoint = "https://8ball.delegator.com/magic/JSON/whatislove?"
 
@@ -23,8 +23,8 @@ struct OnlineAnswerProvider: AnswerProviding {
         URLSession.shared.dataTask(with: request) { (data, _, error) in
 
             if let data = data, error == nil,
-                let answer = try? JSONDecoder().decode(Answer.self, from: data) {
-                completionHandler(Result.success(answer))
+                let answer = try? JSONDecoder().decode(SerializableAnswer.self, from: data) {
+                completionHandler(Result.success(answer.toAnswer()))
             } else if let error = error {
                 completionHandler(Result.failure(error))
             }

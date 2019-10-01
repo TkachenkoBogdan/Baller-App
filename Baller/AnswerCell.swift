@@ -12,10 +12,10 @@ import Reusable
 final class AnswerCell: UITableViewCell, Reusable {
 
     @IBOutlet private var answerLabel: UILabel?
+    @IBOutlet private var dateLabel: UILabel?
 
-    var answer: String? {
-        didSet {
-            self.answerLabel?.text = answer
-        }
+    func configure(with answer: PresentableAnswer) {
+        answerLabel?.text = answer.title
+        dateLabel?.text = answer.dateAdded
     }
 }

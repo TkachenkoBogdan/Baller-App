@@ -10,13 +10,17 @@ import Foundation
 
 /// A concrete provider that fetches answers from a local storage.
 
-struct OfflineAnswerProvider: AnswerProviding {
+struct DatabaseAnswerProvider: AnswerProvider {
 
     enum OfflineServiceError: Error {
         case unknownError
     }
 
-    private let store: AnswerStore = AnswerStoreJSON.shared
+    private let store: AnswerStore
+
+    init(store: AnswerStore) {
+        self.store = store
+    }
 
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
         if let answer = getRandomAnswer() {

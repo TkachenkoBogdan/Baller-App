@@ -1,35 +1,37 @@
 //
-//  Answer.swift
+//  PresentableAnswer.swift
 //  Baller
 //
-//  Created by Богдан Ткаченко on 8/23/19.
+//  Created by Богдан Ткаченко on 9/27/19.
 //  Copyright © 2019 Богдан Ткаченко. All rights reserved.
 //
 
-/// A simple model struct to represent answers.
+import Foundation
 
-struct Answer: Codable {
-
-    enum CodingKeys: String, CodingKey {
-        case containerDictionary  = "magic"
-        case title = "answer"
-    }
+struct Answer {
 
     let title: String
+    let date: Date
 
-    init(withTitle title: String) {
+    init(title: String, date: Date = Date()) {
         self.title = title
+        self.date = date
     }
 
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let dictionary = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .containerDictionary)
-        self.title = try dictionary.decode(String.self, forKey: .title)
+}
+
+extension Answer {
+
+    func toPresentableAnswer(withDateFormatter dateFormatter: DateFormatter? = nil,
+                             uppercased: Bool = false) -> PresentableAnswer {
+
+        let title =  uppercased ? self.title.uppercased() : self.title
+        let date = dateFormatter?.string(from: self.date) ?? ""
+
+        return PresentableAnswer(title: title, date: date)
     }
 
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        var dictionary = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .containerDictionary)
-        try dictionary.encode(self.title, forKey: .title)
+    func toPersistableAnswer() -> SerializableAnswer {
+        return SerializableAnswer(title: title, date: date)
     }
 }

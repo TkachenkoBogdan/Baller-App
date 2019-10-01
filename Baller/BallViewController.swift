@@ -8,17 +8,24 @@
 
 import UIKit
 
-class BallViewController: UIViewController {
+final class BallViewController: UIViewController {
 
-    private let answerProvider: AnswerProviding = AnswerProvider()
+    var factory: AnswersListViewControllerFactory!
+    var viewModel: BallViewModel!
 
     // MARK: - Outlets:
+
     @IBOutlet private var ballImageView: UIImageView?
     @IBOutlet private var answerLabel: UILabel?
     @IBOutlet private var statusLabel: UILabel?
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView?
+
+    // MARK: - Lifecycle and Events:
 
     override func viewDidLoad() {
-        answerLabel?.textColor = ColorName.customPink.color
+        super.viewDidLoad()
+
+        setUpObservationClosures()
     }
 
     override var canBecomeFirstResponder: Bool {
@@ -31,19 +38,34 @@ class BallViewController: UIViewController {
         self.ballImageView?.shake()
         self.setLabelsVisibility(to: true)
 
-        answerProvider.getAnswer { (result) in
-            switch result {
-            case .success(let answer):
-                self.updateAnswerLabel(with: answer.title)
-            case .failure:
-                self.updateAnswerLabel(with: "Oh, snap! Try again")
-            }
-        }
+        viewModel.shakeDetected()
     }
+
+    @IBAction func optionsPressed(_ sender: Any) {
+        let answersVC = factory.makeAnswersListController()
+        show(answersVC, sender: nil)
+    }
+
 }
 
-// MARK: - Helpers:
+// MARK: - Private Helpers:
 extension BallViewController {
+
+    private func setUpObservationClosures() {
+        viewModel.shouldAnimateLoadingStateHandler = { [unowned self] shouldAnimate in
+            self.setAnimationEnabled(shouldAnimate)
+        }
+
+        viewModel.answerReceivedHandler = { [unowned self] answer in
+            self.updateAnswerLabel(with: answer.title)
+        }
+    }
+
+    private func setAnimationEnabled(_ enabled: Bool) {
+        DispatchQueue.main.async {
+            enabled ? self.activityIndicator?.startAnimating() : self.activityIndicator?.stopAnimating()
+        }
+    }
 
     private func updateAnswerLabel(with answer: String) {
         DispatchQueue.main.async {
@@ -59,6 +81,7 @@ extension BallViewController {
             self.answerLabel?.fadeTransition(withDuration: 1)
             self.answerLabel?.text = answer
         }
+
     }
 
     private func setLabelsVisibility(to isHidden: Bool) {
