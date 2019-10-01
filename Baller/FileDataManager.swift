@@ -15,18 +15,18 @@ enum Directory {
        case caches
 }
 
-protocol DiskManaging {
+protocol FileDataManageable {
     func store<T: Encodable>(_ object: T, to directory: Directory, as fileName: String)
     func retrieve<T: Decodable>(_ fileName: String, from directory: Directory, as type: T.Type) -> T?
     func fileExists(_ fileName: String, in directory: Directory) -> Bool
     func pathInBundle(_ name: String) -> URL?
 }
 
-final class Storage: DiskManaging {
+final class FileDataManager: FileDataManageable {
 
     /// Stores an encodable struct to the specified directory on a disk:
     func store<T: Encodable>(_ object: T, to directory: Directory, as fileName: String) {
-        let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
+        let url = URL(for: directory).appendingPathComponent(fileName, isDirectory: false)
 
         let encoder = JSONEncoder()
         do {
@@ -42,7 +42,7 @@ final class Storage: DiskManaging {
 
     /// Retrieves and converts a struct from a file on a disk:
     func retrieve<T: Decodable>(_ fileName: String, from directory: Directory, as type: T.Type) -> T? {
-        let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
+        let url = URL(for: directory).appendingPathComponent(fileName, isDirectory: false)
 
         if !FileManager.default.fileExists(atPath: url.path) {
             print("File at path \(url.path) does not exist!")
@@ -66,7 +66,7 @@ final class Storage: DiskManaging {
 
     /// Returns BOOL indicating whether file exists at specified directory with specified file name
     func fileExists(_ fileName: String, in directory: Directory) -> Bool {
-        let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
+        let url = URL(for: directory).appendingPathComponent(fileName, isDirectory: false)
         return FileManager.default.fileExists(atPath: url.path)
     }
 
@@ -79,7 +79,7 @@ final class Storage: DiskManaging {
     }
 
     /// Returns URL constructed from specified directory:
-    private func getURL(for directory: Directory) -> URL {
+    private func URL(for directory: Directory) -> URL {
         var searchPathDirectory: FileManager.SearchPathDirectory
 
         switch directory {

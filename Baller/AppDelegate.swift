@@ -16,14 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidFinishLaunching(_ application: UIApplication) {
 
         let container = DependencyContainer()
-        let mainVC = container.makeBallViewController()
+        let mainViewController = container.makeBallViewController()
 
-        let navVC = UINavigationController(rootViewController: mainVC)
-        navVC.navigationBar.barStyle = .blackOpaque
-        navVC.navigationBar.isTranslucent = false
+        let navigationViewController = UINavigationController(rootViewController: mainViewController)
+        navigationViewController.navigationBar.barStyle = .blackOpaque
+        navigationViewController.navigationBar.isTranslucent = false
 
-        window = UIWindow.init(frame: UIScreen.main.bounds)
-        window?.rootViewController = navVC
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
         window?.tintColor = ColorName.customPink.color
     }

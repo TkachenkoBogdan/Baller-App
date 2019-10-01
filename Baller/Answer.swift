@@ -13,7 +13,7 @@ struct Answer {
     let title: String
     let date: Date
 
-    init(withTitle title: String, date: Date = Date()) {
+    init(title: String, date: Date = Date()) {
         self.title = title
         self.date = date
     }
@@ -22,14 +22,16 @@ struct Answer {
 
 extension Answer {
 
-    func toPresentableAnswer(uppercased: Bool = false) -> PresentableAnswer {
-        let title =  uppercased ? self.title.uppercased() : self.title
-        let date = self.date.toString(withStyle: .long)
+    func toPresentableAnswer(withDateFormatter dateFormatter: DateFormatter? = nil,
+                             uppercased: Bool = false) -> PresentableAnswer {
 
-        return PresentableAnswer(withTitle: title, date: date)
+        let title =  uppercased ? self.title.uppercased() : self.title
+        let date = dateFormatter?.string(from: self.date) ?? ""
+
+        return PresentableAnswer(title: title, date: date)
     }
 
     func toPersistableAnswer() -> SerializableAnswer {
-        return SerializableAnswer(withTitle: title, date: date)
+        return SerializableAnswer(title: title, date: date)
     }
 }

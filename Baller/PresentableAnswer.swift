@@ -11,7 +11,7 @@ struct PresentableAnswer {
     let title: String
     let dateAdded: String
 
-    init(withTitle title: String, date: String) {
+    init(title: String, date: String) {
         self.title = title
         self.dateAdded = date
     }

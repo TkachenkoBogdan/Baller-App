@@ -11,6 +11,11 @@ import Foundation
 final class AnswersListViewModel {
 
     private let model: AnswerListModel
+    private var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter
+    }()
 
     init(model: AnswerListModel) {
         self.model = model
@@ -21,14 +26,14 @@ final class AnswersListViewModel {
     }
 
     func answer(at index: Int) -> PresentableAnswer? {
-        return model.answer(at: index)?.toPresentableAnswer()
+        return model.answer(at: index)?.toPresentableAnswer(withDateFormatter: dateFormatter)
     }
 
-    func answerAppended(withTitle title: String) {
+    func appendAnswer(withTitle title: String) {
         self.model.appendAnswer(with: title)
     }
 
-    func answerDeleted(at index: Int) {
+    func remove(at index: Int) {
          self.model.remove(at: index)
     }
 

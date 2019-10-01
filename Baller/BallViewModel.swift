@@ -27,15 +27,8 @@ final class BallViewModel {
     var answerReceivedHandler: ((PresentableAnswer) -> Void)?
 
     func shakeDetected() {
-        getAnswer { [unowned self] (answer) in
+        ballModel.getAnswer { [unowned self] answer in
             self.answerReceivedHandler?(answer.toPresentableAnswer(uppercased: true))
-        }
-    }
-
-    // MARK: - Private:
-    private func getAnswer(completion: @escaping (_ answer: Answer) -> Void) {
-        ballModel.getAnswer { answer in
-            completion(answer)
         }
     }
 

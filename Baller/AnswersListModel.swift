@@ -12,7 +12,7 @@ final class AnswerListModel {
 
     private let store: AnswerStore
 
-    init(with store: AnswerStore) {
+    init(store: AnswerStore) {
         self.store = store
     }
 
@@ -25,7 +25,7 @@ final class AnswerListModel {
     }
 
     func appendAnswer(with title: String) {
-        let answer = Answer(withTitle: title)
+        let answer = Answer(title: title)
         self.store.appendAnswer(answer)
     }
 

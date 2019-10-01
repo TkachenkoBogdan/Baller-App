@@ -24,22 +24,22 @@ protocol AnswerStore {
 /// A concrete class that that can
 /// store/retrieve answers from disk and act as a DataSource.
 
-final class AnswerStoreJSON {
+final class AnswerJSONStorage {
 
     private let answerFileName = L10n.Filenames.answerFile
-    private let manager: DiskManaging
+    private let fileDataManager: FileDataManageable
 
     private var answers = [SerializableAnswer]() {
         didSet { save() }
     }
 
-    init(storageManager manager: DiskManaging) {
-        self.manager = manager
-        if !manager.fileExists(answerFileName, in: .documents) {
+    init(storageManager fileDataManager: FileDataManageable) {
+        self.fileDataManager = fileDataManager
+        if !fileDataManager.fileExists(answerFileName, in: .documents) {
             self.answers = defaultAnswers()
             save()
         } else {
-            self.answers = manager.retrieve(answerFileName,
+            self.answers = fileDataManager.retrieve(answerFileName,
                                             from: .documents,
                                             as: [SerializableAnswer].self) ?? [SerializableAnswer]()
         }
@@ -47,13 +47,13 @@ final class AnswerStoreJSON {
 
     /// Saves all answers to the disk atomically:
     private func save() {
-        manager.store(self.answers, to: .documents, as: answerFileName)
+        fileDataManager.store(self.answers, to: .documents, as: answerFileName)
     }
 
     /// Fetches default set of answers included in the bundle:
     private func defaultAnswers () -> [SerializableAnswer] {
 
-        guard let answers = manager.pathInBundle(L10n.Filenames.defaultAnswers),
+        guard let answers = fileDataManager.pathInBundle(L10n.Filenames.defaultAnswers),
             let answersData = try? Data(contentsOf: answers),
             let defaultAnswers = try? JSONDecoder().decode([SerializableAnswer].self, from: answersData) else {
                 preconditionFailure("Failed to decode a valid set of answers from the bundle.")
@@ -65,7 +65,7 @@ final class AnswerStoreJSON {
 
 // MARK: - AnswerStore Protocol Conformance:
 
-extension AnswerStoreJSON: AnswerStore {
+extension AnswerJSONStorage: AnswerStore {
 
     func answer(at index: Int) -> Answer? {
         if 0..<answers.count ~= index {
