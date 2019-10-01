@@ -33,6 +33,7 @@ final class BallViewModel {
     }
 
     // MARK: - Private:
+
     private func getAnswer(completion: @escaping (_ answer: Answer) -> Void) {
         ballModel.getAnswer { answer in
             completion(answer)

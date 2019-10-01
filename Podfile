@@ -9,4 +9,5 @@ target 'Baller' do
   pod 'Alamofire', '~> 5.0.0-beta.5'
   pod 'SwiftGen', '~> 6.0'
   pod 'Reusable', '~> 4.1'
+  pod 'SnapKit', '~> 5.0.0'
 end

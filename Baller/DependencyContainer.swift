@@ -34,8 +34,7 @@ extension DependencyContainer: ViewControllerFactory {
         let ballModel = BallModel(with: answerService)
         let ballViewModel = BallViewModel(model: ballModel)
 
-        let mainController = StoryboardScene.Main.ballViewController.instantiate()
-        mainController.viewModel = ballViewModel
+        let mainController = BallViewController(with: ballViewModel)
         mainController.factory = self as AnswersListViewControllerFactory
         return mainController
     }
