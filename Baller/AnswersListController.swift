@@ -7,11 +7,32 @@
 //
 
 import UIKit
-import SnapKit
 
 final class AnswersListController: UITableViewController {
 
-    var viewModel: AnswersListViewModel!
+    var viewModel: AnswersListViewModel
+
+    init(viewModel: AnswersListViewModel) {
+        self.viewModel = viewModel
+        super.init(style: .plain)
+
+        navigationItem.prompt = L10n.Prompts.additionInfo
+        navigationItem.title = L10n.Titles.answerList
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self, action: #selector(addButtonPressed(_:)))
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("AnswersListController must not be initialized from xib/storyboard")
+    }
+
+    override func viewDidLoad() {
+        tableView.register(AnswerCell.self)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
+        tableView.allowsSelection = false
+
+    }
 
     @IBAction private func addButtonPressed(_ sender: Any) {
 
@@ -37,7 +58,7 @@ extension AnswersListController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell: AnswerCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: AnswerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         guard let answer = self.viewModel.answer(at: indexPath.row) else { return cell }
         cell.configure(with: answer)
 

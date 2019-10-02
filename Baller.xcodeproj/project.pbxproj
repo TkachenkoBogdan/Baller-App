@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		BD083EAD23408CF0000C60D7 /* defaultAnswers.txt in Resources */ = {isa = PBXBuildFile; fileRef = BD083EAC23408CF0000C60D7 /* defaultAnswers.txt */; };
-		BD083EAF23408D05000C60D7 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD083EAE23408D05000C60D7 /* main.storyboard */; };
 		BD0F0A232335FB8E005FEEAD /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = BD0F0A222335FB8E005FEEAD /* swiftgen.yml */; };
 		BD0F0A2C2335FEC2005FEEAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */; };
 		BD3DD1D523360DAC00AC8B2A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD3DD1D423360DAC00AC8B2A /* .gitignore */; };
+		BD4B1524234465C300E3562C /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4B1523234465C300E3562C /* UITableView+Extension.swift */; };
 		BD5C3F2623391F380026F1B8 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C3F2423391F380026F1B8 /* strings.swift */; };
 		BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C3F2523391F380026F1B8 /* assets-images.swift */; };
+		BD64C95023445FF2006BD1B7 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD64C94F23445FF2006BD1B7 /* ReusableView.swift */; };
 		BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */; };
 		BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */; };
 		BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* SerializableAnswer.swift */; };
@@ -47,12 +48,13 @@
 /* Begin PBXFileReference section */
 		A62C25DE1C97F505701A5666 /* Pods_Baller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD083EAC23408CF0000C60D7 /* defaultAnswers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = defaultAnswers.txt; sourceTree = "<group>"; };
-		BD083EAE23408D05000C60D7 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = main.storyboard; sourceTree = "<group>"; };
 		BD0F0A222335FB8E005FEEAD /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = SOURCE_ROOT; };
 		BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		BD3DD1D423360DAC00AC8B2A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
+		BD4B1523234465C300E3562C /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		BD5C3F2423391F380026F1B8 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
 		BD5C3F2523391F380026F1B8 /* assets-images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "assets-images.swift"; sourceTree = "<group>"; };
+		BD64C94F23445FF2006BD1B7 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		BD8B4145231034AD001A3698 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -157,6 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */,
+				BD4B1523234465C300E3562C /* UITableView+Extension.swift */,
+				BD64C94F23445FF2006BD1B7 /* ReusableView.swift */,
 				BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */,
 			);
 			name = Extensions;
@@ -257,7 +261,6 @@
 				BD0F0A282335FDD7005FEEAD /* Resources */,
 				BD0F0A1F2335FB47005FEEAD /* Generated */,
 				BD8B4145231034AD001A3698 /* .swiftlint.yml */,
-				BD083EAE23408D05000C60D7 /* main.storyboard */,
 				BD0F0A222335FB8E005FEEAD /* swiftgen.yml */,
 				BD083EAC23408CF0000C60D7 /* defaultAnswers.txt */,
 				BD3DD1D423360DAC00AC8B2A /* .gitignore */,
@@ -349,7 +352,6 @@
 				BD083EAD23408CF0000C60D7 /* defaultAnswers.txt in Resources */,
 				BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */,
 				BD3DD1D523360DAC00AC8B2A /* .gitignore in Resources */,
-				BD083EAF23408D05000C60D7 /* main.storyboard in Resources */,
 				BD0F0A2C2335FEC2005FEEAD /* Localizable.strings in Resources */,
 				BD0F0A232335FB8E005FEEAD /* swiftgen.yml in Resources */,
 				BDFA23B62306528500807EB8 /* Assets.xcassets in Resources */,
@@ -441,6 +443,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD64C95023445FF2006BD1B7 /* ReusableView.swift in Sources */,
 				BDB4A47723406A7900DDE8B1 /* storyboardScene.swift in Sources */,
 				BDA0E4CE233BAFDD00403703 /* colors.swift in Sources */,
 				BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */,
@@ -463,6 +466,7 @@
 				BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */,
 				BDAD481C233F313200782B74 /* DependencyContainer.swift in Sources */,
 				BDE1BF69233E1CC200AFAD63 /* AnswersListModel.swift in Sources */,
+				BD4B1524234465C300E3562C /* UITableView+Extension.swift in Sources */,
 				BDDAFFF423102053002B3BEF /* DatabaseAnswerProvider.swift in Sources */,
 				BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */,
 				BD5C3F2623391F380026F1B8 /* strings.swift in Sources */,

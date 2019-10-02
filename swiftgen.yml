@@ -17,14 +17,6 @@ colors:
     outputs:
     - templateName: swift4
       output: Baller/Generated/colors.swift
-      
-ib:
-    inputs: Baller/main.storyboard
-    outputs:
-    - templateName: segues-swift4
-      output: Baller/Generated/segues.swift
-    - templateName: scenes-swift4
-      output: Baller/Generated/storyboardScene.swift
 
 fonts:
     inputs: Baller/Resources/Futura.ttc

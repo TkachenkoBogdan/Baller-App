@@ -23,7 +23,7 @@ final class BallViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("BallViewController must not be initialized from xib")
+        fatalError("BallViewController must not be initialized from xib/storyboard")
     }
 
     // MARK: - Lifecycle and Events:

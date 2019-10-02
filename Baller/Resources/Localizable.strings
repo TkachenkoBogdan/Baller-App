@@ -1,3 +1,6 @@
 "Filenames.defaultAnswers" = "defaultAnswers.txt";
 "Filenames.answerFile" = "answers.json";
 "Prompts.newAnswer" = "Provide an answer";
+"Prompts.additionInfo" = "Click on + to add an answer";
+"Titles.AnswerList" = "Defaults";
+

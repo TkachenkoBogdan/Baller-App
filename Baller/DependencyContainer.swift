@@ -44,8 +44,8 @@ extension DependencyContainer: ViewControllerFactory {
         let answersListModel = AnswerListModel(store: answerStore)
         let answersListViewModel = AnswersListViewModel(model: answersListModel)
 
-        let answersController = StoryboardScene.Main.answersListController.instantiate()
-        answersController.viewModel = answersListViewModel
+        let answersController = AnswersListController(viewModel: answersListViewModel)
+
         return answersController
     }
 

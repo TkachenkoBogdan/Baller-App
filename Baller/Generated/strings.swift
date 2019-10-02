@@ -20,8 +20,15 @@ internal enum L10n {
   }
 
   internal enum Prompts {
+    /// Click on + to add an answer
+    internal static let additionInfo = L10n.tr("Localizable", "Prompts.additionInfo")
     /// Provide an answer
     internal static let newAnswer = L10n.tr("Localizable", "Prompts.newAnswer")
+  }
+
+  internal enum Titles {
+    /// Defaults
+    internal static let answerList = L10n.tr("Localizable", "Titles.AnswerList")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
