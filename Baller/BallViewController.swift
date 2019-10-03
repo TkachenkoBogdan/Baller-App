@@ -23,10 +23,10 @@ final class BallViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("BallViewController must not be initialized from xib/storyboard")
+        fatalError(L10n.FatalErrors.initCoder)
     }
 
-    // MARK: - Lifecycle and Events:
+    // MARK: - Lifecycle:
 
     override func loadView() {
         self.view = ballView
@@ -34,17 +34,16 @@ final class BallViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setUpObservationClosures()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Asset.defaultAnswers.image,
-                                                                  style: .plain,
-                                                                  target: self,
-                                                                  action: #selector(optionsPressed(_:)))
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(optionsPressed(_:)))
     }
 
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
+    // MARK: - Events:
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
@@ -55,6 +54,10 @@ final class BallViewController: UIViewController {
         viewModel.shakeDetected()
     }
 
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+
     @IBAction func optionsPressed(_ sender: Any) {
         let answersVC = factory.makeAnswersListController()
         show(answersVC, sender: nil)
@@ -62,7 +65,7 @@ final class BallViewController: UIViewController {
 
 }
 
-// MARK: - Private Helpers:
+// MARK: - Helpers:
 
 extension BallViewController {
 

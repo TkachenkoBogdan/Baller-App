@@ -12,11 +12,21 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
 
+  internal enum FatalErrors {
+    /// Object must not be initialized from xib/storyboard
+    internal static let initCoder = L10n.tr("Localizable", "FatalErrors.init(coder:)")
+  }
+
   internal enum Filenames {
     /// answers.json
     internal static let answerFile = L10n.tr("Localizable", "Filenames.answerFile")
     /// defaultAnswers.txt
     internal static let defaultAnswers = L10n.tr("Localizable", "Filenames.defaultAnswers")
+  }
+
+  internal enum Labels {
+    /// Shake
+    internal static let statusLabel = L10n.tr("Localizable", "Labels.statusLabel")
   }
 
   internal enum Prompts {

@@ -11,29 +11,13 @@ import UIKit
 final class AnswerCell: UITableViewCell {
 
     private var answerLabel: UILabel = {
-        let answerLabel = UILabel()
+        let answerLabel = BallerLabel()
         answerLabel.numberOfLines = 0
-
-        if #available(iOS 13.0, *) {
-            answerLabel.textColor = .label
-        } else {
-            answerLabel.textColor = .red
-        }
-        answerLabel.font = FontFamily.Futura.condensedMedium.font(size: 17)
         return answerLabel
     }()
 
     private var dateLabel: UILabel = {
-        let dateLabel = UILabel()
-
-        dateLabel.numberOfLines = 0
-        if #available(iOS 13.0, *) {
-            dateLabel.textColor = .label
-        } else {
-            dateLabel.textColor = .red
-        }
-        dateLabel.font = FontFamily.Futura.condensedMedium.font(size: 12)
-        return dateLabel
+        return BallerLabel(fontSize: GlobalFont.Size.dateLabel)
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -54,7 +38,7 @@ final class AnswerCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(L10n.FatalErrors.initCoder)
     }
 
     func configure(with answer: PresentableAnswer) {

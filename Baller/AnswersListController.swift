@@ -23,7 +23,7 @@ final class AnswersListController: UITableViewController {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("AnswersListController must not be initialized from xib/storyboard")
+        fatalError(L10n.FatalErrors.initCoder)
     }
 
     override func viewDidLoad() {

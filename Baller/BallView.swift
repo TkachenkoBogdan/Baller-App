@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class BallView: UIView {
 
@@ -24,15 +25,15 @@ class BallView: UIView {
             backgroundColor = .darkGray
         }
 
-        makeBallView()
-        makeAnswerLabel()
-        makeStatusLabel()
-        makeActivityIndicator()
+        createBallImageView()
+        createAnswerLabel()
+        createStatusLabel()
+        createActivityIndicator()
 
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(L10n.FatalErrors.initCoder)
     }
 
     func setAnimationEnabled(_ enabled: Bool) {
@@ -66,52 +67,41 @@ class BallView: UIView {
 
 extension BallView {
 
-    private func makeBallView() {
+    private func createBallImageView() {
         ballImageView = UIImageView(image: Asset._8ball.image)
-        ballImageView.accessibilityIdentifier = "BallImageView"
         self.addSubview(ballImageView)
-        ballImageView?.snp.makeConstraints { maker in
-            maker.width.equalTo(self).multipliedBy(0.2)
-            maker.height.equalTo(ballImageView.snp.width)
-            maker.centerX.equalToSuperview()
-            maker.centerY.equalToSuperview().multipliedBy(0.1)
-        }
 
-        UIView.animate(withDuration: 0.4) {
-            self.ballImageView?.snp.remakeConstraints({ (maker) in
-                maker.width.equalTo(self).multipliedBy(0.8)
-                maker.height.equalTo(self.ballImageView.snp.width)
-                maker.centerX.equalToSuperview()
-                maker.centerY.equalToSuperview().multipliedBy(0.7)
-            })
-            self.ballImageView.superview?.layoutIfNeeded()
-        }
+        UIView.animate(withDuration: 0.7,
+                       delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0.8,
+                       options: .curveEaseOut,
+                       animations: { [unowned self] in
+                        self.ballImageView?.snp.makeConstraints { maker in
+                            maker.width.equalTo(self).multipliedBy(0.8)
+                            maker.height.equalTo(self.ballImageView.snp.width)
+                            maker.centerX.equalToSuperview()
+                            maker.centerY.equalToSuperview().multipliedBy(0.7)
+                        }
+                        self.ballImageView.superview?.layoutIfNeeded()
+        })
+
     }
 
-    private func makeAnswerLabel() {
-        answerLabel = UILabel()
+    private func createAnswerLabel() {
+        answerLabel = BallerLabel(fontSize: GlobalFont.Size.answerLabel)
         answerLabel.numberOfLines = 0
         answerLabel.textColor = .white
 
-        answerLabel.font = FontFamily.Futura.condensedMedium.font(size: 28)
-        ballImageView.addSubview(answerLabel)
+        addSubview(answerLabel)
 
         answerLabel?.snp.makeConstraints { maker in
-            maker.center.equalToSuperview()
+            maker.center.equalTo(ballImageView)
         }
     }
 
-    private func makeStatusLabel() {
-        statusLabel = UILabel()
-        statusLabel.text = "Shake"
-
-        if #available(iOS 13.0, *) {
-            statusLabel.textColor = .label
-        } else {
-            statusLabel.textColor = .red
-        }
-
-        statusLabel.font = FontFamily.Futura.condensedMedium.font(size: Constants.statusLabelFontSize)
+    private func createStatusLabel() {
+        statusLabel = BallerLabel(text: L10n.Labels.statusLabel, fontSize: GlobalFont.Size.statusLabel)
         self.addSubview(statusLabel)
 
         statusLabel?.snp.makeConstraints { maker in
@@ -120,12 +110,13 @@ extension BallView {
         }
     }
 
-    private func makeActivityIndicator() {
+    private func createActivityIndicator() {
         activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+
         if #available(iOS 13.0, *) {
             activityIndicator.color = .secondaryLabel
         } else {
-            activityIndicator.color = .black
+            activityIndicator.color = .white
         }
         self.addSubview(activityIndicator)
 
@@ -134,11 +125,5 @@ extension BallView {
             maker.centerX.equalTo(self.snp.centerX)
         }
     }
-
-}
-
-enum Constants {
-
-    static let statusLabelFontSize: CGFloat = 37
 
 }
