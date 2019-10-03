@@ -16,6 +16,22 @@ class BallView: UIView {
     var statusLabel: UILabel!
     var activityIndicator: UIActivityIndicatorView!
 
+    private var interactionIsInProcess: Bool = false {
+        didSet {
+            if interactionIsInProcess {
+                setLabelsVisibility(to: false)
+                activityIndicator.startAnimating()
+                ballImageView.roll()
+            } else {
+                setLabelsVisibility(to: true)
+                activityIndicator.stopAnimating()
+                ballImageView.shake()
+            }
+        }
+    }
+
+    // MARK: - Initialization:
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -36,34 +52,33 @@ class BallView: UIView {
         fatalError(L10n.FatalErrors.initCoder)
     }
 
-    func setAnimationEnabled(_ enabled: Bool) {
-        DispatchQueue.main.async {
-            enabled ? self.activityIndicator?.startAnimating() : self.activityIndicator?.stopAnimating()
-        }
+    // MARK: - Public:
+
+    func startInteraction() {
+        interactionIsInProcess = true
     }
 
-    func updateAnswerLabel(with answer: String) {
-        DispatchQueue.main.async {
-            self.setLabelsVisibility(to: false)
-            self.statusLabel?.alpha = 0
-            self.answerLabel?.alpha = 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                UIView.animate(withDuration: 1, animations: {
-                    self.statusLabel?.alpha = 1
-                    self.answerLabel?.alpha = 0
-                })
-            })
-            self.answerLabel?.fadeTransition(withDuration: 1)
-            self.answerLabel?.text = answer
-        }
-
+    func stopInteraction() {
+        interactionIsInProcess = false
     }
 
-    func setLabelsVisibility(to isHidden: Bool) {
-        self.answerLabel?.isHidden = isHidden
-        self.statusLabel?.isHidden = isHidden
+    func updateTextLabel(with text: String) {
+        self.answerLabel?.text = text
+    }
+
+    // MARK: - Private:
+
+    private func setLabelsVisibility(to visible: Bool) {
+
+        UIView.animate(withDuration: 0.3, animations: {
+            self.answerLabel?.alpha = visible ? 1 : 0
+            self.statusLabel?.alpha = visible ? 1 : 0
+        })
+
     }
 }
+
+// MARK: - Subview Creation:
 
 extension BallView {
 
@@ -93,10 +108,12 @@ extension BallView {
         answerLabel.numberOfLines = 0
         answerLabel.textColor = .white
 
-        addSubview(answerLabel)
+        ballImageView.addSubview(answerLabel)
 
         answerLabel?.snp.makeConstraints { maker in
             maker.center.equalTo(ballImageView)
+            maker.height.equalTo(self).multipliedBy(0.3)
+            maker.width.equalTo(self).multipliedBy(0.8)
         }
     }
 
@@ -118,6 +135,7 @@ extension BallView {
         } else {
             activityIndicator.color = .white
         }
+
         self.addSubview(activityIndicator)
 
         activityIndicator?.snp.makeConstraints { maker in

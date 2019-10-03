@@ -15,11 +15,14 @@ class BallerLabel: UILabel {
 
         self.text = text
         font = GlobalFont.standard(withSize: fontSize)
+        textAlignment = .center
+        adjustsFontSizeToFitWidth = true
+        allowsDefaultTighteningForTruncation = true
 
         if #available(iOS 13.0, *) {
             textColor = .label
         } else {
-            textColor = .white
+            textColor = .black
         }
 
     }

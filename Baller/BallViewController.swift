@@ -47,10 +47,6 @@ final class BallViewController: UIViewController {
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-
-        ballView.ballImageView?.shake()
-        ballView.setLabelsVisibility(to: true)
-
         viewModel.shakeDetected()
     }
 
@@ -71,12 +67,21 @@ extension BallViewController {
 
     private func setUpObservationClosures() {
 
-        viewModel.shouldAnimateLoadingStateHandler = { [unowned self] shouldAnimate in
-            self.ballView.setAnimationEnabled(shouldAnimate)
+        viewModel.requestInProgressHandler = { [unowned self] isInProgress in
+            if isInProgress {
+                DispatchQueue.main.async {
+                    self.ballView.startInteraction()
+                }
+            }
         }
 
         viewModel.answerReceivedHandler = { [unowned self] answer in
-            self.ballView.updateAnswerLabel(with: answer.title)
+
+            DispatchQueue.main.async {
+                self.ballView.updateTextLabel(with: answer.title)
+                self.ballView.stopInteraction()
+            }
+
         }
     }
 

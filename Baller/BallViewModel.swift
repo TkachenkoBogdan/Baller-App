@@ -18,9 +18,9 @@ final class BallViewModel {
 
     // MARK: - Observation closures:
 
-    var shouldAnimateLoadingStateHandler: ((Bool) -> Void)? {
+    var requestInProgressHandler: ((Bool) -> Void)? {
         didSet {
-            ballModel.isLoadingDataStateHandler = shouldAnimateLoadingStateHandler
+            ballModel.isLoadingDataStateHandler = requestInProgressHandler
         }
     }
 

@@ -9,6 +9,9 @@
 import UIKit
 
 enum Constants {
+
+    static let answerLabelFadeDuration: Double = 0.2
+    static let statusLabelFadeDuration: Double = 1
 }
 
 enum GlobalFont {
