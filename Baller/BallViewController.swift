@@ -61,7 +61,7 @@ final class BallViewController: UIViewController {
 
 }
 
-// MARK: - Helpers:
+// MARK: - Private:
 
 extension BallViewController {
 

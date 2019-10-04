@@ -20,7 +20,7 @@ final class BallModel {
                 case .success(let answer):
                     completion(answer)
                 case .failure:
-                    preconditionFailure("Failed to provide local answer")
+                    preconditionFailure(L10n.FatalErrors.noLocadAnswer)
                 }
         }
 

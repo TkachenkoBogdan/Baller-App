@@ -17,24 +17,15 @@ final class AnswerCell: UITableViewCell {
     }()
 
     private var dateLabel: UILabel = {
-        return BallerLabel(fontSize: GlobalFont.Size.dateLabel)
+        return BallerLabel(fontSize: AppFont.Size.dateLabel)
     }()
+
+    // MARK: - Initialization:
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        contentView.addSubview(answerLabel)
-        answerLabel.snp.makeConstraints { maker in
-            maker.edges.equalToSuperview().inset(20)
-        }
-
-        contentView.addSubview(dateLabel)
-        dateLabel.snp.makeConstraints { maker in
-            maker.top.equalTo(answerLabel.snp.bottom).inset(10)
-            maker.trailing.equalToSuperview().inset(10)
-            maker.bottom.equalToSuperview().inset(10)
-        }
-
+        setUpSubviews()
     }
 
     required init?(coder: NSCoder) {
@@ -48,8 +39,24 @@ final class AnswerCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+
         self.answerLabel.text = ""
         self.dateLabel.text = ""
     }
 
+    // MARK: - Private:
+
+    private func setUpSubviews() {
+        contentView.addSubview(answerLabel)
+        answerLabel.snp.makeConstraints { maker in
+            maker.edges.equalToSuperview().inset(20)
+        }
+
+        contentView.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints { maker in
+            maker.top.equalTo(answerLabel.snp.bottom).inset(10)
+            maker.trailing.equalToSuperview().inset(10)
+            maker.bottom.equalToSuperview().inset(10)
+        }
+    }
 }

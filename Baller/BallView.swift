@@ -11,10 +11,12 @@ import SnapKit
 
 class BallView: UIView {
 
-    var ballImageView: UIImageView!
-    var answerLabel: UILabel!
-    var statusLabel: UILabel!
-    var activityIndicator: UIActivityIndicatorView!
+    // MARK: - Properties:
+
+    private var ballImageView: UIImageView!
+    private var answerLabel: UILabel!
+    private var statusLabel: UILabel!
+    private var activityIndicator: UIActivityIndicatorView!
 
     private var interactionIsInProcess: Bool = false {
         didSet {
@@ -25,7 +27,6 @@ class BallView: UIView {
             } else {
                 setLabelsVisibility(to: true)
                 activityIndicator.stopAnimating()
-                ballImageView.shake()
             }
         }
     }
@@ -46,6 +47,7 @@ class BallView: UIView {
         createStatusLabel()
         createActivityIndicator()
 
+        rollBallToScreen()
     }
 
     required init?(coder: NSCoder) {
@@ -76,36 +78,35 @@ class BallView: UIView {
         })
 
     }
+
+    private func rollBallToScreen() {
+        ballImageView.roll(withIntensity: 800)
+    }
+
 }
 
-// MARK: - Subview Creation:
+// MARK: - Subviews Creation:
 
 extension BallView {
 
     private func createBallImageView() {
+
         ballImageView = UIImageView(image: Asset._8ball.image)
+        ballImageView.layer.addShadow(color: AppColor.globalTint,
+                                      opacity: 0.8,
+                                      radius: 30)
         self.addSubview(ballImageView)
 
-        UIView.animate(withDuration: 0.7,
-                       delay: 0,
-                       usingSpringWithDamping: 0.8,
-                       initialSpringVelocity: 0.8,
-                       options: .curveEaseOut,
-                       animations: { [unowned self] in
-                        self.ballImageView?.snp.makeConstraints { maker in
-                            maker.width.equalTo(self).multipliedBy(0.8)
-                            maker.height.equalTo(self.ballImageView.snp.width)
-                            maker.centerX.equalToSuperview()
-                            maker.centerY.equalToSuperview().multipliedBy(0.7)
-                        }
-                        self.ballImageView.superview?.layoutIfNeeded()
-        })
-
+        self.ballImageView?.snp.makeConstraints { maker in
+            maker.width.equalTo(self).multipliedBy(0.8)
+            maker.height.equalTo(self.ballImageView.snp.width)
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalToSuperview().multipliedBy(0.7)
+        }
     }
 
     private func createAnswerLabel() {
-        answerLabel = BallerLabel(fontSize: GlobalFont.Size.answerLabel)
-        answerLabel.numberOfLines = 0
+        answerLabel = BallerLabel(fontSize: AppFont.Size.answerLabel)
         answerLabel.textColor = .white
 
         ballImageView.addSubview(answerLabel)
@@ -118,7 +119,7 @@ extension BallView {
     }
 
     private func createStatusLabel() {
-        statusLabel = BallerLabel(text: L10n.Labels.statusLabel, fontSize: GlobalFont.Size.statusLabel)
+        statusLabel = BallerLabel(text: L10n.Labels.statusLabel, fontSize: AppFont.Size.statusLabel)
         self.addSubview(statusLabel)
 
         statusLabel?.snp.makeConstraints { maker in

@@ -10,11 +10,15 @@ import UIKit
 
 enum Constants {
 
-    static let answerLabelFadeDuration: Double = 0.2
-    static let statusLabelFadeDuration: Double = 1
 }
 
-enum GlobalFont {
+enum AppColor {
+
+    static let globalTint = ColorName.customRed.color
+
+}
+
+enum AppFont {
 
     static func standard(withSize size: CGFloat = Size.default) -> UIFont {
         return FontFamily.Futura.condensedMedium.font(size: size)

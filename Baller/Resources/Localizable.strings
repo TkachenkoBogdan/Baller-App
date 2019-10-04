@@ -9,3 +9,4 @@
 "Labels.statusLabel" = "Shake";
 
 "FatalErrors.init(coder:)" = "Object must not be initialized from xib/storyboard";
+"FatalErrors.noLocadAnswer" = "Failed to provide local answer";

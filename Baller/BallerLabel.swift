@@ -10,11 +10,14 @@ import UIKit
 
 class BallerLabel: UILabel {
 
-    convenience init(text: String? = nil, fontSize: CGFloat = GlobalFont.Size.default) {
+    convenience init(text: String? = nil,
+                     numberOfLines: Int = 0,
+                     fontSize: CGFloat = AppFont.Size.default) {
         self.init()
 
         self.text = text
-        font = GlobalFont.standard(withSize: fontSize)
+        self.numberOfLines = numberOfLines
+        font = AppFont.standard(withSize: fontSize)
         textAlignment = .center
         adjustsFontSizeToFitWidth = true
         allowsDefaultTighteningForTruncation = true

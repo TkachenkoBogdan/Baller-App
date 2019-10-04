@@ -15,6 +15,8 @@ internal enum L10n {
   internal enum FatalErrors {
     /// Object must not be initialized from xib/storyboard
     internal static let initCoder = L10n.tr("Localizable", "FatalErrors.init(coder:)")
+    /// Failed to provide local answer
+    internal static let noLocadAnswer = L10n.tr("Localizable", "FatalErrors.noLocadAnswer")
   }
 
   internal enum Filenames {
