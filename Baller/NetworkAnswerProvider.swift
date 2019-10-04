@@ -11,17 +11,24 @@ import Alamofire
 
 /// A concrete provider that fetches answers online.
 
-struct NetworkAnswerProvider: AnswerProvider {
+class NetworkAnswerProvider: AnswerProvider {
 
     private let endpoint = "https://8ball.delegator.com/magic/JSON/whatislove?"
 
+    private lazy var reachability = NetworkReachabilityManager(host: endpoint)
+
+    enum NetworkProviderError: Error { case failedToRetrieveAnswer }
+
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
-        guard let url = URL(string: endpoint) else { return }
 
-        let request = URLRequest(url: url, timeoutInterval: 2.5)
+        guard let reachability = reachability, reachability.isReachable,
+            let url = URL(string: endpoint) else {
+                completionHandler(Result.failure(NetworkProviderError.failedToRetrieveAnswer))
+                return
+        }
 
+        let request = URLRequest(url: url)
         URLSession.shared.dataTask(with: request) { (data, _, error) in
-
             if let data = data, error == nil,
                 let answer = try? JSONDecoder().decode(SerializableAnswer.self, from: data) {
                 completionHandler(Result.success(answer.toAnswer()))
@@ -30,4 +37,5 @@ struct NetworkAnswerProvider: AnswerProvider {
             }
         }.resume()
     }
+
 }
