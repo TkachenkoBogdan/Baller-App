@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BallerLabel: UILabel {
+final class BallerLabel: UILabel {
 
     convenience init(text: String? = nil,
                      numberOfLines: Int = 0,

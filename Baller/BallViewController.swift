@@ -16,6 +16,8 @@ final class BallViewController: UIViewController {
 
     private lazy var ballView: BallView = BallView()
 
+    // MARK: - Initialization:
+
     init(viewModel: BallViewModel, factory: AnswersListViewControllerFactory ) {
         self.viewModel = viewModel
         self.factory = factory
@@ -54,7 +56,7 @@ final class BallViewController: UIViewController {
         return true
     }
 
-    @IBAction func optionsPressed(_ sender: Any) {
+    @objc private func optionsPressed(_ sender: Any) {
         let answersVC = factory.makeAnswersListController()
         show(answersVC, sender: nil)
     }

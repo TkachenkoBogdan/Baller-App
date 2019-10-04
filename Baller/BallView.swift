@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class BallView: UIView {
+final class BallView: UIView {
 
     // MARK: - Properties:
 

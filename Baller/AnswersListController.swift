@@ -12,38 +12,49 @@ final class AnswersListController: UITableViewController {
 
     var viewModel: AnswersListViewModel
 
+    // MARK: - Initialization:
+
     init(viewModel: AnswersListViewModel) {
         self.viewModel = viewModel
         super.init(style: .plain)
-
-        navigationItem.prompt = L10n.Prompts.additionInfo
-        navigationItem.title = L10n.Titles.answerList
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self, action: #selector(addButtonPressed(_:)))
     }
 
     required init?(coder: NSCoder) {
         fatalError(L10n.FatalErrors.initCoder)
     }
 
+    // MARK: - Lifecycle:
+
     override func viewDidLoad() {
+
+        setUpNavigationItem()
+        configureTableView()
+    }
+
+    // MARK: - Private:
+
+    private func setUpNavigationItem() {
+        navigationItem.prompt = L10n.Prompts.additionInfo
+        navigationItem.title = L10n.Titles.answerList
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self, action: #selector(addButtonPressed(_:)))
+    }
+
+    private func configureTableView() {
         tableView.register(AnswerCell.self)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         tableView.allowsSelection = false
-
     }
 
-    @IBAction private func addButtonPressed(_ sender: Any) {
-
+    @objc private func addButtonPressed(_ sender: Any) {
+        
         presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (answerString) in
             guard let `self` = self else { return }
 
             self.viewModel.appendAnswer(withTitle: answerString)
-
             self.tableView.reloadData()
         }
-
     }
 
 }
