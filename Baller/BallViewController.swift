@@ -81,6 +81,7 @@ extension BallViewController {
 
             DispatchQueue.main.async {
                 self.ballView.updateTextLabel(with: answer.title)
+                self.ballView.updateShadow(with: answer.semanticColor)
                 self.ballView.stopInteraction()
             }
 

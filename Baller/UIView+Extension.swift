@@ -10,23 +10,6 @@ import UIKit
 
 extension UIView {
 
-    func roll(withIntensity intensity: CGFloat = 100) {
-
-        let rotationRange = CGFloat.random(in: (CGFloat.pi/1.5)...CGFloat.pi)
-
-        self.transform = CGAffineTransform(rotationAngle: rotationRange)
-            .scaledBy(x: 0.5, y: 0.5)
-            .translatedBy(x: CGFloat.random(in: -intensity...intensity),
-                          y: CGFloat.random(in: -intensity...intensity))
-
-        UIView.animate(withDuration: 3.5, delay: 0, usingSpringWithDamping: 0.2,
-                       initialSpringVelocity: 2,
-                       options: [.curveEaseInOut],
-                       animations: {
-                        self.transform = CGAffineTransform.identity
-        }, completion: nil)
-    }
-
     func pushTransition(_ duration: CFTimeInterval) {
         let animation: CATransition = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name:
@@ -37,4 +20,23 @@ extension UIView {
         layer.add(animation, forKey: CATransitionType.push.rawValue)
     }
 
+    func flutter(withIntensity intensity: CGFloat = 10) {
+        self.transform = CGAffineTransform(translationX: intensity, y: 0)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.05,
+                       initialSpringVelocity: 10,
+                       options: [.curveEaseInOut],
+                       animations: {
+                        self.transform = CGAffineTransform.identity
+        })
+    }
+
+    func shrink() {
+        self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.3,
+                       initialSpringVelocity: 2,
+                       options: [.curveEaseInOut],
+                       animations: {
+                        self.transform = CGAffineTransform.identity
+        })
+    }
 }

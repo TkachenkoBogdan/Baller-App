@@ -13,15 +13,18 @@ struct SerializableAnswer: Codable {
     enum CodingKeys: String, CodingKey {
         case containerDictionary  = "magic"
         case title = "answer"
+        case type
         case dateReceived
     }
 
     let title: String
     let dateReceived: Date
+    let type: String
 
-    init(title: String, date: Date = Date()) {
+    init(title: String, date: Date = Date(), type: String = "Neutral") {
         self.title = title
         self.dateReceived = date
+        self.type = type
     }
 
     init(from decoder: Decoder) throws {
@@ -29,6 +32,7 @@ struct SerializableAnswer: Codable {
         let dictionary = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .containerDictionary)
         self.title = try dictionary.decode(String.self, forKey: .title)
         self.dateReceived = (try? dictionary.decode(Date.self, forKey: .dateReceived)) ?? Date()
+        self.type = try dictionary.decode(String.self, forKey: .type)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -36,11 +40,14 @@ struct SerializableAnswer: Codable {
         var dictionary = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .containerDictionary)
         try dictionary.encode(self.title, forKey: .title)
         try dictionary.encode(self.dateReceived, forKey: .dateReceived)
+        try dictionary.encode(self.type, forKey: .type)
     }
 }
 
 extension SerializableAnswer {
     func toAnswer() -> Answer {
-        return Answer(title: title, date: dateReceived)
+        return Answer(title: title,
+                      date: dateReceived,
+                      type: AnswerType(rawValue: type) ?? AnswerType.neutral)
     }
 }

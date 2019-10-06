@@ -19,6 +19,7 @@
 		BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */; };
 		BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */; };
 		BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* SerializableAnswer.swift */; };
+		BD90C09D234A0A690098C1AC /* BallImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD90C09C234A0A690098C1AC /* BallImageView.swift */; };
 		BD932ABF23459F5E00E79028 /* BallerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD932ABE23459F5E00E79028 /* BallerLabel.swift */; };
 		BD932AC12345A5A400E79028 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD932AC02345A5A400E79028 /* ReusableView.swift */; };
 		BDA0E4CE233BAFDD00403703 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0E4CD233BAFDD00403703 /* colors.swift */; };
@@ -64,6 +65,7 @@
 		BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD8C3A67231011A700F8D896 /* SerializableAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializableAnswer.swift; sourceTree = "<group>"; };
+		BD90C09C234A0A690098C1AC /* BallImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallImageView.swift; sourceTree = "<group>"; };
 		BD932ABE23459F5E00E79028 /* BallerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallerLabel.swift; sourceTree = "<group>"; };
 		BD932AC02345A5A400E79028 /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		BDA0E4CD233BAFDD00403703 /* colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				BDEA0EC223432D0300B85355 /* BallView.swift */,
+				BD90C09C234A0A690098C1AC /* BallImageView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */,
 				BD5C3F2623391F380026F1B8 /* strings.swift in Sources */,
 				BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */,
+				BD90C09D234A0A690098C1AC /* BallImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,7 @@ final class BallView: UIView {
 
     // MARK: - Properties:
 
-    private var ballImageView: UIImageView!
+    private var ballImageView: BallImageView!
     private var answerLabel: UILabel!
     private var statusLabel: UILabel!
 
@@ -46,7 +46,7 @@ final class BallView: UIView {
         createActivityIndicator()
         createCountLabel()
 
-        rollBallToScreen()
+        ballImageView.rollToScreen(withDuration: 4)
     }
 
     required init?(coder: NSCoder) {
@@ -67,6 +67,10 @@ final class BallView: UIView {
         answerLabel?.text = text
     }
 
+    func updateShadow(with color: UIColor) {
+        ballImageView.updateShadowColor(with: color)
+    }
+
     func updateCountLabel(with count: Int) {
         countLabel.pushTransition(0.3)
         countLabel.text = String(count)
@@ -80,7 +84,6 @@ final class BallView: UIView {
             self.answerLabel?.alpha = visible ? 1 : 0
             self.statusLabel?.alpha = visible ? 1 : 0
         })
-
     }
 
     private func setDarkSemanticBackground() {
@@ -91,10 +94,6 @@ final class BallView: UIView {
         }
     }
 
-    private func rollBallToScreen() {
-        ballImageView.roll(withIntensity: 800)
-    }
-
 }
 
 // MARK: - Subviews Creation:
@@ -103,10 +102,8 @@ extension BallView {
 
     private func createBallImageView() {
 
-        ballImageView = UIImageView(image: Asset._8ball.image)
-        ballImageView.layer.addShadow(color: AppColor.globalTint,
-                                      opacity: 0.8,
-                                      radius: 30)
+        ballImageView = BallImageView(image: Asset._8ball.image)
+
         self.addSubview(ballImageView)
 
         self.ballImageView?.snp.makeConstraints { maker in
