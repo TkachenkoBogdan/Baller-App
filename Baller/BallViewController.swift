@@ -85,6 +85,12 @@ extension BallViewController {
             }
 
         }
+
+        viewModel.countUpdatedHandler = { count in
+            DispatchQueue.main.async {
+                self.ballView.updateCountLabel(with: count)
+            }
+        }
     }
 
 }

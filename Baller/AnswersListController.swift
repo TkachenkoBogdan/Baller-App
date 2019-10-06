@@ -48,7 +48,7 @@ final class AnswersListController: UITableViewController {
     }
 
     @objc private func addButtonPressed(_ sender: Any) {
-        
+
         presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (answerString) in
             guard let `self` = self else { return }
 

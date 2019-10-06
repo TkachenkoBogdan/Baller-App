@@ -23,7 +23,9 @@ final class DependencyContainer {
                       offlineProvider: DatabaseAnswerProvider(store: answerStore))
 
     private lazy var answerStore: AnswerStore = AnswerJSONStorage(storageManager: storage)
+
     private lazy var storage: FileDataManageable = FileDataManager()
+    private lazy var secureStorage: SecureStoring = SecureStorage()
 
 }
 
@@ -31,7 +33,7 @@ extension DependencyContainer: ViewControllerFactory {
 
     func makeBallViewController() -> BallViewController {
 
-        let ballModel = BallModel(provider: answerService)
+        let ballModel = BallModel(provider: answerService, secureStorage: secureStorage)
         let ballViewModel = BallViewModel(model: ballModel)
 
         let mainController = BallViewController(viewModel: ballViewModel,

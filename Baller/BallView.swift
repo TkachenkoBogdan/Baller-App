@@ -16,7 +16,9 @@ final class BallView: UIView {
     private var ballImageView: UIImageView!
     private var answerLabel: UILabel!
     private var statusLabel: UILabel!
+
     private var activityIndicator: UIActivityIndicatorView!
+    private var countLabel: UILabel!
 
     private var interactionIsInProcess: Bool = false {
         didSet {
@@ -36,16 +38,13 @@ final class BallView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        if #available(iOS 13.0, *) {
-            backgroundColor = .tertiarySystemBackground
-        } else {
-            backgroundColor = .darkGray
-        }
+        setDarkSemanticBackground()
 
         createBallImageView()
         createAnswerLabel()
         createStatusLabel()
         createActivityIndicator()
+        createCountLabel()
 
         rollBallToScreen()
     }
@@ -65,7 +64,12 @@ final class BallView: UIView {
     }
 
     func updateTextLabel(with text: String) {
-        self.answerLabel?.text = text
+        answerLabel?.text = text
+    }
+
+    func updateCountLabel(with count: Int) {
+        countLabel.pushTransition(0.3)
+        countLabel.text = String(count)
     }
 
     // MARK: - Private:
@@ -77,6 +81,14 @@ final class BallView: UIView {
             self.statusLabel?.alpha = visible ? 1 : 0
         })
 
+    }
+
+    private func setDarkSemanticBackground() {
+        if #available(iOS 13.0, *) {
+            backgroundColor = .tertiarySystemBackground
+        } else {
+            backgroundColor = .darkGray
+        }
     }
 
     private func rollBallToScreen() {
@@ -144,5 +156,17 @@ extension BallView {
             maker.centerX.equalTo(self.snp.centerX)
         }
     }
+
+    private func createCountLabel() {
+        countLabel = BallerLabel(text: "",
+                                 numberOfLines: 1,
+                                 fontSize: AppFont.Size.statusLabel)
+           self.addSubview(countLabel)
+
+           countLabel?.snp.makeConstraints { maker in
+               maker.centerX.equalToSuperview()
+            maker.bottom.equalToSuperview().inset(20)
+           }
+       }
 
 }

@@ -24,6 +24,12 @@ final class BallViewModel {
         }
     }
 
+    var countUpdatedHandler: ((Int) -> Void)? {
+        didSet {
+            ballModel.countUpdatedHandler = countUpdatedHandler
+        }
+    }
+
     var answerReceivedHandler: ((PresentableAnswer) -> Void)?
 
     func shakeDetected() {

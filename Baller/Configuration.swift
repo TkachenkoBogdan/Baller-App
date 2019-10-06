@@ -8,14 +8,14 @@
 
 import UIKit
 
-enum Constants {
+enum AppConstants {
 
+     static let shakeAttempts = "numberOfShakeAttmepts"
 }
 
 enum AppColor {
 
     static let globalTint = ColorName.customRed.color
-
 }
 
 enum AppFont {

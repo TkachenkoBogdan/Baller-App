@@ -15,6 +15,7 @@
 		BD5C3F2623391F380026F1B8 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C3F2423391F380026F1B8 /* strings.swift */; };
 		BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C3F2523391F380026F1B8 /* assets-images.swift */; };
 		BD60A8DD2345C63E0045AF7F /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60A8DC2345C63E0045AF7F /* Configuration.swift */; };
+		BD779EF52347757C00685688 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD779EF42347757C00685688 /* SecureStorage.swift */; };
 		BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */; };
 		BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */; };
 		BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C3A67231011A700F8D896 /* SerializableAnswer.swift */; };
@@ -58,6 +59,7 @@
 		BD5C3F2423391F380026F1B8 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
 		BD5C3F2523391F380026F1B8 /* assets-images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "assets-images.swift"; sourceTree = "<group>"; };
 		BD60A8DC2345C63E0045AF7F /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		BD779EF42347757C00685688 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		BD8B4145231034AD001A3698 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = .swiftlint.yml; path = ../.swiftlint.yml; sourceTree = "<group>"; };
 		BD8C3A5D23100BFD00F8D896 /* AnswerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -131,6 +133,14 @@
 				BDAD4821233F4E9C00782B74 /* Futura.ttc */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		BD779EF32347756800685688 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				BD779EF42347757C00685688 /* SecureStorage.swift */,
+			);
+			name = Keychain;
 			sourceTree = "<group>";
 		};
 		BD8C3A642310100400F8D896 /* Database */ = {
@@ -249,6 +259,7 @@
 		BDE1BF65233E19C600AFAD63 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BD779EF32347756800685688 /* Keychain */,
 				BDDAFFE823101705002B3BEF /* Answer */,
 				BD8C3A642310100400F8D896 /* Database */,
 			);
@@ -494,6 +505,7 @@
 				BDDAFFFC23102313002B3BEF /* UIView+Extension.swift in Sources */,
 				BDE1BF55233DD24100AFAD63 /* AnswersListViewModel.swift in Sources */,
 				BD932AC12345A5A400E79028 /* ReusableView.swift in Sources */,
+				BD779EF52347757C00685688 /* SecureStorage.swift in Sources */,
 				BDE1BF67233E1CB600AFAD63 /* BallModel.swift in Sources */,
 				BDDAFFFD23102315002B3BEF /* UserInputAlert.swift in Sources */,
 				BDAD4820233F487400782B74 /* PresentableAnswer.swift in Sources */,
