@@ -21,17 +21,18 @@ enum AppColor {
 
 enum AppFont {
 
-    static func standard(withSize size: CGFloat = Size.default) -> UIFont {
+    static func standard(withSize size: CGFloat) -> UIFont {
         return FontFamily.Futura.condensedMedium.font(size: size)
     }
 
     enum Size {
 
-        static let `default`: CGFloat = 17
+        static let `default`: CGFloat = 14
 
         static let statusLabel: CGFloat = 37
         static let answerLabel: CGFloat = 28
 
-        static let dateLabel: CGFloat = 12
+        static let cellAnswerLabel: CGFloat = 15
+        static let cellDateLabel: CGFloat = 12
     }
 }

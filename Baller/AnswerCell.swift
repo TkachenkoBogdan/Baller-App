@@ -11,13 +11,13 @@ import UIKit
 final class AnswerCell: UITableViewCell {
 
     private var answerLabel: UILabel = {
-        let answerLabel = BallerLabel()
-        answerLabel.numberOfLines = 0
+        let answerLabel = BallerLabel(fontSize: AppFont.Size.cellAnswerLabel)
+        answerLabel.textAlignment = .left
         return answerLabel
     }()
 
     private var dateLabel: UILabel = {
-        return BallerLabel(fontSize: AppFont.Size.dateLabel)
+        return BallerLabel(fontSize: AppFont.Size.cellDateLabel)
     }()
 
     // MARK: - Initialization:
