@@ -21,6 +21,7 @@ final class BallView: UIView {
     private var countLabel: UILabel!
 
     private var interactionIsInProcess: Bool = false {
+
         didSet {
             if interactionIsInProcess {
                 setLabelsVisibility(to: false)
@@ -46,7 +47,7 @@ final class BallView: UIView {
         createActivityIndicator()
         createCountLabel()
 
-        ballImageView.rollToScreen(withDuration: 4)
+        ballImageView.rollToScreen()
     }
 
     required init?(coder: NSCoder) {
@@ -96,7 +97,7 @@ final class BallView: UIView {
 
 }
 
-// MARK: - Subviews Creation:
+// MARK: - Subviews Creation and Layout:
 
 extension BallView {
 
@@ -129,6 +130,7 @@ extension BallView {
 
     private func createStatusLabel() {
         statusLabel = BallerLabel(text: L10n.Labels.statusLabel, fontSize: AppFont.Size.statusLabel)
+
         self.addSubview(statusLabel)
 
         statusLabel?.snp.makeConstraints { maker in
@@ -162,7 +164,7 @@ extension BallView {
 
            countLabel?.snp.makeConstraints { maker in
                maker.centerX.equalToSuperview()
-            maker.bottom.equalToSuperview().inset(20)
+            maker.bottom.equalToSuperview().inset(25)
            }
        }
 

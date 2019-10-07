@@ -12,18 +12,12 @@ final class BallModel {
     init(provider: AnswerProvider, secureStorage: SecureStoring) {
         self.answerService = provider
         self.secureStorage = secureStorage
-        self.attemptsCount = setUpCount()
+        self.attemptsCount = setupAttemptsCount()
     }
 
     // MARK: - Properties:
 
-    var isLoadingDataStateHandler: ((Bool) -> Void)?
-
-    private var isLoadingData = false {
-        didSet {
-            isLoadingDataStateHandler?(isLoadingData)
-        }
-    }
+    private var attemptsCount: Int = 0
 
     var countUpdatedHandler: ((Int) -> Void)? {
         didSet {
@@ -31,13 +25,19 @@ final class BallModel {
         }
     }
 
-    private var attemptsCount: Int = 0
+    private var isLoadingData = false {
+        didSet {
+            isLoadingDataStateHandler?(isLoadingData)
+        }
+    }
+
+    var isLoadingDataStateHandler: ((Bool) -> Void)?
 
     // MARK: - Logic:
 
     func getAnswer(completion: @escaping(Answer) -> Void) {
         isLoadingData = true
-        incrementCountAttempts()
+        incrementAttemptsCount()
 
         self.answerService.getAnswer { (result) in
 
@@ -46,7 +46,7 @@ final class BallModel {
             case .success(let answer):
                 completion(answer)
             case .failure:
-                preconditionFailure(L10n.FatalErrors.noLocadAnswer)
+                preconditionFailure(L10n.FatalErrors.noLocalAnswer)
             }
         }
 
@@ -54,13 +54,13 @@ final class BallModel {
 
     // MARK: - Private:
 
-    private func incrementCountAttempts() {
+    private func incrementAttemptsCount() {
         attemptsCount += 1
         secureStorage.set(attemptsCount, forKey: AppConstants.shakeAttempts)
         countUpdatedHandler?(attemptsCount)
     }
 
-    private func setUpCount() -> Int {
+    private func setupAttemptsCount() -> Int {
         guard let count = secureStorage.value(forKey: AppConstants.shakeAttempts) else {
             secureStorage.set(0, forKey: AppConstants.shakeAttempts)
             return 0

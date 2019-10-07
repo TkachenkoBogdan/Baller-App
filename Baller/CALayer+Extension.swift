@@ -30,11 +30,11 @@ extension CALayer {
         shadowRadius = 0
     }
 
-    func updateShadowColor(with color: UIColor) {
+    func updateShadowColor(with color: UIColor, duration: CFTimeInterval = 1.5) {
         let animation = CABasicAnimation(keyPath: "shadowColor")
         animation.fromValue = self.shadowColor
         animation.toValue = color.cgColor
-        animation.duration = 1.5
+        animation.duration = duration
 
         add(animation, forKey: animation.keyPath)
         shadowColor = color.cgColor

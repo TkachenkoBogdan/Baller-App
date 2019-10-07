@@ -12,6 +12,8 @@ import SwiftKeychainWrapper
 protocol SecureStoring {
     func set(_ value: Int, forKey key: String)
     func value(forKey key: String) -> Int?
+
+    func removeObject(forKey key: String)
 }
 
 class SecureStorage: SecureStoring {
@@ -26,4 +28,7 @@ class SecureStorage: SecureStoring {
         return wrapper.integer(forKey: key)
     }
 
+    func removeObject(forKey key: String) {
+        wrapper.removeObject(forKey: key)
+    }
 }

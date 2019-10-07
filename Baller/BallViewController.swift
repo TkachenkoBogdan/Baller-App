@@ -77,6 +77,12 @@ extension BallViewController {
             }
         }
 
+        viewModel.countUpdatedHandler = { count in
+            DispatchQueue.main.async {
+                self.ballView.updateCountLabel(with: count)
+            }
+        }
+
         viewModel.answerReceivedHandler = { [unowned self] answer in
 
             DispatchQueue.main.async {
@@ -85,12 +91,6 @@ extension BallViewController {
                 self.ballView.stopInteraction()
             }
 
-        }
-
-        viewModel.countUpdatedHandler = { count in
-            DispatchQueue.main.async {
-                self.ballView.updateCountLabel(with: count)
-            }
         }
     }
 

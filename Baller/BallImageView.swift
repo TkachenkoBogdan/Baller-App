@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BallImageView: UIImageView {
+final class BallImageView: UIImageView {
 
     // MARK: - Init:
 
@@ -25,13 +25,8 @@ class BallImageView: UIImageView {
 
     // MARK: - Public Logic:
 
-    func rollToScreen(withDuration duration: TimeInterval) {
+    func rollToScreen() {
         roll(withIntensity: 800)
-    }
-
-    func updateShadowColor(with color: UIColor) {
-        layer.updateShadowColor(with: color)
-        shrink()
     }
 
     func roll(withIntensity intensity: CGFloat = 100, completion: ( () -> Void)? = nil) {
@@ -49,9 +44,13 @@ class BallImageView: UIImageView {
                        animations: {
                         self.transform = CGAffineTransform.identity
         }, completion: { _ in
-            self.updateShadowColor(with: AppColor.primeColor)
+            self.updateShadowColor(with: AppColor.primeColor, duration: 1)
         })
+    }
 
+    func updateShadowColor(with color: UIColor, duration: CFTimeInterval = 0.6) {
+        layer.updateShadowColor(with: color, duration: duration)
+        shrink()
     }
 
     // MARK: - Private Logic:

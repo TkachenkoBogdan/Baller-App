@@ -6,7 +6,9 @@ import UIKit
 
 //#1
 
-do {
+/// Deadlock with setting circular targets:
+
+func deadlockWithTwoQueues1() {
 
     let serialQueueA = DispatchQueue(label: "com.bogdantkachenko.queueA", qos: .default, attributes: .initiallyInactive)
     let serialQueueB = DispatchQueue(label: "com.bogdantkachenko.queueB", qos: .default, attributes: .initiallyInactive)
@@ -23,7 +25,9 @@ do {
 
 //#2
 
-do {
+/// Deadlock with a semaphore:
+
+func deadlockWithTwoQueues2() {
 
     var resource = 666
 
@@ -35,12 +39,12 @@ do {
     let item = DispatchWorkItem {
         semaphore.wait()
 
-        print(resource)
+        print("Read the number: \(resource)")
 
         serialQueueA.sync {
             semaphore.wait()
             resource += 1
-            print(resource)
+            print("Incremented the number: \(resource)")
             semaphore.signal()
         }
 
@@ -49,12 +53,10 @@ do {
     }
 
     concurrentQueueB.async(execute: item)
-
 }
 
  //Cancellation:
-
-do {
+func dispatchWorkItemCancellation() {
 
     let queue = DispatchQueue.global(qos: .background)
     var item: DispatchWorkItem!
@@ -74,5 +76,15 @@ do {
         item?.cancel()
         print("Item cancelled")
     }
-
 }
+
+// MARK: - Testing:
+
+
+//Deadlock:
+
+//deadlockWithTwoQueues1()
+//deadlockWithTwoQueues2()
+
+//Cancellation:
+dispatchWorkItemCancellation()

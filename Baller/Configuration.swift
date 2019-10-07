@@ -10,7 +10,7 @@ import UIKit
 
 enum AppConstants {
 
-     static let shakeAttempts = "numberOfShakeAttmepts"
+    static let shakeAttempts = L10n.numberOfShakeAttempts
 }
 
 enum AppColor {

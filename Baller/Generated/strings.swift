@@ -11,12 +11,25 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
+  /// numberOfShakeAttmepts
+  internal static let numberOfShakeAttempts = L10n.tr("Localizable", "numberOfShakeAttempts")
+
+  internal enum AnswerType {
+    /// Affirmative
+    internal static let affirmative = L10n.tr("Localizable", "AnswerType.affirmative")
+    /// Countrary
+    internal static let countrary = L10n.tr("Localizable", "AnswerType.countrary")
+    /// Neutral
+    internal static let neutral = L10n.tr("Localizable", "AnswerType.neutral")
+  }
 
   internal enum FatalErrors {
+    /// Could not dequeue cell with identifier: 
+    internal static let cannotDequeCell = L10n.tr("Localizable", "FatalErrors.cannotDequeCell")
     /// Object must not be initialized from xib/storyboard
     internal static let initCoder = L10n.tr("Localizable", "FatalErrors.init(coder:)")
     /// Failed to provide local answer
-    internal static let noLocadAnswer = L10n.tr("Localizable", "FatalErrors.noLocadAnswer")
+    internal static let noLocalAnswer = L10n.tr("Localizable", "FatalErrors.noLocalAnswer")
   }
 
   internal enum Filenames {

@@ -25,7 +25,6 @@ struct Answer {
         self.date = date
         self.type = type
     }
-
 }
 
 extension Answer {

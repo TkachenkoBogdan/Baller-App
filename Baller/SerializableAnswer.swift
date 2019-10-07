@@ -21,7 +21,7 @@ struct SerializableAnswer: Codable {
     let dateReceived: Date
     let type: String
 
-    init(title: String, date: Date = Date(), type: String = "Neutral") {
+    init(title: String, date: Date = Date(), type: String = L10n.AnswerType.neutral) {
         self.title = title
         self.dateReceived = date
         self.type = type

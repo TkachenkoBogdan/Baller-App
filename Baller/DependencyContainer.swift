@@ -26,7 +26,6 @@ final class DependencyContainer {
 
     private lazy var storage: FileDataManageable = FileDataManager()
     private lazy var secureStorage: SecureStoring = SecureStorage()
-
 }
 
 extension DependencyContainer: ViewControllerFactory {
@@ -50,5 +49,4 @@ extension DependencyContainer: ViewControllerFactory {
 
         return answersController
     }
-
 }
