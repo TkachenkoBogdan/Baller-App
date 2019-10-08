@@ -29,6 +29,10 @@ final class BallImageView: UIImageView {
         roll(withIntensity: 800)
     }
 
+    func appearWithAnimation() {
+        self.layer.animateOpacityChange(withDuration: 1)
+    }
+
     func roll(withIntensity intensity: CGFloat = 100, completion: ( () -> Void)? = nil) {
 
         let rotationRange = CGFloat.random(in: (CGFloat.pi/1.5)...CGFloat.pi)

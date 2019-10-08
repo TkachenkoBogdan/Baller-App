@@ -39,4 +39,19 @@ extension CALayer {
         add(animation, forKey: animation.keyPath)
         shadowColor = color.cgColor
     }
+
+    func animateOpacityChange(from fromValue: Int = 0,
+                              toValue: Int = 1,
+                              withDuration duration: CFTimeInterval) {
+
+        let animation = CABasicAnimation(keyPath: "opacity")
+
+             animation.fillMode = CAMediaTimingFillMode.both
+             animation.fromValue = 0
+             animation.toValue = 1
+             animation.duration = duration
+
+             add(animation, forKey: nil)
+    }
+
 }

@@ -12,10 +12,15 @@
 
 // System prompts:
 "Prompts.newAnswer" = "Provide an answer";
-"Prompts.additionInfo" = "Click on + to add an answer";
 
 //Titles and labels:
 "Titles.AnswerList" = "Defaults";
+
+"Labels.statusLabel" = "Shake";
+
+//TabBar item titles:
+"BarItemTitles._8ball" = "8Ball";
+"BarItemTitles.history" = "History";
 
 "Labels.statusLabel" = "Shake";
 

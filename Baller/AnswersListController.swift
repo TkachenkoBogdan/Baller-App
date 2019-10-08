@@ -33,18 +33,17 @@ final class AnswersListController: UITableViewController {
 
     // MARK: - Private:
 
+    private func configureTableView() {
+         tableView.register(AnswerCell.self)
+         tableView.rowHeight = UITableView.automaticDimension
+         tableView.estimatedRowHeight = 80
+         tableView.allowsSelection = false
+     }
+
     private func setUpNavigationItem() {
-        navigationItem.prompt = L10n.Prompts.additionInfo
         navigationItem.title = L10n.Titles.answerList
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self, action: #selector(addButtonPressed(_:)))
-    }
-
-    private func configureTableView() {
-        tableView.register(AnswerCell.self)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 80
-        tableView.allowsSelection = false
     }
 
     @objc private func addButtonPressed(_ sender: Any) {

@@ -23,6 +23,13 @@ internal enum L10n {
     internal static let neutral = L10n.tr("Localizable", "AnswerType.neutral")
   }
 
+  internal enum BarItemTitles {
+    /// 8Ball
+    internal static let _8ball = L10n.tr("Localizable", "BarItemTitles._8ball")
+    /// History
+    internal static let history = L10n.tr("Localizable", "BarItemTitles.history")
+  }
+
   internal enum FatalErrors {
     /// Could not dequeue cell with identifier: 
     internal static let cannotDequeCell = L10n.tr("Localizable", "FatalErrors.cannotDequeCell")

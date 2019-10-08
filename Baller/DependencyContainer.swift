@@ -49,6 +49,7 @@ extension DependencyContainer: ViewControllerFactory {
 
         let ballViewController = BallViewController(viewModel: ballViewModel)
         ballViewController.tabBarItem.image = Asset.ballImage.image
+        ballViewController.tabBarItem.title = L10n.BarItemTitles._8ball
 
         return ballViewController
     }
@@ -60,7 +61,7 @@ extension DependencyContainer: ViewControllerFactory {
 
         let answersController = AnswersListController(viewModel: answersListViewModel)
         answersController.tabBarItem.image = Asset.defaultAnswers.image
-
+        answersController.tabBarItem.title = L10n.BarItemTitles.history
         return answersController
     }
 }

@@ -13,7 +13,7 @@ final class BallView: UIView {
 
     // MARK: - Properties:
 
-    private var ballImageView: BallImageView!
+    private var eightBall: BallImageView!
     private var answerLabel: UILabel!
     private var statusLabel: UILabel!
 
@@ -27,7 +27,7 @@ final class BallView: UIView {
             if interactionIsInProcess {
                 setLabelsVisibility(to: false)
                 activityIndicator.startAnimating()
-                ballImageView.roll()
+                eightBall.roll()
             } else {
                 setLabelsVisibility(to: true)
                 activityIndicator.stopAnimating()
@@ -47,7 +47,6 @@ final class BallView: UIView {
         createStatusLabel()
         createActivityIndicator()
         createCountLabel()
-
     }
 
     required init?(coder: NSCoder) {
@@ -69,7 +68,7 @@ final class BallView: UIView {
     }
 
     func updateShadow(with color: UIColor) {
-        ballImageView.updateShadowColor(with: color)
+        eightBall.updateShadowColor(with: color)
     }
 
     func updateCountLabel(with count: Int) {
@@ -79,10 +78,10 @@ final class BallView: UIView {
 
     override func didMoveToWindow() {
         if !ballHasRolledToScreen {
-            ballImageView.rollToScreen()
+            eightBall.rollToScreen()
             ballHasRolledToScreen = true
-        } else {
-            ballImageView.flutter()
+        } else if window != nil {
+            eightBall.appearWithAnimation()
         }
     }
     // MARK: - Private:
@@ -111,13 +110,13 @@ extension BallView {
 
     private func createBallImageView() {
 
-        ballImageView = BallImageView(image: Asset._8ball.image)
+        eightBall = BallImageView(image: Asset._8ball.image)
 
-        self.addSubview(ballImageView)
+        self.addSubview(eightBall)
 
-        self.ballImageView?.snp.makeConstraints { maker in
+        self.eightBall?.snp.makeConstraints { maker in
             maker.width.equalTo(self).multipliedBy(0.8)
-            maker.height.equalTo(self.ballImageView.snp.width)
+            maker.height.equalTo(self.eightBall.snp.width)
             maker.centerX.equalToSuperview()
             maker.top.lessThanOrEqualTo(safeAreaLayoutGuide.snp.top).inset(50)
         }
@@ -127,10 +126,10 @@ extension BallView {
         answerLabel = BallerLabel(fontSize: AppFont.Size.answerLabel)
         answerLabel.textColor = .white
 
-        ballImageView.addSubview(answerLabel)
+        eightBall.addSubview(answerLabel)
 
         answerLabel?.snp.makeConstraints { maker in
-            maker.center.equalTo(ballImageView)
+            maker.center.equalTo(eightBall)
             maker.height.equalTo(self).multipliedBy(0.3)
             maker.width.equalTo(self).multipliedBy(0.8)
         }
@@ -143,7 +142,7 @@ extension BallView {
 
         statusLabel?.snp.makeConstraints { maker in
             maker.centerX.equalToSuperview()
-            maker.centerY.equalTo(ballImageView.snp.bottom).inset(-60)
+            maker.centerY.equalTo(eightBall.snp.bottom).inset(-60)
         }
     }
 
