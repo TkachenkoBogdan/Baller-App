@@ -80,6 +80,11 @@ extension AnswerJSONStorage: AnswerStore {
 
     func appendAnswer(_ answer: Answer) {
         self.answers.append(answer.toPersistableAnswer())
+
+        let realmAnswer = RealmAnswer.init(title: answer.title,
+                                           date: answer.date,
+                                           type: answer.type.rawValue)
+        RealmAnswer.add(answer: realmAnswer)
     }
 
     func removeAnswer(at index: Int) {
