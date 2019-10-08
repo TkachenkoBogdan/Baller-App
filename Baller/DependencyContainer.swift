@@ -6,6 +6,8 @@
 //  Copyright © 2019 Богдан Ткаченко. All rights reserved.
 //
 
+import UIKit
+
 protocol BallViewControllerFactory {
     func makeBallViewController() -> BallViewController
 }
@@ -30,14 +32,25 @@ final class DependencyContainer {
 
 extension DependencyContainer: ViewControllerFactory {
 
+    func makeRootRootViewController() -> UITabBarController {
+        let rootViewController = UITabBarController()
+
+        let firstTabController = UINavigationController(rootViewController: makeBallViewController())
+        let secondTabController = UINavigationController(rootViewController: (makeAnswersListController()))
+
+        rootViewController.viewControllers = [firstTabController, secondTabController]
+        return rootViewController
+    }
+
     func makeBallViewController() -> BallViewController {
 
         let ballModel = BallModel(provider: answerService, secureStorage: secureStorage)
         let ballViewModel = BallViewModel(model: ballModel)
 
-        let mainController = BallViewController(viewModel: ballViewModel,
-                                                factory: self as AnswersListViewControllerFactory)
-        return mainController
+        let ballViewController = BallViewController(viewModel: ballViewModel)
+        ballViewController.tabBarItem.image = Asset.ballImage.image
+
+        return ballViewController
     }
 
     func makeAnswersListController() -> AnswersListController {
@@ -46,6 +59,7 @@ extension DependencyContainer: ViewControllerFactory {
         let answersListViewModel = AnswersListViewModel(model: answersListModel)
 
         let answersController = AnswersListController(viewModel: answersListViewModel)
+        answersController.tabBarItem.image = Asset.defaultAnswers.image
 
         return answersController
     }

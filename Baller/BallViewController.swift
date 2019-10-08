@@ -11,16 +11,14 @@ import SnapKit
 
 final class BallViewController: UIViewController {
 
-    private var factory: AnswersListViewControllerFactory
     private var viewModel: BallViewModel
 
     private lazy var ballView: BallView = BallView()
 
     // MARK: - Initialization:
 
-    init(viewModel: BallViewModel, factory: AnswersListViewControllerFactory ) {
+    init(viewModel: BallViewModel) {
         self.viewModel = viewModel
-        self.factory = factory
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -38,11 +36,6 @@ final class BallViewController: UIViewController {
         super.viewDidLoad()
 
         setUpObservationClosures()
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Asset.defaultAnswers.image,
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(optionsPressed(_:)))
     }
 
     // MARK: - Events:
@@ -54,11 +47,6 @@ final class BallViewController: UIViewController {
 
     override var canBecomeFirstResponder: Bool {
         return true
-    }
-
-    @objc private func optionsPressed(_ sender: Any) {
-        let answersVC = factory.makeAnswersListController()
-        show(answersVC, sender: nil)
     }
 
 }

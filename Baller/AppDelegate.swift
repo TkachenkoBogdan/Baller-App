@@ -15,15 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidFinishLaunching(_ application: UIApplication) {
 
-        let container = DependencyContainer()
-        let mainViewController = container.makeBallViewController()
-
-        let navigationViewController = UINavigationController(rootViewController: mainViewController)
-        navigationViewController.navigationBar.barStyle = .blackOpaque
-        navigationViewController.navigationBar.isTranslucent = false
-
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationViewController
+
+        let container = DependencyContainer()
+        let mainViewController = container.makeRootRootViewController()
+
+        window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
         window?.tintColor = AppColor.globalTint
     }

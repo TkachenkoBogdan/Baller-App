@@ -19,6 +19,7 @@ final class BallView: UIView {
 
     private var activityIndicator: UIActivityIndicatorView!
     private var countLabel: UILabel!
+    private var ballHasRolledToScreen = false
 
     private var interactionIsInProcess: Bool = false {
 
@@ -47,7 +48,6 @@ final class BallView: UIView {
         createActivityIndicator()
         createCountLabel()
 
-        ballImageView.rollToScreen()
     }
 
     required init?(coder: NSCoder) {
@@ -77,6 +77,14 @@ final class BallView: UIView {
         countLabel.text = String(count)
     }
 
+    override func didMoveToWindow() {
+        if !ballHasRolledToScreen {
+            ballImageView.rollToScreen()
+            ballHasRolledToScreen = true
+        } else {
+            ballImageView.flutter()
+        }
+    }
     // MARK: - Private:
 
     private func setLabelsVisibility(to visible: Bool) {
@@ -111,7 +119,7 @@ extension BallView {
             maker.width.equalTo(self).multipliedBy(0.8)
             maker.height.equalTo(self.ballImageView.snp.width)
             maker.centerX.equalToSuperview()
-            maker.centerY.equalToSuperview().multipliedBy(0.7)
+            maker.top.lessThanOrEqualTo(safeAreaLayoutGuide.snp.top).inset(50)
         }
     }
 
@@ -135,7 +143,7 @@ extension BallView {
 
         statusLabel?.snp.makeConstraints { maker in
             maker.centerX.equalToSuperview()
-            maker.centerY.equalToSuperview().multipliedBy(1.5)
+            maker.centerY.equalTo(ballImageView.snp.bottom).inset(-60)
         }
     }
 
@@ -151,8 +159,7 @@ extension BallView {
         self.addSubview(activityIndicator)
 
         activityIndicator?.snp.makeConstraints { maker in
-            maker.top.equalTo(statusLabel.snp.bottom).inset(-activityIndicator.bounds.height / 2)
-            maker.centerX.equalTo(self.snp.centerX)
+            maker.center.equalTo(statusLabel.snp.center)
         }
     }
 
@@ -164,7 +171,7 @@ extension BallView {
 
            countLabel?.snp.makeConstraints { maker in
                maker.centerX.equalToSuperview()
-            maker.bottom.equalToSuperview().inset(25)
+            maker.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(25)
            }
        }
 
