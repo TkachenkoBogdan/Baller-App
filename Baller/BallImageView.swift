@@ -31,6 +31,7 @@ final class BallImageView: UIImageView {
 
     func appearWithAnimation() {
         self.layer.animateOpacityChange(withDuration: 1)
+        flutter(withIntensity: 20)
     }
 
     func roll(withIntensity intensity: CGFloat = 100, completion: ( () -> Void)? = nil) {

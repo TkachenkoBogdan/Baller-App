@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol BallViewControllerFactory {
     func makeBallViewController() -> BallViewController
@@ -24,9 +25,9 @@ final class DependencyContainer {
         AnswerService(onlineProvider: NetworkAnswerProvider(),
                       offlineProvider: DatabaseAnswerProvider(store: answerStore))
 
-    private lazy var answerStore: AnswerStore = AnswerJSONStorage(storageManager: storage)
+    private lazy var realmProvider = RealmProvider(config: .defaultConfiguration)
+    private lazy var answerStore: AnswerStore = RealmDBManager(realmProvider: realmProvider)
 
-    private lazy var storage: FileDataManageable = FileDataManager()
     private lazy var secureStorage: SecureStoring = SecureStorage()
 }
 

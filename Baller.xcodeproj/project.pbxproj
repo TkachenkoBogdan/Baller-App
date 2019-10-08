@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD083EAD23408CF0000C60D7 /* defaultAnswers.txt in Resources */ = {isa = PBXBuildFile; fileRef = BD083EAC23408CF0000C60D7 /* defaultAnswers.txt */; };
 		BD0F0A232335FB8E005FEEAD /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = BD0F0A222335FB8E005FEEAD /* swiftgen.yml */; };
 		BD0F0A2C2335FEC2005FEEAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */; };
 		BD3DD1D523360DAC00AC8B2A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD3DD1D423360DAC00AC8B2A /* .gitignore */; };
@@ -25,14 +24,16 @@
 		BD932AC12345A5A400E79028 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD932AC02345A5A400E79028 /* ReusableView.swift */; };
 		BDA0E4CE233BAFDD00403703 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA0E4CD233BAFDD00403703 /* colors.swift */; };
 		BDA0E4D0233BB06800403703 /* colors.json in Resources */ = {isa = PBXBuildFile; fileRef = BDA0E4CF233BB06800403703 /* colors.json */; };
+		BDAA9079234CACC200F9007C /* RealmDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAA9078234CACC200F9007C /* RealmDBManager.swift */; };
+		BDAA907B234CAEAA00F9007C /* RealmProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAA907A234CAEAA00F9007C /* RealmProvider.swift */; };
+		BDAA907D234CAF9B00F9007C /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAA907C234CAF9B00F9007C /* Path.swift */; };
+		BDAA907F234CB8B000F9007C /* bundled.realm in Resources */ = {isa = PBXBuildFile; fileRef = BDAA907E234CB8B000F9007C /* bundled.realm */; };
 		BDAD481C233F313200782B74 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD481B233F313200782B74 /* DependencyContainer.swift */; };
 		BDAD4820233F487400782B74 /* PresentableAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD481F233F487400782B74 /* PresentableAnswer.swift */; };
 		BDAD4823233F4EE700782B74 /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAD4822233F4EE700782B74 /* fonts.swift */; };
 		BDB4A47723406A7900DDE8B1 /* storyboardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4A47623406A7900DDE8B1 /* storyboardScene.swift */; };
 		BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerService.swift */; };
 		BDDAFFEC231017E1002B3BEF /* NetworkAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */; };
-		BDDAFFF023101E64002B3BEF /* FileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEF23101E64002B3BEF /* FileDataManager.swift */; };
-		BDDAFFF223101F65002B3BEF /* AnswerJSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF123101F65002B3BEF /* AnswerJSONStorage.swift */; };
 		BDDAFFF423102053002B3BEF /* DatabaseAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */; };
 		BDDAFFFB231022E0002B3BEF /* BallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFFA231022E0002B3BEF /* BallViewController.swift */; };
 		BDDAFFFC23102313002B3BEF /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */; };
@@ -53,7 +54,6 @@
 
 /* Begin PBXFileReference section */
 		A62C25DE1C97F505701A5666 /* Pods_Baller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD083EAC23408CF0000C60D7 /* defaultAnswers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = defaultAnswers.txt; sourceTree = "<group>"; };
 		BD0F0A222335FB8E005FEEAD /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = SOURCE_ROOT; };
 		BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		BD3DD1D423360DAC00AC8B2A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
@@ -72,6 +72,10 @@
 		BD932AC02345A5A400E79028 /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		BDA0E4CD233BAFDD00403703 /* colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		BDA0E4CF233BB06800403703 /* colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = colors.json; sourceTree = "<group>"; };
+		BDAA9078234CACC200F9007C /* RealmDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDBManager.swift; sourceTree = "<group>"; };
+		BDAA907A234CAEAA00F9007C /* RealmProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProvider.swift; sourceTree = "<group>"; };
+		BDAA907C234CAF9B00F9007C /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
+		BDAA907E234CB8B000F9007C /* bundled.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = bundled.realm; sourceTree = "<group>"; };
 		BDAD481B233F313200782B74 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		BDAD481F233F487400782B74 /* PresentableAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableAnswer.swift; sourceTree = "<group>"; };
 		BDAD4821233F4E9C00782B74 /* Futura.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Futura.ttc; sourceTree = "<group>"; };
@@ -79,8 +83,6 @@
 		BDB4A47623406A7900DDE8B1 /* storyboardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = storyboardScene.swift; sourceTree = "<group>"; };
 		BDDAFFE923101721002B3BEF /* AnswerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerService.swift; sourceTree = "<group>"; };
 		BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnswerProvider.swift; sourceTree = "<group>"; };
-		BDDAFFEF23101E64002B3BEF /* FileDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDataManager.swift; sourceTree = "<group>"; };
-		BDDAFFF123101F65002B3BEF /* AnswerJSONStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerJSONStorage.swift; sourceTree = "<group>"; };
 		BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		BDDAFFF7231021AB002B3BEF /* UserInputAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputAlert.swift; sourceTree = "<group>"; };
@@ -150,8 +152,8 @@
 		BD8C3A642310100400F8D896 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				BDDAFFF123101F65002B3BEF /* AnswerJSONStorage.swift */,
-				BDDAFFEF23101E64002B3BEF /* FileDataManager.swift */,
+				BDAA9078234CACC200F9007C /* RealmDBManager.swift */,
+				BDAA907A234CAEAA00F9007C /* RealmProvider.swift */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -212,6 +214,7 @@
 		BDDAFFF523102185002B3BEF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BDAA907C234CAF9B00F9007C /* Path.swift */,
 				BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */,
 				BDE9B82C234705AD00249A87 /* CALayer+Extension.swift */,
 				BD932AC02345A5A400E79028 /* ReusableView.swift */,
@@ -316,11 +319,11 @@
 		BDFA23C3230653B900807EB8 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				BDAA907E234CB8B000F9007C /* bundled.realm */,
 				BD0F0A282335FDD7005FEEAD /* Resources */,
 				BD0F0A1F2335FB47005FEEAD /* Generated */,
 				BD8B4145231034AD001A3698 /* .swiftlint.yml */,
 				BD0F0A222335FB8E005FEEAD /* swiftgen.yml */,
-				BD083EAC23408CF0000C60D7 /* defaultAnswers.txt */,
 				BD3DD1D423360DAC00AC8B2A /* .gitignore */,
 				BD8C3A6223100E4A00F8D896 /* LaunchScreen.storyboard */,
 				BDFA23BA2306528500807EB8 /* Info.plist */,
@@ -407,7 +410,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD083EAD23408CF0000C60D7 /* defaultAnswers.txt in Resources */,
+				BDAA907F234CB8B000F9007C /* bundled.realm in Resources */,
 				BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */,
 				BD3DD1D523360DAC00AC8B2A /* .gitignore in Resources */,
 				BD0F0A2C2335FEC2005FEEAD /* Localizable.strings in Resources */,
@@ -520,15 +523,16 @@
 				BDFA23AF2306528400807EB8 /* AppDelegate.swift in Sources */,
 				BDE1BF53233DD1EA00AFAD63 /* BallViewModel.swift in Sources */,
 				BD932ABF23459F5E00E79028 /* BallerLabel.swift in Sources */,
-				BDDAFFF223101F65002B3BEF /* AnswerJSONStorage.swift in Sources */,
 				BD8C3A5E23100BFD00F8D896 /* AnswerCell.swift in Sources */,
 				BDEA0EC323432D0300B85355 /* BallView.swift in Sources */,
-				BDDAFFF023101E64002B3BEF /* FileDataManager.swift in Sources */,
 				BDAD4823233F4EE700782B74 /* fonts.swift in Sources */,
 				BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */,
 				BDAD481C233F313200782B74 /* DependencyContainer.swift in Sources */,
+				BDAA907B234CAEAA00F9007C /* RealmProvider.swift in Sources */,
+				BDAA9079234CACC200F9007C /* RealmDBManager.swift in Sources */,
 				BDE9B82D234705AD00249A87 /* CALayer+Extension.swift in Sources */,
 				BDE1BF69233E1CC200AFAD63 /* AnswersListModel.swift in Sources */,
+				BDAA907D234CAF9B00F9007C /* Path.swift in Sources */,
 				BD4B1524234465C300E3562C /* UITableView+Extension.swift in Sources */,
 				BDDAFFF423102053002B3BEF /* DatabaseAnswerProvider.swift in Sources */,
 				BD8C3A68231011A800F8D896 /* SerializableAnswer.swift in Sources */,

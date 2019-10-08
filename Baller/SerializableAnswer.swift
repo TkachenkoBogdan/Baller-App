@@ -45,9 +45,14 @@ struct SerializableAnswer: Codable {
 }
 
 extension SerializableAnswer {
+
     func toAnswer() -> Answer {
         return Answer(title: title,
                       date: dateReceived,
                       type: AnswerType(rawValue: type) ?? AnswerType.neutral)
+    }
+
+    func toRealmAnswer() -> RealmAnswer {
+        return RealmAnswer(title: title, date: dateReceived, type: type)
     }
 }

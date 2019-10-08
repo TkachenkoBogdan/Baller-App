@@ -52,8 +52,6 @@ internal enum L10n {
   }
 
   internal enum Prompts {
-    /// Click on + to add an answer
-    internal static let additionInfo = L10n.tr("Localizable", "Prompts.additionInfo")
     /// Provide an answer
     internal static let newAnswer = L10n.tr("Localizable", "Prompts.newAnswer")
   }

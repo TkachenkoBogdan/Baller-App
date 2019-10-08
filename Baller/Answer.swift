@@ -37,7 +37,7 @@ extension Answer {
         return PresentableAnswer(title: title, date: date, type: type)
     }
 
-    func toPersistableAnswer() -> SerializableAnswer {
-        return SerializableAnswer(title: title, date: date)
+    func toRealmAnswer() -> RealmAnswer {
+        return RealmAnswer(title: title, date: date, type: type.rawValue)
     }
 }

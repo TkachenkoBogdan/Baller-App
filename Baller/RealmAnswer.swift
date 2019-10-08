@@ -14,6 +14,7 @@ import RealmSwift
     enum Property: String {
         case title, date, type, identifier
     }
+
     dynamic var title: String = ""
     dynamic var date: Date = Date.distantPast
     dynamic var type: String = ""
@@ -33,23 +34,11 @@ import RealmSwift
 
 }
 
-//extension SerializableAnswer {
-//    func toAnswer() -> Answer {
-//        return Answer(title: title,
-//                      date: dateReceived,
-//                      type: AnswerType(rawValue: type) ?? AnswerType.neutral)
-//    }
-//}
-
 extension RealmAnswer {
 
-    static func add(answer: RealmAnswer) -> RealmAnswer? {
-        guard let realm = try? Realm() else { return nil }
-
-        try? realm.write {
-            realm.add(answer)
-        }
-        return answer
+    func toAnswer() -> Answer {
+        return Answer(title: title,
+                      date: date,
+                      type: AnswerType(rawValue: type) ?? AnswerType.neutral)
     }
-
 }
