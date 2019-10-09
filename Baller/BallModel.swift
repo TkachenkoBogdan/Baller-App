@@ -6,12 +6,15 @@ final class BallModel {
 
     private let answerService: AnswerProvider
     private let secureStorage: SecureStoring
+    private let store: AnswerStore
 
     // MARK: - Init:
 
-    init(provider: AnswerProvider, secureStorage: SecureStoring) {
+    init(provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring) {
         self.answerService = provider
         self.secureStorage = secureStorage
+        self.store = store
+
         self.attemptsCount = setupAttemptsCount()
     }
 
@@ -44,6 +47,7 @@ final class BallModel {
             self.isLoadingData = false
             switch result {
             case .success(let answer):
+                self.store.appendAnswer(answer)
                 completion(answer)
             case .failure:
                 preconditionFailure(L10n.FatalErrors.noLocalAnswer)

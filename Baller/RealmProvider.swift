@@ -42,7 +42,7 @@ struct RealmProvider {
 //    func removeFiles() throws {
 //        guard let fileUrl = configuration.fileURL,
 //            let files = FileManager.default.enumerator(at:
-    //fileUrl.deletingLastPathComponent(), includingPropertiesForKeys: []),
+//    fileUrl.deletingLastPathComponent(), includingPropertiesForKeys: []),
 //
 //            let fileName = fileUrl.lastPathComponent.components(separatedBy: ".").first else {
 //                return

@@ -46,6 +46,10 @@ final class AnswersListController: UITableViewController {
                                                             target: self, action: #selector(addButtonPressed(_:)))
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+
     @objc private func addButtonPressed(_ sender: Any) {
 
         presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (answerString) in

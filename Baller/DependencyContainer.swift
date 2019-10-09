@@ -25,8 +25,8 @@ final class DependencyContainer {
         AnswerService(onlineProvider: NetworkAnswerProvider(),
                       offlineProvider: DatabaseAnswerProvider(store: answerStore))
 
-    private lazy var realmProvider = RealmProvider(config: .defaultConfiguration)
     private lazy var answerStore: AnswerStore = RealmDBManager(realmProvider: realmProvider)
+    private lazy var realmProvider = RealmProvider(config: .defaultConfiguration)
 
     private lazy var secureStorage: SecureStoring = SecureStorage()
 }
@@ -45,7 +45,7 @@ extension DependencyContainer: ViewControllerFactory {
 
     func makeBallViewController() -> BallViewController {
 
-        let ballModel = BallModel(provider: answerService, secureStorage: secureStorage)
+        let ballModel = BallModel(provider: answerService, store: answerStore, secureStorage: secureStorage)
         let ballViewModel = BallViewModel(model: ballModel)
 
         let ballViewController = BallViewController(viewModel: ballViewModel)

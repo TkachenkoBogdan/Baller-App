@@ -21,7 +21,9 @@ protocol AnswerStore {
 class RealmDBManager {
 
     private let realmProvider: RealmProvider
-    private lazy var realm: Realm = realmProvider.realm
+    private var realm: Realm {
+        return realmProvider.realm
+    }
 
     private lazy var answers: Results<RealmAnswer> =
         realm.objects(RealmAnswer.self)
@@ -41,12 +43,13 @@ extension RealmDBManager: AnswerStore {
     }
 
     func appendAnswer(_ answer: Answer) {
-
-        try? realm.write {
-            realm.add(answer.toRealmAnswer())
-        }
+            try? self.realm.write {
+                self.realm.add(answer.toRealmAnswer())
+            }
     }
+
     func removeAnswer(at index: Int) {
+
         do {
             try realm.write {
                 realm.delete(answers[index])
@@ -54,7 +57,6 @@ extension RealmDBManager: AnswerStore {
         } catch {
             fatalError("Failed to delete the answer from the Realm!")
         }
-
     }
 
     func count() -> Int {
