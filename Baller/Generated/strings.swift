@@ -33,17 +33,31 @@ internal enum L10n {
   internal enum FatalErrors {
     /// Could not dequeue cell with identifier: 
     internal static let cannotDequeCell = L10n.tr("Localizable", "FatalErrors.cannotDequeCell")
+    /// Failed finding expected path: 
+    internal static let failedToFindPath = L10n.tr("Localizable", "FatalErrors.failedToFindPath")
     /// Object must not be initialized from xib/storyboard
     internal static let initCoder = L10n.tr("Localizable", "FatalErrors.init(coder:)")
     /// Failed to provide local answer
     internal static let noLocalAnswer = L10n.tr("Localizable", "FatalErrors.noLocalAnswer")
+    internal enum Realm {
+      /// Failed to add the answer to the Realm!
+      internal static let failedToAddAnswer = L10n.tr("Localizable", "FatalErrors.realm.failedToAddAnswer")
+      /// Failed to delete all answers from the Realm
+      internal static let failedToDeleteAllAnswers = L10n.tr("Localizable", "FatalErrors.realm.failedToDeleteAllAnswers")
+      /// Failed to delete the answer from the Realm!
+      internal static let failedToDeleteAnswer = L10n.tr("Localizable", "FatalErrors.realm.failedToDeleteAnswer")
+      /// Failed to initialize Realm
+      internal static let failedToInitialize = L10n.tr("Localizable", "FatalErrors.realm.failedToInitialize")
+    }
   }
 
   internal enum Filenames {
-    /// answers.json
-    internal static let answerFile = L10n.tr("Localizable", "Filenames.answerFile")
-    /// defaultAnswers.txt
-    internal static let defaultAnswers = L10n.tr("Localizable", "Filenames.defaultAnswers")
+    internal enum Realm {
+      /// bundledAnswers.realm
+      internal static let bundled = L10n.tr("Localizable", "Filenames.realm.bundled")
+      /// mainAnswers.realm
+      internal static let main = L10n.tr("Localizable", "Filenames.realm.main")
+    }
   }
 
   internal enum Labels {

@@ -25,8 +25,8 @@ final class DependencyContainer {
         AnswerService(onlineProvider: NetworkAnswerProvider(),
                       offlineProvider: DatabaseAnswerProvider(store: answerStore))
 
-    private lazy var answerStore: AnswerStore = RealmDBManager(realmProvider: realmProvider)
-    private lazy var realmProvider = RealmProvider(config: .defaultConfiguration)
+    private lazy var answerStore: AnswerStore = RealmAnswerStore(realmProvider: realmProvider)
+    private lazy var realmProvider: RealmProvider = .default
 
     private lazy var secureStorage: SecureStoring = SecureStorage()
 }

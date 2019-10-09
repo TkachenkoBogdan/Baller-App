@@ -16,6 +16,13 @@ final class AnswerListModel {
         self.store = store
     }
 
+    var answerListUpdateHandler: ((Changes) -> Void)? {
+        didSet {
+            store.answerListUpdateHandler = self.answerListUpdateHandler
+        }
+
+    }
+
     func numberOfAnswers() -> Int {
         return store.count()
     }
@@ -31,6 +38,10 @@ final class AnswerListModel {
 
     func remove(at index: Int) {
         self.store.removeAnswer(at: index)
+    }
+
+    func removeAllAnswers() {
+        store.removeAllAnswers()
     }
 
 }

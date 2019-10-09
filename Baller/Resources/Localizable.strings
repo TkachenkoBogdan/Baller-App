@@ -1,6 +1,13 @@
-// Filenames:
-"Filenames.defaultAnswers" = "defaultAnswers.txt";
-"Filenames.answerFile" = "answers.json";
+// Realm:
+"Filenames.realm.main" = "mainAnswers.realm";
+"Filenames.realm.bundled" = "bundledAnswers.realm";
+
+"FatalErrors.realm.failedToInitialize" = "Failed to initialize Realm";
+"FatalErrors.realm.failedToAddAnswer" = "Failed to add the answer to the Realm!";
+"FatalErrors.realm.failedToDeleteAnswer" = "Failed to delete the answer from the Realm!";
+"FatalErrors.realm.failedToDeleteAllAnswers" = "Failed to delete all answers from the Realm";
+
+
 
 //String constants:
 "numberOfShakeAttempts" = "numberOfShakeAttmepts";
@@ -29,4 +36,5 @@
 "FatalErrors.init(coder:)" = "Object must not be initialized from xib/storyboard";
 "FatalErrors.noLocalAnswer" = "Failed to provide local answer";
 "FatalErrors.cannotDequeCell" = "Could not dequeue cell with identifier: ";
+"FatalErrors.failedToFindPath" = "Failed finding expected path: ";
 

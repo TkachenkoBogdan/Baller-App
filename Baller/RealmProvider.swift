@@ -11,47 +11,66 @@ import RealmSwift
 
 struct RealmProvider {
 
-  private let configuration: Realm.Configuration
+    private let configuration: Realm.Configuration
 
-  init(config: Realm.Configuration) {
-    self.configuration = config
-  }
+    // MARK: - Init:
 
-  var realm: Realm {
-    do {
-        return try Realm(configuration: configuration)
-    } catch {
-        fatalError("Failed to initialize Realm")
+    init(config: Realm.Configuration) {
+        self.configuration = config
+        setupRealm()
     }
-  }
 
-  // MARK: - Bundled Realm
-//  private static let bundledConfig = Realm.Configuration(
-//    fileURL: try! Path.inBundle("default.realm"),
-//    readOnly: false,
-//    objectTypes: [RealmAnswer.self])
+    var realm: Realm {
+        do {
+            return try Realm(configuration: configuration)
+        } catch {
+            fatalError(L10n.FatalErrors.Realm.failedToInitialize)
+        }
+    }
 
-//  public static var bundled: RealmProvider = {
-//    return RealmProvider(config: bundledConfig)
-//  }()
+    // MARK: - Default Realm:
 
-  // MARK: - Util
+    public static var `default`: RealmProvider = {
+        return RealmProvider(config: defaultConfiguration)
+    }()
 
-  /// Delete existing Realm files/folders
+    private static var defaultConfiguration = Realm.Configuration(
+        fileURL: try? Path.inDocuments(L10n.Filenames.Realm.main),
+        readOnly: false,
+        objectTypes: [RealmAnswer.self])
 
-//    func removeFiles() throws {
-//        guard let fileUrl = configuration.fileURL,
-//            let files = FileManager.default.enumerator(at:
-//    fileUrl.deletingLastPathComponent(), includingPropertiesForKeys: []),
-//
-//            let fileName = fileUrl.lastPathComponent.components(separatedBy: ".").first else {
-//                return
-//        }
-//
-//        for file in files.allObjects {
-//            guard let url = file as? URL,
-//                url.lastPathComponent.hasPrefix("\(fileName).") else { continue }
-//            try FileManager.default.removeItem(at: url)
-//        }
-//    }
+    private func setupRealm() {
+        SyncManager.shared.logLevel = .off
+
+        if !AnswersRealm.main.fileExists {
+            try? FileManager.default.copyItem(
+                at: AnswersRealm.bundle.url, to: AnswersRealm.main.url)
+        }
+    }
+
+    enum AnswersRealm {
+
+        case bundle
+        case main
+
+        var url: URL {
+            do {
+                switch self {
+                case .main: return try Path.inDocuments(L10n.Filenames.Realm.main)
+                case .bundle: return try Path.inBundle(L10n.Filenames.Realm.bundled)
+
+                }
+            } catch let error {
+                fatalError("\(L10n.FatalErrors.failedToFindPath) + \(error)")
+            }
+        }
+
+        var fileExists: Bool {
+            return FileManager.default.fileExists(atPath: path)
+        }
+
+        var path: String {
+            return url.path
+        }
+    }
 }

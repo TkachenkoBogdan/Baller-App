@@ -23,11 +23,20 @@ final class AnswersListController: UITableViewController {
         fatalError(L10n.FatalErrors.initCoder)
     }
 
+    private func setupObservationClosures() {
+
+        viewModel.answerListUpdateHandler = { [unowned self] changes in
+            self.tableView.apply(changes: changes)
+        }
+
+    }
+
     // MARK: - Lifecycle:
 
     override func viewDidLoad() {
 
-        setUpNavigationItem()
+        setupNavigationItems()
+        setupObservationClosures()
         configureTableView()
     }
 
@@ -40,24 +49,26 @@ final class AnswersListController: UITableViewController {
          tableView.allowsSelection = false
      }
 
-    private func setUpNavigationItem() {
+    private func setupNavigationItems() {
         navigationItem.title = L10n.Titles.answerList
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self, action: #selector(addButtonPressed(_:)))
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash,
+                                                           target: self, action: #selector(deleteButtonPressed(_:)))
     }
 
     @objc private func addButtonPressed(_ sender: Any) {
 
         presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (answerString) in
-            guard let `self` = self else { return }
-
+            guard let self = self else { return }
             self.viewModel.appendAnswer(withTitle: answerString)
-            self.tableView.reloadData()
         }
+    }
+
+    @objc private func deleteButtonPressed(_ sender: Any) {
+        self.viewModel.deleteAllAnswers()
     }
 
 }
@@ -90,7 +101,6 @@ extension AnswersListController {
 
         if editingStyle == .delete {
             viewModel.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }

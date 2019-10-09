@@ -22,9 +22,9 @@ internal struct ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ff2d55"></span>
   /// Alpha: 100% <br/> (0xff2d55ff)
   internal static let customRed = ColorName(rgbaValue: 0xff2d55ff)
-  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#9d5cc8"></span>
-  /// Alpha: 100% <br/> (0x9d5cc8ff)
-  internal static let indigo = ColorName(rgbaValue: 0x9d5cc8ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#fc0072"></span>
+  /// Alpha: 100% <br/> (0xfc0072ff)
+  internal static let indigo = ColorName(rgbaValue: 0xfc0072ff)
 }
 // swiftlint:enable identifier_name line_length type_body_length
 

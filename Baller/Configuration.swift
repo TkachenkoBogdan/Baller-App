@@ -15,8 +15,8 @@ enum AppConstants {
 
 enum AppColor {
 
-    static let globalTint = UIColor.magenta
-    static let primeColor = UIColor.magenta
+    static let globalTint = ColorName.customRed.color
+    static let primeColor = ColorName.indigo.color
 }
 
 enum AppFont {

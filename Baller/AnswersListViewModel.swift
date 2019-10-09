@@ -8,18 +8,34 @@
 
 import Foundation
 
+typealias Changes = (deletions: [Int], insertions: [Int], modifications: [Int])
+
 final class AnswersListViewModel {
 
     private let model: AnswerListModel
+
     private var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         return formatter
     }()
 
+    // MARK: - Init:
+
     init(model: AnswerListModel) {
         self.model = model
     }
+
+    // MARK: - Logic:
+
+    var answerListUpdateHandler: ((Changes) -> Void)? {
+        didSet {
+            model.answerListUpdateHandler = self.answerListUpdateHandler
+        }
+
+    }
+
+    // MARK: - Public:
 
     func count() -> Int {
         return model.numberOfAnswers()
@@ -30,11 +46,15 @@ final class AnswersListViewModel {
     }
 
     func appendAnswer(withTitle title: String) {
-        self.model.appendAnswer(with: title)
+        model.appendAnswer(with: title)
     }
 
     func remove(at index: Int) {
-         self.model.remove(at: index)
+        model.remove(at: index)
+    }
+
+    func deleteAllAnswers() {
+        model.removeAllAnswers()
     }
 
 }
