@@ -10,7 +10,7 @@ import UIKit
 
 final class AnswersListController: UITableViewController {
 
-    var viewModel: AnswersListViewModel
+    private let viewModel: AnswersListViewModel
 
     // MARK: - Initialization:
 

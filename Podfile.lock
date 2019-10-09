@@ -14,10 +14,10 @@ DEPENDENCIES:
   - RealmSwift
   - SnapKit (~> 5.0.0)
   - SwiftGen (~> 6.0)
-  - SwiftKeychainWrapper
+  - SwiftKeychainWrapper (~> 3.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - Realm
     - RealmSwift
@@ -35,4 +35,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 2a47c390f6ab19d87eb733802ab52ad31de92beb
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.3

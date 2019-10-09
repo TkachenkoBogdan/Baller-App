@@ -37,13 +37,6 @@ final class AnswerCell: UITableViewCell {
         dateLabel.text = answer.dateAdded
     }
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        self.answerLabel.text = ""
-        self.dateLabel.text = ""
-    }
-
     // MARK: - Private:
 
     private func setUpSubviews() {
