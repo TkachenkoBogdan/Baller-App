@@ -23,20 +23,20 @@ final class DependencyContainer {
                       offlineProvider: DatabaseAnswerProvider(store: answerStore))
 
     private lazy var answerStore: AnswerStore = AnswerJSONStorage(storageManager: storage)
-    private lazy var storage: FileDataManageable = FileDataManager()
 
+    private lazy var storage: FileDataManageable = FileDataManager()
+    private lazy var secureStorage: SecureStoring = SecureStorage()
 }
 
 extension DependencyContainer: ViewControllerFactory {
 
     func makeBallViewController() -> BallViewController {
 
-        let ballModel = BallModel(provider: answerService)
+        let ballModel = BallModel(provider: answerService, secureStorage: secureStorage)
         let ballViewModel = BallViewModel(model: ballModel)
 
-        let mainController = StoryboardScene.Main.ballViewController.instantiate()
-        mainController.viewModel = ballViewModel
-        mainController.factory = self as AnswersListViewControllerFactory
+        let mainController = BallViewController(viewModel: ballViewModel,
+                                                factory: self as AnswersListViewControllerFactory)
         return mainController
     }
 
@@ -45,9 +45,8 @@ extension DependencyContainer: ViewControllerFactory {
         let answersListModel = AnswerListModel(store: answerStore)
         let answersListViewModel = AnswersListViewModel(model: answersListModel)
 
-        let answersController = StoryboardScene.Main.answersListController.instantiate()
-        answersController.viewModel = answersListViewModel
+        let answersController = AnswersListController(viewModel: answersListViewModel)
+
         return answersController
     }
-
 }

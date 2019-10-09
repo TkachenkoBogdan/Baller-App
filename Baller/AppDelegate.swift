@@ -25,6 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
-        window?.tintColor = ColorName.customPink.color
+        window?.tintColor = AppColor.globalTint
     }
 }

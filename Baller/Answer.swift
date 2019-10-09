@@ -8,16 +8,23 @@
 
 import Foundation
 
+enum AnswerType: String {
+    case neutral = "Neutral"
+    case affirmative = "Affirmative"
+    case contrary = "Contrary"
+}
+
 struct Answer {
 
     let title: String
     let date: Date
+    let type: AnswerType
 
-    init(title: String, date: Date = Date()) {
+    init(title: String, date: Date = Date(), type: AnswerType = .neutral) {
         self.title = title
         self.date = date
+        self.type = type
     }
-
 }
 
 extension Answer {
@@ -27,8 +34,7 @@ extension Answer {
 
         let title =  uppercased ? self.title.uppercased() : self.title
         let date = dateFormatter?.string(from: self.date) ?? ""
-
-        return PresentableAnswer(title: title, date: date)
+        return PresentableAnswer(title: title, date: date, type: type)
     }
 
     func toPersistableAnswer() -> SerializableAnswer {

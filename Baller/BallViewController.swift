@@ -7,85 +7,91 @@
 //
 
 import UIKit
+import SnapKit
 
 final class BallViewController: UIViewController {
 
-    var factory: AnswersListViewControllerFactory!
-    var viewModel: BallViewModel!
+    private var factory: AnswersListViewControllerFactory
+    private var viewModel: BallViewModel
 
-    // MARK: - Outlets:
+    private lazy var ballView: BallView = BallView()
 
-    @IBOutlet private var ballImageView: UIImageView?
-    @IBOutlet private var answerLabel: UILabel?
-    @IBOutlet private var statusLabel: UILabel?
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView?
+    // MARK: - Initialization:
 
-    // MARK: - Lifecycle and Events:
+    init(viewModel: BallViewModel, factory: AnswersListViewControllerFactory ) {
+        self.viewModel = viewModel
+        self.factory = factory
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(L10n.FatalErrors.initCoder)
+    }
+
+    // MARK: - Lifecycle:
+
+    override func loadView() {
+        self.view = ballView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpObservationClosures()
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Asset.defaultAnswers.image,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(optionsPressed(_:)))
+    }
+
+    // MARK: - Events:
+
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        guard motion == .motionShake else { return }
+        viewModel.shakeDetected()
     }
 
     override var canBecomeFirstResponder: Bool {
         return true
     }
 
-    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        guard motion == .motionShake else { return }
-
-        self.ballImageView?.shake()
-        self.setLabelsVisibility(to: true)
-
-        viewModel.shakeDetected()
-    }
-
-    @IBAction func optionsPressed(_ sender: Any) {
+    @objc private func optionsPressed(_ sender: Any) {
         let answersVC = factory.makeAnswersListController()
         show(answersVC, sender: nil)
     }
 
 }
 
-// MARK: - Private Helpers:
+// MARK: - Private:
+
 extension BallViewController {
 
     private func setUpObservationClosures() {
-        viewModel.shouldAnimateLoadingStateHandler = { [unowned self] shouldAnimate in
-            self.setAnimationEnabled(shouldAnimate)
+
+        viewModel.requestInProgressHandler = { [unowned self] isInProgress in
+            if isInProgress {
+                DispatchQueue.main.async {
+                    self.ballView.startInteraction()
+                }
+            }
+        }
+
+        viewModel.countUpdatedHandler = { count in
+            DispatchQueue.main.async {
+                self.ballView.updateCountLabel(with: count)
+            }
         }
 
         viewModel.answerReceivedHandler = { [unowned self] answer in
-            self.updateAnswerLabel(with: answer.title)
+
+            DispatchQueue.main.async {
+                self.ballView.updateTextLabel(with: answer.title)
+                self.ballView.updateShadow(with: answer.semanticColor)
+                self.ballView.stopInteraction()
+            }
+
         }
     }
 
-    private func setAnimationEnabled(_ enabled: Bool) {
-        DispatchQueue.main.async {
-            enabled ? self.activityIndicator?.startAnimating() : self.activityIndicator?.stopAnimating()
-        }
-    }
-
-    private func updateAnswerLabel(with answer: String) {
-        DispatchQueue.main.async {
-            self.setLabelsVisibility(to: false)
-            self.statusLabel?.alpha = 0
-            self.answerLabel?.alpha = 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                UIView.animate(withDuration: 1, animations: {
-                    self.statusLabel?.alpha = 1
-                    self.answerLabel?.alpha = 0
-                })
-            })
-            self.answerLabel?.fadeTransition(withDuration: 1)
-            self.answerLabel?.text = answer
-        }
-
-    }
-
-    private func setLabelsVisibility(to isHidden: Bool) {
-        self.answerLabel?.isHidden = isHidden
-        self.statusLabel?.isHidden = isHidden
-    }
 }

@@ -10,22 +10,33 @@ import UIKit
 
 extension UIView {
 
-    func fadeTransition(withDuration duration: CFTimeInterval) {
-        let animation = CATransition()
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        animation.type = CATransitionType.fade
+    func pushTransition(_ duration: CFTimeInterval) {
+        let animation: CATransition = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.push
+        animation.subtype = CATransitionSubtype.fromTop
         animation.duration = duration
-        layer.add(animation, forKey: CATransitionType.fade.rawValue)
+        layer.add(animation, forKey: CATransitionType.push.rawValue)
     }
 
-    func shake() {
-        self.transform = CGAffineTransform(translationX: 40, y: 0)
-        UIView.animate(withDuration: 1.8, delay: 0, usingSpringWithDamping: 0.1,
-                       initialSpringVelocity: 2.2,
-                       options: .curveLinear,
+    func flutter(withIntensity intensity: CGFloat = 10) {
+        self.transform = CGAffineTransform(translationX: intensity, y: 0)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.05,
+                       initialSpringVelocity: 10,
+                       options: [.curveEaseInOut],
                        animations: {
-            self.transform = CGAffineTransform.identity
-        }, completion: nil)
+                        self.transform = CGAffineTransform.identity
+        })
     }
 
+    func shrink() {
+        self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.3,
+                       initialSpringVelocity: 2,
+                       options: [.curveEaseInOut],
+                       animations: {
+                        self.transform = CGAffineTransform.identity
+        })
+    }
 }
