@@ -9,5 +9,5 @@ target 'Baller' do
   pod 'Alamofire', '~> 5.0.0-beta.5'
   pod 'SwiftGen', '~> 6.0'
   pod 'SnapKit', '~> 5.0.0'
-  pod 'SwiftKeychainWrapper'
+  pod 'SwiftKeychainWrapper', '~> 3.0'
 end
