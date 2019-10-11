@@ -55,7 +55,7 @@ internal enum L10n {
 
   internal enum Filenames {
     internal enum Realm {
-      /// bundledAnswers.realm
+      /// /Support/bundledAnswers.realm
       internal static let bundled = L10n.tr("Localizable", "Filenames.realm.bundled")
       /// mainAnswers.realm
       internal static let main = L10n.tr("Localizable", "Filenames.realm.main")
