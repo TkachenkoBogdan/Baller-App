@@ -11,11 +11,14 @@
 
 //String constants:
 "numberOfShakeAttempts" = "numberOfShakeAttmepts";
+"noDefaultAnswers" = "No default answers";
 
 //AnswerType values:
 "AnswerType.neutral" = "Neutral";
 "AnswerType.affirmative" = "Affirmative";
 "AnswerType.countrary" = "Countrary";
+
+
 
 // System prompts:
 "Prompts.newAnswer" = "Provide an answer";

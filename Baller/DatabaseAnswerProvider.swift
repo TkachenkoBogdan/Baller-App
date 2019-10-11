@@ -13,7 +13,7 @@ import Foundation
 struct DatabaseAnswerProvider: AnswerProviding {
 
     enum OfflineServiceError: Error {
-        case unknownError
+        case failedToRetrieveLocalAnswer
     }
 
     private let store: AnswerStore
@@ -23,16 +23,18 @@ struct DatabaseAnswerProvider: AnswerProviding {
     }
 
     func getAnswer(completionHandler: @escaping (Result<Answer, Error>) -> Void) {
-        if let answer = getRandomAnswer() {
+        if let answer = getRandomLocalAnswer() {
             completionHandler(Result.success(answer))
         } else {
-            completionHandler(Result.failure(OfflineServiceError.unknownError))
+            completionHandler(Result.failure(OfflineServiceError.failedToRetrieveLocalAnswer))
         }
     }
 
-    private func getRandomAnswer() -> Answer? {
-
-        let randomIndex = Int.random(in: 0..<store.count())
+    private func getRandomLocalAnswer() -> Answer? {
+        guard !store.isEmpty else {
+            return Answer(title: L10n.noDefaultAnswers)
+        }
+        let randomIndex = Int.random(in: 0..<store.count)
         return store.answer(at: randomIndex)
     }
 }

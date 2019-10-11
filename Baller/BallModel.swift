@@ -47,7 +47,9 @@ final class BallModel {
             self.isLoadingData = false
             switch result {
             case .success(let answer):
-                if !isLocal { self.store.appendAnswer(answer) }
+                if !isLocal {
+                    self.store.appendAnswer(answer)
+                }
                 completion(answer)
             case .failure:
                 preconditionFailure(L10n.FatalErrors.noLocalAnswer)

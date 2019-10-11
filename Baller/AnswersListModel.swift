@@ -24,7 +24,7 @@ final class AnswerListModel {
     }
 
     func numberOfAnswers() -> Int {
-        return store.count()
+        return store.count
     }
 
     func answer(at index: Int) -> Answer? {

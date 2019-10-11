@@ -12,14 +12,16 @@ import RealmSwift
 protocol AnswerStore: AnyObject {
 
     func answer(at index: Int) -> Answer?
-    func count() -> Int
+
+    var count: Int { get }
+    var isEmpty: Bool { get }
+
+    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? { get set }
 
     func appendAnswer(_ answer: Answer)
     func removeAnswer(at index: Int)
 
     func removeAllAnswers()
-
-    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? { get set }
 }
 
 enum ChangeSet<T> {
@@ -46,11 +48,9 @@ class RealmAnswerStore {
     }
     private lazy var internalQueue = DispatchQueue.global(qos: .background)
 
-    private lazy var answers: Results<RealmAnswer> =
-        realm.objects(RealmAnswer.self)
-            .sorted(byKeyPath: RealmAnswer.Property.date.rawValue,
-                    ascending: false)
-
+    private lazy var answers: Results<RealmAnswer> = realm.objects(RealmAnswer.self)
+                                                    .sorted(byKeyPath: RealmAnswer.Property.date.rawValue,
+                                                            ascending: false)
     var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)?
 
     private var answersToken: NotificationToken?
@@ -59,13 +59,13 @@ class RealmAnswerStore {
 
     init(realmProvider: RealmProvider) {
         self.realmProvider = realmProvider
-        answersToken = self.setupToken()
+        setupObservationToken()
     }
 
     // MARK: - Private:
 
-    private func setupToken() -> NotificationToken {
-        let token = answers.observe {  changes in
+    private func setupObservationToken() {
+        answersToken = answers.observe {  changes in
 
             if case .update(_, let deletions, let insertions, let updates) = changes {
 
@@ -76,7 +76,6 @@ class RealmAnswerStore {
                 self.answerListUpdateHandler?(changeSet)
             }
         }
-        return token
     }
 }
 
@@ -87,12 +86,15 @@ extension RealmAnswerStore: AnswerStore {
         return answer
     }
 
-    func count() -> Int {
+    var count: Int {
         return answers.count
     }
 
-    func appendAnswer(_ answer: Answer) {
+    var isEmpty: Bool {
+        return answers.isEmpty
+    }
 
+    func appendAnswer(_ answer: Answer) {
         internalQueue.async {
             do {
                 try self.realm.write {
@@ -105,7 +107,6 @@ extension RealmAnswerStore: AnswerStore {
     }
 
     func removeAnswer(at index: Int) {
-
         do {
             try realm.write {
                 realm.delete(answers[index])
@@ -116,7 +117,6 @@ extension RealmAnswerStore: AnswerStore {
     }
 
     func removeAllAnswers() {
-
         do {
             try realm.write {
                 realm.deleteAll()
