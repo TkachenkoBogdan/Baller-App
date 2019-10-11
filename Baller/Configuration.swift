@@ -13,12 +13,6 @@ enum AppConstants {
     static let shakeAttempts = L10n.numberOfShakeAttempts
 }
 
-enum AppColor {
-
-    static let globalTint = ColorName.customRed.color
-    static let primeColor = ColorName.indigo.color
-}
-
 enum AppFont {
 
     static func standard(withSize size: CGFloat) -> UIFont {
@@ -34,5 +28,30 @@ enum AppFont {
 
         static let cellAnswerLabel: CGFloat = 15
         static let cellDateLabel: CGFloat = 12
+    }
+}
+
+enum AppColor {
+
+    static let primeColor = ColorName.indigo.color
+
+    static var globalTint: UIColor {
+        return UIColor.forInterfaceStyle(light: .blue,
+                                         dark: ColorName.customRed.color)
+    }
+
+    static var animatedColor1: UIColor {
+        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundLight1.color,
+                                         dark: ColorName.animatedBackgroundDark1.color)
+    }
+
+    static var animatedColor2: UIColor {
+        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundLight2.color,
+                                         dark: ColorName.animatedBackgroundDark2.color)
+    }
+
+    static var animatedColor3: UIColor {
+        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundLight3.color,
+                                         dark: ColorName.animatedBackgroundDark3.color)
     }
 }

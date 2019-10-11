@@ -67,7 +67,7 @@ final class BallImageView: UIImageView {
     private func setShadow(with color: UIColor) {
 
         UIView.animate(withDuration: 1.5) {
-            self.layer.addShadow(color: color, opacity: 0.8, radius: 30)
+            self.layer.addShadow(color: color, opacity: 0.9, radius: 50)
         }
     }
 

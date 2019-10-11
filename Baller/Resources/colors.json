@@ -1,5 +1,12 @@
 {
     "customRed"       : "ff2d55",
     "indigo"           : "fc0072",
-    
+
+    "animatedBackgroundLight1"           : "B4FFFF",
+    "animatedBackgroundLight2"           : "73FBD5",
+    "animatedBackgroundLight3"           : "6684FF",
+
+    "animatedBackgroundDark1"           : "11090C",
+    "animatedBackgroundDark2"           : "212121",
+    "animatedBackgroundDark3"           : "424242",
 }

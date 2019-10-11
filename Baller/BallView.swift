@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Pastel
 
 final class BallView: UIView {
 
@@ -20,6 +21,7 @@ final class BallView: UIView {
     private var activityIndicator: UIActivityIndicatorView!
     private var countLabel: UILabel!
     private var ballHasRolledToScreen = false
+    private var animatedBackground: PastelView!
 
     private var interactionIsInProcess: Bool = false {
 
@@ -40,7 +42,7 @@ final class BallView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setDarkSemanticBackground()
+        setupAnimatedBackground()
 
         createBallImageView()
         createAnswerLabel()
@@ -57,6 +59,7 @@ final class BallView: UIView {
 
     func startInteraction() {
         interactionIsInProcess = true
+
     }
 
     func stopInteraction() {
@@ -79,11 +82,20 @@ final class BallView: UIView {
     override func didMoveToWindow() {
         if !ballHasRolledToScreen {
             eightBall.rollToScreen()
+            setupAnimatedBackground()
             ballHasRolledToScreen = true
         } else if window != nil {
             eightBall.appearWithAnimation()
+            animatedBackground.startAnimation()
         }
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if animatedBackground.window != nil {
+            updateAnimatedBackground()
+        }
+    }
+
     // MARK: - Private:
 
     private func setLabelsVisibility(to visible: Bool) {
@@ -94,12 +106,24 @@ final class BallView: UIView {
         })
     }
 
-    private func setDarkSemanticBackground() {
-        if #available(iOS 13.0, *) {
-            backgroundColor = .tertiarySystemBackground
-        } else {
-            backgroundColor = .darkGray
-        }
+    // MARK: - Animated Background:
+
+    private func setupAnimatedBackground() {
+        animatedBackground = PastelView(frame: self.bounds)
+
+        animatedBackground.startPastelPoint = .bottomLeft
+        animatedBackground.endPastelPoint = .top
+        animatedBackground.animationDuration = 3
+
+        updateAnimatedBackground()
+        self.insertSubview(animatedBackground, at: 0)
+    }
+
+    private func updateAnimatedBackground() {
+        animatedBackground.setColors([AppColor.animatedColor1,
+                                      AppColor.animatedColor2
+        ])
+        animatedBackground.startAnimation()
     }
 
 }
@@ -173,5 +197,4 @@ extension BallView {
             maker.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(25)
            }
        }
-
 }
