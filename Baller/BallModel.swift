@@ -42,12 +42,12 @@ final class BallModel {
         isLoadingData = true
         incrementAttemptsCount()
 
-        self.answerService.getAnswer { (result) in
+        self.answerService.getAnswer { (result, isLocal) in
 
             self.isLoadingData = false
             switch result {
             case .success(let answer):
-                self.store.appendAnswer(answer)
+                if !isLocal { self.store.appendAnswer(answer) }
                 completion(answer)
             case .failure:
                 preconditionFailure(L10n.FatalErrors.noLocalAnswer)
