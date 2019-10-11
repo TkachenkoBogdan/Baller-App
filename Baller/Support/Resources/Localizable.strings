@@ -1,6 +1,6 @@
 // Realm:
 "Filenames.realm.main" = "mainAnswers.realm";
-"Filenames.realm.bundled" = "/Support/bundledAnswers.realm";
+"Filenames.realm.bundled" = "bundledAnswers.realm";
 
 "FatalErrors.realm.failedToInitialize" = "Failed to initialize Realm";
 "FatalErrors.realm.failedToAddAnswer" = "Failed to add the answer to the Realm!";
