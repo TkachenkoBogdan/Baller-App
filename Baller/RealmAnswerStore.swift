@@ -19,7 +19,21 @@ protocol AnswerStore: AnyObject {
 
     func removeAllAnswers()
 
-    var answerListUpdateHandler: ((Changes) -> Void)? { get set }
+    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? { get set }
+}
+
+enum ChangeSet<T> {
+
+     typealias ModelChange = (
+            objects: [T]?,
+            deletions: [Int],
+            insertions: [Int],
+            modifications: [Int]
+        )
+
+        case initial([T])
+        case change(ModelChange)
+        case error(Error)
 }
 
 class RealmAnswerStore {
@@ -30,13 +44,14 @@ class RealmAnswerStore {
     private var realm: Realm {
         return realmProvider.realm
     }
+    private lazy var internalQueue = DispatchQueue.global(qos: .background)
 
     private lazy var answers: Results<RealmAnswer> =
         realm.objects(RealmAnswer.self)
             .sorted(byKeyPath: RealmAnswer.Property.date.rawValue,
                     ascending: false)
 
-    var answerListUpdateHandler: ((Changes) -> Void)?
+    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)?
 
     private var answersToken: NotificationToken?
 
@@ -51,20 +66,18 @@ class RealmAnswerStore {
 
     private func setupToken() -> NotificationToken {
         let token = answers.observe {  changes in
-            switch changes {
-            case .initial:
-                print("Initial")
-            case .update(_, let deletions, let insertions, let updates):
-                self.answerListUpdateHandler?((deletions, insertions, updates))
-                print("Update")
-            case .error:
-                print("Error")
+
+            if case .update(_, let deletions, let insertions, let updates) = changes {
+
+                let changeSet = ChangeSet<Answer>.change((objects: nil,
+                                                          deletions: deletions,
+                                                          insertions: insertions,
+                                                          modifications: updates))
+                self.answerListUpdateHandler?(changeSet)
             }
         }
-
         return token
     }
-
 }
 
 extension RealmAnswerStore: AnswerStore {
@@ -79,12 +92,15 @@ extension RealmAnswerStore: AnswerStore {
     }
 
     func appendAnswer(_ answer: Answer) {
-        do {
-            try self.realm.write {
-                self.realm.add(answer.toRealmAnswer())
+
+        internalQueue.async {
+            do {
+                try self.realm.write {
+                    self.realm.add(answer.toRealmAnswer())
+                }
+            } catch {
+                fatalError(L10n.FatalErrors.Realm.failedToAddAnswer)
             }
-        } catch {
-            fatalError(L10n.FatalErrors.Realm.failedToAddAnswer)
         }
     }
 

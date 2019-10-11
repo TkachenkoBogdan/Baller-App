@@ -28,7 +28,7 @@ final class AnswersListViewModel {
 
     // MARK: - Logic:
 
-    var answerListUpdateHandler: ((Changes) -> Void)? {
+    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? {
         didSet {
             model.answerListUpdateHandler = self.answerListUpdateHandler
         }

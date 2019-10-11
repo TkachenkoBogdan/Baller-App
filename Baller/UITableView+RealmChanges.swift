@@ -30,12 +30,12 @@ import UIKit
 
 extension UITableView {
 
-    func apply(changes:(deletions: [Int], insertions: [Int], updates: [Int]) ) {
+    func applyChanges(deletions: [Int], insertions: [Int], updates: [Int]) {
         if self.window != nil {
             beginUpdates()
-                   deleteRows(at: changes.deletions.map(IndexPath.fromRow), with: .automatic)
-                   insertRows(at: changes.insertions.map(IndexPath.fromRow), with: .automatic)
-                   reloadRows(at: changes.updates.map(IndexPath.fromRow), with: .automatic)
+                   deleteRows(at: deletions.map(IndexPath.fromRow), with: .automatic)
+                   insertRows(at: insertions.map(IndexPath.fromRow), with: .automatic)
+                   reloadRows(at: updates.map(IndexPath.fromRow), with: .automatic)
                    endUpdates()
         } else {
             reloadData()

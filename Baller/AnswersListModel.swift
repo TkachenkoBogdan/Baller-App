@@ -16,7 +16,7 @@ final class AnswerListModel {
         self.store = store
     }
 
-    var answerListUpdateHandler: ((Changes) -> Void)? {
+    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? {
         didSet {
             store.answerListUpdateHandler = self.answerListUpdateHandler
         }

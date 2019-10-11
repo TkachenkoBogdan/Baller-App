@@ -17,6 +17,7 @@ final class AnswersListController: UITableViewController {
     init(viewModel: AnswersListViewModel) {
         self.viewModel = viewModel
         super.init(style: .plain)
+        setupObservationClosures()
     }
 
     required init?(coder: NSCoder) {
@@ -25,10 +26,13 @@ final class AnswersListController: UITableViewController {
 
     private func setupObservationClosures() {
 
-        viewModel.answerListUpdateHandler = { [unowned self] changes in
-            self.tableView.apply(changes: changes)
+        viewModel.answerListUpdateHandler = { [unowned self] changeSet in
+            if case .change(_, let deletions, let insertions, let updates) = changeSet {
+                self.tableView.applyChanges(deletions: deletions,
+                                            insertions: insertions,
+                                            updates: updates)
+            }
         }
-
     }
 
     // MARK: - Lifecycle:
@@ -36,7 +40,6 @@ final class AnswersListController: UITableViewController {
     override func viewDidLoad() {
 
         setupNavigationItems()
-        setupObservationClosures()
         configureTableView()
     }
 
