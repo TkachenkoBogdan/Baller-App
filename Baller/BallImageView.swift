@@ -43,7 +43,7 @@ final class BallImageView: UIImageView {
             .translatedBy(x: CGFloat.random(in: -intensity...intensity),
                           y: CGFloat.random(in: -intensity...intensity))
 
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.2,
+        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 2,
                        options: [.curveEaseInOut, .allowUserInteraction],
                        animations: {

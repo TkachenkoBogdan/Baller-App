@@ -79,6 +79,8 @@ final class BallView: UIView {
         countLabel.text = String(count)
     }
 
+    // MARK: - Overrides:
+
     override func didMoveToWindow() {
         if !ballHasRolledToScreen {
             eightBall.rollToScreen()
@@ -112,7 +114,7 @@ final class BallView: UIView {
         animatedBackground = PastelView(frame: self.bounds)
 
         animatedBackground.startPastelPoint = .bottomLeft
-        animatedBackground.endPastelPoint = .top
+        animatedBackground.endPastelPoint = .topRight
         animatedBackground.animationDuration = 3
 
         updateAnimatedBackground()
@@ -121,7 +123,8 @@ final class BallView: UIView {
 
     private func updateAnimatedBackground() {
         animatedBackground.setColors([AppColor.animatedColor1,
-                                      AppColor.animatedColor2
+                                      AppColor.animatedColor2,
+                                      AppColor.animatedColor3
         ])
         animatedBackground.startAnimation()
     }
@@ -154,8 +157,8 @@ extension BallView {
 
         answerLabel?.snp.makeConstraints { maker in
             maker.center.equalTo(eightBall)
-            maker.height.equalTo(self).multipliedBy(0.3)
-            maker.width.equalTo(self).multipliedBy(0.8)
+            maker.height.equalTo(eightBall).multipliedBy(0.5)
+            maker.width.equalTo(eightBall).multipliedBy(0.5)
         }
     }
 
