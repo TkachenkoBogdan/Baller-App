@@ -9,16 +9,20 @@
 import Foundation
 import RealmSwift
 
-struct RealmProvider {
+class RealmProvider {
 
     private let configuration: Realm.Configuration
+    private let migrationManager: MigrationManager
 
     // MARK: - Init:
 
-    init(config: Realm.Configuration) {
-        self.configuration = config
+    init(configuration: Realm.Configuration, migrationManager: MigrationManager) {
+        self.configuration = configuration
+        self.migrationManager = migrationManager
         setupRealm()
     }
+
+    // MARK: - Public:
 
     var realm: Realm {
         do {
@@ -28,19 +32,9 @@ struct RealmProvider {
         }
     }
 
-    // MARK: - Default Realm:
-
-    public static var `default`: RealmProvider = {
-        return RealmProvider(config: defaultConfiguration)
-    }()
-
-    private static var defaultConfiguration = Realm.Configuration(
-        fileURL: try? Path.inDocuments(L10n.Filenames.Realm.main),
-        readOnly: false,
-        objectTypes: [RealmAnswer.self])
+    // MARK: - Private:
 
     private func setupRealm() {
-        SyncManager.shared.logLevel = .off
 
         if !AnswersRealm.main.fileExists {
             try? FileManager.default.copyItem(
@@ -73,4 +67,21 @@ struct RealmProvider {
             return url.path
         }
     }
+}
+
+// MARK: - Default Provider:
+
+extension RealmProvider {
+
+    public static let `default`: RealmProvider = {
+        return RealmProvider(configuration: defaultConfiguration, migrationManager: defaultMigrationManager)
+    }()
+
+    private static let defaultConfiguration = Realm.Configuration(
+        fileURL: try? Path.inDocuments(L10n.Filenames.Realm.main),
+        schemaVersion: 2,
+        migrationBlock: defaultMigrationManager.migrationBlock,
+        objectTypes: [RealmAnswer.self])
+
+    private static let defaultMigrationManager = MigrationManager()
 }

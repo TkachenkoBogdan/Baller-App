@@ -46,7 +46,6 @@ class RealmAnswerStore {
     private var realm: Realm {
         return realmProvider.realm
     }
-    private lazy var internalQueue = DispatchQueue.global(qos: .background)
 
     private lazy var answers: Results<RealmAnswer> = realm.objects(RealmAnswer.self)
                                                     .sorted(byKeyPath: RealmAnswer.Property.date.rawValue,
@@ -54,6 +53,7 @@ class RealmAnswerStore {
     var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)?
 
     private var answersToken: NotificationToken?
+    private lazy var internalQueue = DispatchQueue.global(qos: .userInitiated)
 
     // MARK: - Init:
 

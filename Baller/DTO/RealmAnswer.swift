@@ -12,10 +12,10 @@ import RealmSwift
 @objcMembers class RealmAnswer: Object {
 
     enum Property: String {
-        case title, date, type, identifier
+        case text, title, date, type, identifier
     }
 
-    dynamic var title: String = ""
+    dynamic var text: String = ""
     dynamic var date: Date = Date.distantPast
     dynamic var type: String = ""
     dynamic var identifier = UUID().uuidString
@@ -23,7 +23,7 @@ import RealmSwift
     convenience init(title: String, date: Date = Date(), type: String = L10n.AnswerType.neutral) {
         self.init()
 
-        self.title = title
+        self.text = title
         self.date = date
         self.type = type
     }
@@ -37,7 +37,7 @@ import RealmSwift
 extension RealmAnswer {
 
     func toAnswer() -> Answer {
-        return Answer(title: title,
+        return Answer(title: text,
                       date: date,
                       type: AnswerType(rawValue: type) ?? AnswerType.neutral)
     }
