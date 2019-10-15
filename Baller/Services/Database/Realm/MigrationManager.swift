@@ -13,6 +13,8 @@ struct MigrationManager {
 
     private let answerType = String(describing: RealmAnswer.self)
 
+    // MARK: - Public:
+
     func migrationBlock(migration: Migration, oldVersion: UInt64) {
         if oldVersion < 1 {
             migrateFrom0To1(migration)
@@ -25,16 +27,18 @@ struct MigrationManager {
         }
     }
 
+    // MARK: - Private:
+
     private func migrateFrom0To1(_ migration: Migration) {
-        print("Migration from 0 to version 1")
+        debugPrint(L10n.Migration.from0to1)
 
         migration.renameProperty(onType: answerType,
-                                 from: RealmAnswer.Property.title.rawValue,
-                                 to: "text")
+                                 from: "title",
+                                 to: RealmAnswer.Property.text.rawValue)
     }
 
     private func migrateFrom1to2(_ migration: Migration) {
-        print("Migration from 1 to version 2")
+        debugPrint(L10n.Migration.from1to2)
 
         migration.enumerateObjects(ofType: answerType) { _, newObject in
 
@@ -42,18 +46,16 @@ struct MigrationManager {
                 let oldText = newObject[RealmAnswer.Property.text.rawValue] as? String
                 else { return }
 
-            newObject[RealmAnswer.Property.text.rawValue] = "Migrated: \(oldText)"
+            newObject[RealmAnswer.Property.text.rawValue] = "\(oldText).."
         }
-
     }
 
     private func migrateFrom2to3(_ migration: Migration) {
-        print("Migration from 2 to version 3")
+        debugPrint(L10n.Migration.from2to3)
 
         migration.enumerateObjects(ofType: answerType) { _, newObject in
 
             guard let newObject = newObject else { return }
-
             newObject[RealmAnswer.Property.date.rawValue] = Date()
         }
     }

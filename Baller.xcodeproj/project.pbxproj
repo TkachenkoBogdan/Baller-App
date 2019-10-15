@@ -247,9 +247,7 @@
 		BD0664212350C2D800DDD102 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				BDAA9078234CACC200F9007C /* RealmAnswerStore.swift */,
-				BDAA907A234CAEAA00F9007C /* RealmProvider.swift */,
-				BD8A8C762355882A00800CF3 /* MigrationManager.swift */,
+				BD8A8C782355A42600800CF3 /* Realm */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -287,6 +285,16 @@
 				BDAD4821233F4E9C00782B74 /* Futura.ttc */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		BD8A8C782355A42600800CF3 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				BDAA9078234CACC200F9007C /* RealmAnswerStore.swift */,
+				BDAA907A234CAEAA00F9007C /* RealmProvider.swift */,
+				BD8A8C762355882A00800CF3 /* MigrationManager.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		BD9C61912350C36B00005151 /* Support */ = {

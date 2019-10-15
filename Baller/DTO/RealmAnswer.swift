@@ -12,7 +12,7 @@ import RealmSwift
 @objcMembers class RealmAnswer: Object {
 
     enum Property: String {
-        case text, title, date, type, identifier
+        case text, date, type, identifier
     }
 
     dynamic var text: String = ""

@@ -79,7 +79,7 @@ extension RealmProvider {
 
     private static let defaultConfiguration = Realm.Configuration(
         fileURL: try? Path.inDocuments(L10n.Filenames.Realm.main),
-        schemaVersion: 2,
+        schemaVersion: AppConstants.appModelVersion,
         migrationBlock: defaultMigrationManager.migrationBlock,
         objectTypes: [RealmAnswer.self])
 

@@ -67,6 +67,15 @@ internal enum L10n {
     internal static let statusLabel = L10n.tr("Localizable", "Labels.statusLabel")
   }
 
+  internal enum Migration {
+    /// Migration from 0 to version 1
+    internal static let from0to1 = L10n.tr("Localizable", "Migration.from0to1")
+    /// Migration from 1 to version 2
+    internal static let from1to2 = L10n.tr("Localizable", "Migration.from1to2")
+    /// Migration from 2 to version 3
+    internal static let from2to3 = L10n.tr("Localizable", "Migration.from2to3")
+  }
+
   internal enum Prompts {
     /// Provide an answer
     internal static let newAnswer = L10n.tr("Localizable", "Prompts.newAnswer")

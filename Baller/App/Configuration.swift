@@ -10,6 +10,7 @@ import UIKit
 
 enum AppConstants {
 
+    static let appModelVersion: UInt64 = 2
     static let shakeAttempts = L10n.numberOfShakeAttempts
 }
 

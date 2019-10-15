@@ -2,12 +2,14 @@
 "Filenames.realm.main" = "mainAnswers.realm";
 "Filenames.realm.bundled" = "bundledAnswers.realm";
 
+"Migration.from0to1" = "Migration from 0 to version 1";
+"Migration.from1to2" = "Migration from 1 to version 2";
+"Migration.from2to3" = "Migration from 2 to version 3";
+
 "FatalErrors.realm.failedToInitialize" = "Failed to initialize Realm";
 "FatalErrors.realm.failedToAddAnswer" = "Failed to add the answer to the Realm!";
 "FatalErrors.realm.failedToDeleteAnswer" = "Failed to delete the answer from the Realm!";
 "FatalErrors.realm.failedToDeleteAllAnswers" = "Failed to delete all answers from the Realm";
-
-
 
 //String constants:
 "numberOfShakeAttempts" = "numberOfShakeAttmepts";
