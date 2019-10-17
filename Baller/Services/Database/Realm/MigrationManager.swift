@@ -36,7 +36,7 @@ struct MigrationManager {
     // MARK: - Private:
 
     private func migrateFrom0To1(_ migration: Migration) {
-        debugPrint(L10n.Migration.from0to1)
+        customDebugPrint(L10n.Migration.from0to1)
 
         migration.renameProperty(onType: answerType,
                                  from: "title",
@@ -44,7 +44,7 @@ struct MigrationManager {
     }
 
     private func migrateFrom1to2(_ migration: Migration) {
-        debugPrint(L10n.Migration.from1to2)
+        customDebugPrint(L10n.Migration.from1to2)
 
         migration.enumerateObjects(ofType: answerType) { _, newObject in
 
@@ -57,7 +57,7 @@ struct MigrationManager {
     }
 
     private func migrateFrom2to3(_ migration: Migration) {
-        debugPrint(L10n.Migration.from2to3)
+        customDebugPrint(L10n.Migration.from2to3)
 
         migration.enumerateObjects(ofType: answerType) { _, newObject in
 
@@ -67,7 +67,7 @@ struct MigrationManager {
     }
 
     private func migrateFrom3to4(_ migration: Migration) {
-        debugPrint(L10n.Migration.from3to4)
+        customDebugPrint(L10n.Migration.from3to4)
 
         migration.enumerateObjects(ofType: answerType) { oldObject, newObject in
 
@@ -77,12 +77,18 @@ struct MigrationManager {
     }
 
     private func migrateFrom4to5(_ migration: Migration) {
-        debugPrint(L10n.Migration.from4to5)
+        customDebugPrint(L10n.Migration.from4to5)
 
         migration.enumerateObjects(ofType: answerType) { oldObject, newObject in
 
             guard let newObject = newObject, let oldObject = oldObject else { return }
             newObject[RealmAnswer.Property.id.rawValue] = oldObject["identifier"]
         }
+    }
+
+    private func customDebugPrint(_ string: String) {
+        #if DEBUG
+        print(string)
+        #endif
     }
 }
