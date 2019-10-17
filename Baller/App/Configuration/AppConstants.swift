@@ -11,6 +11,5 @@ import UIKit
 enum AppConstants {
 
     ///Realm model version:
-    static let appModelVersion: UInt64 = 3
-
+    static let appModelVersion: UInt64 = 5
 }

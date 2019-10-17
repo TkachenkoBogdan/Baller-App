@@ -8,20 +8,14 @@
 
 import Foundation
 
-enum AnswerType: String {
-    case neutral = "Neutral"
-    case affirmative = "Affirmative"
-    case contrary = "Contrary"
-}
-
 struct Answer {
 
-    let title: String
+    let text: String
     let date: Date
     let type: AnswerType
 
     init(title: String, date: Date = Date(), type: AnswerType = .neutral) {
-        self.title = title
+        self.text = title
         self.date = date
         self.type = type
     }
@@ -29,15 +23,15 @@ struct Answer {
 
 extension Answer {
 
+    func toRealmAnswer() -> RealmAnswer {
+        return RealmAnswer(title: text, type: type)
+    }
+
     func toPresentableAnswer(withDateFormatter dateFormatter: DateFormatter? = nil,
                              uppercased: Bool = false) -> PresentableAnswer {
 
-        let title =  uppercased ? self.title.uppercased() : self.title
-        let date = dateFormatter?.string(from: self.date) ?? ""
-        return PresentableAnswer(title: title, date: date, type: type)
-    }
-
-    func toRealmAnswer() -> RealmAnswer {
-        return RealmAnswer(title: title, date: date, type: type.rawValue)
+        let title =  uppercased ? self.text.uppercased() : self.text
+        let formattedDate = dateFormatter?.string(from: self.date) ?? ""
+        return PresentableAnswer(title: title, formattedDate: formattedDate, type: type)
     }
 }

@@ -30,7 +30,7 @@ class NetworkAnswerProvider: AnswerProviding {
         let request = URLRequest(url: url)
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let data = data, error == nil,
-                let answer = try? JSONDecoder().decode(SerializableAnswer.self, from: data) {
+                let answer = try? JSONDecoder().decode(DecodableAnswer.self, from: data) {
                 completionHandler(Result.success(answer.toAnswer()))
             } else if let error = error {
                 completionHandler(Result.failure(error))

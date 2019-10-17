@@ -5,6 +5,8 @@
 "Migration.from0to1" = "Migration from 0 to version 1";
 "Migration.from1to2" = "Migration from 1 to version 2";
 "Migration.from2to3" = "Migration from 2 to version 3";
+"Migration.from3to4" = "Migration from 3 to version 4";
+"Migration.from4to5" = "Migration from 4 to version 5";
 
 "FatalErrors.realm.failedToInitialize" = "Failed to initialize Realm";
 "FatalErrors.realm.failedToAddAnswer" = "Failed to add the answer to the Realm!";
@@ -12,7 +14,6 @@
 "FatalErrors.realm.failedToDeleteAllAnswers" = "Failed to delete all answers from the Realm";
 
 //String constants:
-"numberOfShakeAttempts" = "numberOfShakeAttmepts";
 "noDefaultAnswers" = "No default answers";
 
 //AnswerType values:

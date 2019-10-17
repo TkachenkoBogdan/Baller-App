@@ -13,8 +13,6 @@ import Foundation
 internal enum L10n {
   /// No default answers
   internal static let noDefaultAnswers = L10n.tr("Localizable", "noDefaultAnswers")
-  /// numberOfShakeAttmepts
-  internal static let numberOfShakeAttempts = L10n.tr("Localizable", "numberOfShakeAttempts")
 
   internal enum AnswerType {
     /// Affirmative
@@ -74,6 +72,10 @@ internal enum L10n {
     internal static let from1to2 = L10n.tr("Localizable", "Migration.from1to2")
     /// Migration from 2 to version 3
     internal static let from2to3 = L10n.tr("Localizable", "Migration.from2to3")
+    /// Migration from 3 to version 4
+    internal static let from3to4 = L10n.tr("Localizable", "Migration.from3to4")
+    /// Migration from 4 to version 5
+    internal static let from4to5 = L10n.tr("Localizable", "Migration.from4to5")
   }
 
   internal enum Prompts {

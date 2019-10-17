@@ -10,13 +10,13 @@ import UIKit
 
 struct PresentableAnswer {
 
-    let title: String
-    let dateAdded: String
+    let text: String
+    let formattedDate: String
     let type: AnswerType
 
-    init(title: String, date: String, type: AnswerType) {
-        self.title = title
-        self.dateAdded = date
+    init(title: String, formattedDate: String, type: AnswerType) {
+        self.text = title
+        self.formattedDate = formattedDate
         self.type = type
     }
 

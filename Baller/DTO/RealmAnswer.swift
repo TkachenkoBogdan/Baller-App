@@ -11,25 +11,36 @@ import RealmSwift
 
 @objcMembers class RealmAnswer: Object {
 
+    // MARK: - Properties:
+
     enum Property: String {
-        case text, date, type, identifier
+        case text, date, type, privateType, id // swiftlint:disable:this identifier_name
     }
 
     dynamic var text: String = ""
-    dynamic var date: Date = Date.distantPast
-    dynamic var type: String = ""
-    dynamic var identifier = UUID().uuidString
+    dynamic var date: Date = Date()
+    dynamic var id: String = UUID().uuidString // swiftlint:disable:this identifier_name
 
-    convenience init(title: String, date: Date = Date(), type: String = L10n.AnswerType.neutral) {
+    var type: AnswerType {
+        get { return AnswerType(rawValue: privateType) }
+        set { privateType = newValue.rawValue }
+    }
+
+    @objc private dynamic var privateType: String = ""
+
+    // MARK: - Init:
+
+    convenience init(title: String, type: AnswerType) {
         self.init()
 
         self.text = title
-        self.date = date
         self.type = type
     }
 
+    // MARK: - Overrides:
+
     override static func primaryKey() -> String? {
-        return RealmAnswer.Property.identifier.rawValue
+        return RealmAnswer.Property.id.rawValue
     }
 
 }
@@ -37,8 +48,6 @@ import RealmSwift
 extension RealmAnswer {
 
     func toAnswer() -> Answer {
-        return Answer(title: text,
-                      date: date,
-                      type: AnswerType(rawValue: type) ?? AnswerType.neutral)
+        return Answer(title: text, date: date, type: type)
     }
 }

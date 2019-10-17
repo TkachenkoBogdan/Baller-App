@@ -25,6 +25,12 @@ struct MigrationManager {
         if oldVersion < 3 {
             migrateFrom2to3(migration)
         }
+        if oldVersion < 4 {
+            migrateFrom3to4(migration)
+        }
+        if oldVersion < 5 {
+            migrateFrom4to5(migration)
+        }
     }
 
     // MARK: - Private:
@@ -57,6 +63,26 @@ struct MigrationManager {
 
             guard let newObject = newObject else { return }
             newObject[RealmAnswer.Property.date.rawValue] = Date()
+        }
+    }
+
+    private func migrateFrom3to4(_ migration: Migration) {
+        debugPrint(L10n.Migration.from3to4)
+
+        migration.enumerateObjects(ofType: answerType) { oldObject, newObject in
+
+            guard let newObject = newObject, let oldObject = oldObject else { return }
+            newObject[RealmAnswer.Property.privateType.rawValue] = oldObject[RealmAnswer.Property.type.rawValue]
+        }
+    }
+
+    private func migrateFrom4to5(_ migration: Migration) {
+        debugPrint(L10n.Migration.from4to5)
+
+        migration.enumerateObjects(ofType: answerType) { oldObject, newObject in
+
+            guard let newObject = newObject, let oldObject = oldObject else { return }
+            newObject[RealmAnswer.Property.id.rawValue] = oldObject["identifier"]
         }
     }
 }

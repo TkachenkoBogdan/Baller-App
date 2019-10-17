@@ -35,6 +35,7 @@ final class BallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.setNavigationBarHidden(true, animated: false)
         setUpObservationClosures()
     }
 
@@ -74,7 +75,7 @@ extension BallViewController {
         viewModel.answerReceivedHandler = { [unowned self] answer in
 
             DispatchQueue.main.async {
-                self.ballView.updateTextLabel(with: answer.title)
+                self.ballView.updateTextLabel(with: answer.text)
                 self.ballView.updateShadow(with: answer.semanticColor)
                 self.ballView.stopInteraction()
             }

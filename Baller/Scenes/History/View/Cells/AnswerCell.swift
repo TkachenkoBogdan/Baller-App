@@ -33,8 +33,8 @@ final class AnswerCell: UITableViewCell {
     }
 
     func configure(with answer: PresentableAnswer) {
-        answerLabel.text = answer.title
-        dateLabel.text = answer.dateAdded
+        answerLabel.text = answer.text
+        dateLabel.text = answer.formattedDate
     }
 
     // MARK: - Private:
