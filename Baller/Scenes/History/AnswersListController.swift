@@ -62,6 +62,7 @@ final class AnswersListController: UITableViewController {
                                                            target: self, action: #selector(deleteButtonPressed(_:)))
     }
 
+    // Actions:
     @objc private func addButtonPressed(_ sender: Any) {
 
         presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (answerString) in
@@ -71,9 +72,12 @@ final class AnswersListController: UITableViewController {
     }
 
     @objc private func deleteButtonPressed(_ sender: Any) {
-        self.viewModel.deleteAllAnswers()
-    }
 
+        presentConfirmationAlert(withTitle: L10n.Prompts.DeleteAll.title,
+                                 message: L10n.Prompts.DeleteAll.message) {
+                                    self.viewModel.deleteAllAnswers()
+        }
+    }
 }
 
 extension AnswersListController {

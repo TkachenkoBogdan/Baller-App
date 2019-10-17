@@ -25,6 +25,10 @@
 
 // System prompts:
 "Prompts.newAnswer" = "Provide an answer";
+"Prompts.deleteAll.title" = "Delete All";
+"Prompts.deleteAll.message" = "Are you sure that you want to delete all answers?";
+
+
 
 //Titles and labels:
 "Titles.AnswerList" = "Defaults";

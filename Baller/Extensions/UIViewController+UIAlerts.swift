@@ -21,7 +21,7 @@ extension UIViewController {
             field.isSecureTextEntry = isSecure
         })
 
-        alert.addAction(UIAlertAction(title: "OK",
+        alert.addAction(UIAlertAction(title: "Ok",
                                       style: .default,
                                       handler: { _ in
                                         guard let text = alert.textFields?.first?.text,
@@ -35,5 +35,24 @@ extension UIViewController {
           let root = UIApplication.shared.keyWindow?.rootViewController
           root?.present(alert, animated: true, completion: nil)
     }
+
+    func presentConfirmationAlert(withTitle title: String,
+                                  message: String,
+                                  mainActionCompletion completion: (() -> Void)? ) {
+
+          let alertController = UIAlertController(title: title,
+                                   message: message,
+                                   preferredStyle: .alert)
+
+                 let action = UIAlertAction(title: "Yes", style: .destructive) { _ in
+                     completion?()
+                 }
+                 let cancelAction =  UIAlertAction(title: "Cancel", style: .cancel)
+
+                 alertController.addAction(action)
+                 alertController.addAction(cancelAction)
+
+                 present(alertController, animated: true)
+      }
 
 }

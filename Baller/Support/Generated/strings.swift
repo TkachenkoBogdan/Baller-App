@@ -81,6 +81,12 @@ internal enum L10n {
   internal enum Prompts {
     /// Provide an answer
     internal static let newAnswer = L10n.tr("Localizable", "Prompts.newAnswer")
+    internal enum DeleteAll {
+      /// Are you sure that you want to delete all answers?
+      internal static let message = L10n.tr("Localizable", "Prompts.deleteAll.message")
+      /// Delete All
+      internal static let title = L10n.tr("Localizable", "Prompts.deleteAll.title")
+    }
   }
 
   internal enum Titles {
