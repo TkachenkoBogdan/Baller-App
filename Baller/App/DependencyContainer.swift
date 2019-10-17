@@ -31,11 +31,11 @@ final class DependencyContainer {
 
 extension DependencyContainer: ViewControllerFactory {
 
-    func makeRootRootViewController() -> UITabBarController {
+    func makeRootViewController() -> UITabBarController {
         let rootViewController = UITabBarController()
 
         let firstTabController = UINavigationController(rootViewController: makeBallViewController())
-        let secondTabController = UINavigationController(rootViewController: (makeAnswersListController()))
+        let secondTabController = UINavigationController(rootViewController: makeAnswersListController())
 
         rootViewController.viewControllers = [firstTabController, secondTabController]
         return rootViewController

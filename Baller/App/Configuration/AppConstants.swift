@@ -11,8 +11,6 @@ import UIKit
 enum AppConstants {
 
     ///Realm model version:
-    static let appModelVersion: UInt64 = 2
+    static let appModelVersion: UInt64 = 3
 
-    ///Keychain string keys:
-    static let shakeAttempts: String = L10n.numberOfShakeAttempts
 }

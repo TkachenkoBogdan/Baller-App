@@ -2,6 +2,10 @@ import Foundation
 
 final class BallModel {
 
+    private enum Keys: String {
+       case shakeAttempts
+    }
+
     // MARK: - Dependencies:
 
     private let answerService: AnswerProvider
@@ -62,13 +66,13 @@ final class BallModel {
 
     private func incrementAttemptsCount() {
         attemptsCount += 1
-        secureStorage.set(attemptsCount, forKey: AppConstants.shakeAttempts)
+        secureStorage.set(attemptsCount, forKey: Keys.shakeAttempts.rawValue)
         countUpdatedHandler?(attemptsCount)
     }
 
     private func setupAttemptsCount() -> Int {
-        guard let count = secureStorage.value(forKey: AppConstants.shakeAttempts) else {
-            secureStorage.set(0, forKey: AppConstants.shakeAttempts)
+        guard let count = secureStorage.value(forKey: Keys.shakeAttempts.rawValue) else {
+            secureStorage.set(0, forKey: Keys.shakeAttempts.rawValue)
             return 0
         }
         return count

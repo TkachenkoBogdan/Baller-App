@@ -10,7 +10,6 @@ import UIKit
 
 enum AppColor {
 
-
     static let primeColor = ColorName.indigo.color
 
     static var globalTint: UIColor {
