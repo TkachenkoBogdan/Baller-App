@@ -1,0 +1,50 @@
+// Realm:
+"Filenames.realm.main" = "mainAnswers.realm";
+"Filenames.realm.bundled" = "bundledAnswers.realm";
+
+"Migration.from0to1" = "Migration from 0 to version 1";
+"Migration.from1to2" = "Migration from 1 to version 2";
+"Migration.from2to3" = "Migration from 2 to version 3";
+"Migration.from3to4" = "Migration from 3 to version 4";
+"Migration.from4to5" = "Migration from 4 to version 5";
+
+"FatalErrors.realm.failedToInitialize" = "Failed to initialize Realm";
+"FatalErrors.realm.failedToAddAnswer" = "Failed to add the answer to the Realm!";
+"FatalErrors.realm.failedToDeleteAnswer" = "Failed to delete the answer from the Realm!";
+"FatalErrors.realm.failedToDeleteAllAnswers" = "Failed to delete all answers from the Realm";
+
+//String constants:
+"noDefaultAnswers" = "No default answers";
+
+//AnswerType values:
+"AnswerType.neutral" = "Neutral";
+"AnswerType.affirmative" = "Affirmative";
+"AnswerType.countrary" = "Countrary";
+
+
+
+// System prompts:
+"Prompts.newAnswer" = "Provide an answer";
+"Prompts.deleteAll.title" = "Delete All";
+"Prompts.deleteAll.message" = "Are you sure that you want to delete all answers?";
+
+
+
+//Titles and labels:
+"Titles.AnswerList" = "Defaults";
+
+"Labels.statusLabel" = "Shake";
+
+//TabBar item titles:
+"BarItemTitles._8ball" = "8Ball";
+"BarItemTitles.history" = "History";
+
+"Labels.statusLabel" = "Shake";
+
+// Fatal error messages:
+
+"FatalErrors.init(coder:)" = "Object must not be initialized from xib/storyboard";
+"FatalErrors.noLocalAnswer" = "Failed to provide local answer";
+"FatalErrors.cannotDequeCell" = "Could not dequeue cell with identifier: ";
+"FatalErrors.failedToFindPath" = "Failed finding expected path: ";
+
