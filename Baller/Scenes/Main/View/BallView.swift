@@ -38,11 +38,11 @@ final class BallView: UIView {
     }
 
     // MARK: - Initialization:
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         setupAnimatedBackground()
+        addObserverForEnteringForeground()
 
         createBallImageView()
         createAnswerLabel()
@@ -79,9 +79,26 @@ final class BallView: UIView {
         countLabel.text = String(count)
     }
 
-    // MARK: - Overrides:
+    // MARK: - Lifecycle and Events:
 
     override func didMoveToWindow() {
+        refreshBallState()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        refreshBallState()
+    }
+
+    // MARK: - Private:
+
+    private func addObserverForEnteringForeground() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshBallState),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+    }
+
+    @objc private func refreshBallState() {
         if !ballHasRolledToScreen {
             eightBall.rollToScreen()
             setupAnimatedBackground()
@@ -91,14 +108,6 @@ final class BallView: UIView {
             animatedBackground.startAnimation()
         }
     }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if animatedBackground.window != nil {
-            updateAnimatedBackground()
-        }
-    }
-
-    // MARK: - Private:
 
     private func setLabelsVisibility(to visible: Bool) {
 
