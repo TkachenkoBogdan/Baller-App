@@ -32,7 +32,7 @@ final class DependencyContainer {
 extension DependencyContainer: ViewControllerFactory {
 
     func makeRootViewController() -> UITabBarController {
-        let rootViewController = UITabBarController()
+        let rootViewController = BallerTabBarController()
 
         let firstTabController = UINavigationController(rootViewController: makeBallViewController())
         let secondTabController = UINavigationController(rootViewController: makeAnswersListController())

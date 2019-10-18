@@ -20,10 +20,10 @@ extension UIView {
         layer.add(animation, forKey: CATransitionType.push.rawValue)
     }
 
-    func flutter(withIntensity intensity: CGFloat = 10) {
+    func flutter(withIntensity intensity: CGFloat = 10, duration: CFTimeInterval = 0.4) {
         self.transform = CGAffineTransform(translationX: intensity, y: 0)
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.05,
-                       initialSpringVelocity: 10,
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.05,
+                       initialSpringVelocity: 15,
                        options: [.curveEaseInOut],
                        animations: {
                         self.transform = CGAffineTransform.identity
