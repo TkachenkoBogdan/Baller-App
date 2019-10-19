@@ -35,9 +35,11 @@ final class BallImageView: UIImageView {
     }
 
     func appearWithAnimation() {
-        self.layer.animateOpacityChange(withDuration: 1.5)
-        flutter(duration: 1)
-        hover()
+        DispatchQueue.main.async {
+            self.hover()
+            self.layer.animateOpacityChange(withDuration: 1)
+            self.flutter(duration: 1)
+        }
     }
 
     func updateShadowColor(with color: UIColor, duration: CFTimeInterval = 0.6) {

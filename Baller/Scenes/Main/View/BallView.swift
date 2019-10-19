@@ -91,22 +91,32 @@ final class BallView: UIView {
 
     // MARK: - Private:
 
-    private func addObserverForEnteringForeground() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(refreshBallState),
-                                               name: UIApplication.willEnterForegroundNotification,
-                                               object: nil)
+    @objc private func refreshBallState() {
+        rollBalltoScreenIfNeeded()
+        if window != nil {
+            startBallAnimations()
+        }
     }
 
-    @objc private func refreshBallState() {
+    private func startBallAnimations() {
+        eightBall.appearWithAnimation()
+        animatedBackground.startAnimation()
+    }
+
+    private func rollBalltoScreenIfNeeded() {
         if !ballHasRolledToScreen {
             eightBall.rollToScreen()
             setupAnimatedBackground()
             ballHasRolledToScreen = true
-        } else if window != nil {
-            eightBall.appearWithAnimation()
-            animatedBackground.startAnimation()
         }
+    }
+
+    private func addObserverForEnteringForeground() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(refreshBallState),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil)
     }
 
     private func setLabelsVisibility(to visible: Bool) {
