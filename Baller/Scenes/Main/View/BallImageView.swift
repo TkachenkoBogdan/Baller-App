@@ -23,18 +23,55 @@ final class BallImageView: UIImageView {
         fatalError(L10n.FatalErrors.initCoder)
     }
 
-    // MARK: - Public Logic:
+    // MARK: - Public:
 
     func rollToScreen() {
-        roll(withIntensity: 800)
+        roll(withIntensity: 800,
+             completion: { [weak self] in
+                guard let self = self else { return }
+                self.flutter(withIntensity: 3, duration: 1.5)
+                self.hover()
+        })
     }
 
     func appearWithAnimation() {
         self.layer.animateOpacityChange(withDuration: 1.5)
-        flutter(withIntensity: 10, duration: 1)
+        flutter(duration: 1)
+        hover()
     }
 
-    func roll(withIntensity intensity: CGFloat = 100, completion: ( () -> Void)? = nil) {
+    func updateShadowColor(with color: UIColor, duration: CFTimeInterval = 0.6) {
+        layer.updateShadowColor(with: color, duration: duration)
+    }
+
+    // MARK: - Private:
+
+    @objc private func ballPressed() {
+        flutter(withIntensity: 5, duration: 1.2)
+    }
+
+    private func setShadow(with color: UIColor) {
+        UIView.animate(withDuration: 1.5) {
+            self.layer.addShadow(color: color, opacity: 0.9, radius: 50)
+        }
+    }
+
+    private func updateShadowColorToDefault() {
+        layer.updateShadowColor(with: AppColor.primeColor, duration: 0.7)
+    }
+
+    private func setUpBallGestureRecognizer() {
+        self.isUserInteractionEnabled = true
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ballPressed))
+        self.addGestureRecognizer(tapRecognizer)
+    }
+}
+
+// MARK: - Animations:
+
+extension BallImageView {
+
+    func roll(withIntensity intensity: CGFloat = 100, completion: (() -> Void)? = nil) {
 
         let rotationRange = CGFloat.random(in: (CGFloat.pi/1.5)...CGFloat.pi)
 
@@ -49,31 +86,33 @@ final class BallImageView: UIImageView {
                        animations: {
                         self.transform = CGAffineTransform.identity
         }, completion: { _ in
-            self.updateShadowColor(with: AppColor.primeColor, duration: 1)
+            self.updateShadowColorToDefault()
+            self.pulse()
+            completion?()
         })
     }
 
-    func updateShadowColor(with color: UIColor, duration: CFTimeInterval = 0.6) {
-        layer.updateShadowColor(with: color, duration: duration)
-        shrink()
-    }
+    private func hover() {
 
-    // MARK: - Private Logic:
+           let shadowRadius = CABasicAnimation(keyPath: "shadowRadius")
+           shadowRadius.fromValue = 25
+           shadowRadius.toValue = 90
 
-    @objc private func ballPressed() {
-        flutter(withIntensity: 15)
-    }
+           let positionY = CASpringAnimation(keyPath: "position.y")
+           positionY.damping = 20
+           positionY.mass = 100
+           positionY.stiffness = 50
+           positionY.initialVelocity = 0.5
+           positionY.fromValue = self.layer.position.y - 5
+           positionY.toValue = self.layer.position.y + 10
 
-    private func setShadow(with color: UIColor) {
+           let animationGroup = CAAnimationGroup()
+           animationGroup.duration = 3
+           animationGroup.repeatDuration = .infinity
+           animationGroup.animations = [positionY, shadowRadius]
+           animationGroup.autoreverses = true
+           animationGroup.fillMode = .both
 
-        UIView.animate(withDuration: 1.5) {
-            self.layer.addShadow(color: color, opacity: 0.9, radius: 50)
-        }
-    }
-
-    private func setUpBallGestureRecognizer() {
-        self.isUserInteractionEnabled = true
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ballPressed))
-        self.addGestureRecognizer(tapRecognizer)
-    }
+           self.layer.add(animationGroup, forKey: nil)
+       }
 }
