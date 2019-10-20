@@ -20,7 +20,7 @@ final class BallView: UIView {
 
     private var activityIndicator: UIActivityIndicatorView!
     private var countLabel: UILabel!
-    private var ballHasRolledToScreen = false
+    private var ballHasAppearead = false
     private var animatedBackground: PastelView!
 
     private var interactionIsInProcess: Bool = false {
@@ -82,39 +82,39 @@ final class BallView: UIView {
     // MARK: - Lifecycle and Events:
 
     override func didMoveToWindow() {
-        refreshBallState()
+        updateViewState()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        refreshBallState()
+        updateViewState()
     }
 
     // MARK: - Private:
 
-    @objc private func refreshBallState() {
-        rollBalltoScreenIfNeeded()
+    @objc private func updateViewState() {
+        putBallOnScreenIfNeeded()
         if window != nil {
-            startBallAnimations()
+            startAnimations()
         }
     }
 
-    private func startBallAnimations() {
-        eightBall.appearWithAnimation()
+    private func startAnimations() {
+        eightBall.startAnimations()
         animatedBackground.startAnimation()
     }
 
-    private func rollBalltoScreenIfNeeded() {
-        if !ballHasRolledToScreen {
-            eightBall.rollToScreen()
+    private func putBallOnScreenIfNeeded() {
+        if !ballHasAppearead {
+            eightBall.appearOnScreen()
             setupAnimatedBackground()
-            ballHasRolledToScreen = true
+            ballHasAppearead = true
         }
     }
 
     private func addObserverForEnteringForeground() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(refreshBallState),
+            selector: #selector(updateViewState),
             name: UIApplication.willEnterForegroundNotification,
             object: nil)
     }
@@ -161,7 +161,7 @@ extension BallView {
         self.addSubview(eightBall)
 
         self.eightBall?.snp.makeConstraints { maker in
-            maker.width.equalTo(self).multipliedBy(0.8)
+            maker.width.equalTo(self).multipliedBy(0.85)
             maker.height.equalTo(self.eightBall.snp.width)
             maker.centerX.equalToSuperview()
             maker.top.lessThanOrEqualTo(safeAreaLayoutGuide.snp.top).inset(50)

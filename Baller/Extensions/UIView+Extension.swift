@@ -8,6 +8,8 @@
 
 import UIKit
 
+protocol Animatable {}
+
 extension UIView {
 
     func pushTransition(_ duration: CFTimeInterval) {
@@ -45,6 +47,22 @@ extension UIView {
                        options: [.curveEaseInOut],
                        animations: {
                         self.transform = CGAffineTransform.identity
+        })
+    }
+
+    func fallToPlace(completion: (() -> Void)? = nil) {
+        self.transform = CGAffineTransform(translationX: 0, y: -bounds.height / 2)
+           .rotated(by: .pi)
+
+        UIView.animate(withDuration: 2,
+                       delay: 0,
+                       usingSpringWithDamping: 10,
+                       initialSpringVelocity: 1,
+                       options: [.curveEaseInOut],
+                       animations: {
+                        self.transform = CGAffineTransform.identity
+        }, completion: { _ in
+            completion?()
         })
     }
 }

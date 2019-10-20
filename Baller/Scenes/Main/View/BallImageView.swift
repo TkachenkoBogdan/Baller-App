@@ -16,7 +16,7 @@ final class BallImageView: UIImageView {
         super.init(image: image)
 
         setUpBallGestureRecognizer()
-        self.setShadow(with: .black)
+        setShadow(with: .black)
     }
 
     required init?(coder: NSCoder) {
@@ -25,16 +25,14 @@ final class BallImageView: UIImageView {
 
     // MARK: - Public:
 
-    func rollToScreen() {
-        roll(withIntensity: 800,
-             completion: { [weak self] in
-                guard let self = self else { return }
-                self.flutter(withIntensity: 3, duration: 1.5)
-                self.hover()
-        })
+    func appearOnScreen() {
+        fallToPlace {
+            self.updateShadowColorToDefault()
+            self.flutter(withIntensity: 5, duration: 1)
+        }
     }
 
-    func appearWithAnimation() {
+    func startAnimations() {
         DispatchQueue.main.async {
             self.hover()
             self.layer.animateOpacityChange(withDuration: 1)
@@ -63,9 +61,9 @@ final class BallImageView: UIImageView {
     }
 
     private func setUpBallGestureRecognizer() {
-        self.isUserInteractionEnabled = true
+        isUserInteractionEnabled = true
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ballPressed))
-        self.addGestureRecognizer(tapRecognizer)
+        addGestureRecognizer(tapRecognizer)
     }
 }
 
@@ -73,18 +71,20 @@ final class BallImageView: UIImageView {
 
 extension BallImageView {
 
-    func roll(withIntensity intensity: CGFloat = 100, completion: (() -> Void)? = nil) {
+    func roll(withIntensity intensity: CGFloat = 100,
+              scaledBy scale: Double = 0.5,
+              completion: (() -> Void)? = nil) {
 
         let rotationRange = CGFloat.random(in: (CGFloat.pi/1.5)...CGFloat.pi)
 
         self.transform = CGAffineTransform(rotationAngle: rotationRange)
-            .scaledBy(x: 0.5, y: 0.5)
+            .scaledBy(x: 0.6, y: 0.6)
             .translatedBy(x: CGFloat.random(in: -intensity...intensity),
                           y: CGFloat.random(in: -intensity...intensity))
 
         UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 2,
-                       options: [.curveEaseInOut, .allowUserInteraction],
+                       options: [.curveEaseInOut],
                        animations: {
                         self.transform = CGAffineTransform.identity
         }, completion: { _ in
@@ -96,25 +96,30 @@ extension BallImageView {
 
     private func hover() {
 
-           let shadowRadius = CABasicAnimation(keyPath: "shadowRadius")
-           shadowRadius.fromValue = 25
-           shadowRadius.toValue = 90
+        let wobble = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        wobble.duration = 4
+        wobble.values = [0.0, -.pi/1.0, 0.0, .pi/1.0, 0.0]
+        wobble.keyTimes = [0.0, 0.25, 0.5, 0.75, 1.0]
 
-           let positionY = CASpringAnimation(keyPath: "position.y")
-           positionY.damping = 20
-           positionY.mass = 100
-           positionY.stiffness = 50
-           positionY.initialVelocity = 0.5
-           positionY.fromValue = self.layer.position.y - 5
-           positionY.toValue = self.layer.position.y + 10
+        let positionY = CASpringAnimation(keyPath: "position.y")
+        positionY.damping = 20
+        positionY.mass = 100
+        positionY.stiffness = 50
+        positionY.initialVelocity = 0.5
+        positionY.fromValue = self.layer.position.y - 5
+        positionY.toValue = self.layer.position.y + 10
 
-           let animationGroup = CAAnimationGroup()
-           animationGroup.duration = 3
-           animationGroup.repeatDuration = .infinity
-           animationGroup.animations = [positionY, shadowRadius]
-           animationGroup.autoreverses = true
-           animationGroup.fillMode = .both
+        let shadowRadius = CABasicAnimation(keyPath: "shadowRadius")
+        shadowRadius.fromValue = 25
+        shadowRadius.toValue = 90
 
-           self.layer.add(animationGroup, forKey: nil)
-       }
+        let animationGroup = CAAnimationGroup()
+        animationGroup.duration = 4
+        animationGroup.repeatDuration = .infinity
+        animationGroup.animations = [wobble, positionY, shadowRadius]
+        animationGroup.autoreverses = true
+        animationGroup.fillMode = .both
+
+        self.layer.add(animationGroup, forKey: nil)
+    }
 }
