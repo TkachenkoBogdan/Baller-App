@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BallerTabBarController: UITabBarController {
+final class BallerTabBarController: UITabBarController {
 
     private lazy var animationController: UIViewControllerAnimatedTransitioning = {
         return SlideAnimationController(viewControllers: viewControllers)
@@ -23,6 +23,8 @@ class BallerTabBarController: UITabBarController {
         tabBar.isTranslucent = false
     }
 }
+
+// MARK: - UITabBarControllerDelegate:
 
 extension BallerTabBarController: UITabBarControllerDelegate {
 

@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SlideAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
+final class SlideAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
 
     private let viewControllers: [UIViewController]?
-    private let transitionDuration: Double = 0.2
+    private let transitionDuration: TimeInterval = 0.3
 
     // MARK: - Init:
 
@@ -22,7 +22,7 @@ class SlideAnimationController: NSObject, UIViewControllerAnimatedTransitioning 
     // MARK: - UIViewControllerAnimatedTransitioning:
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return TimeInterval(transitionDuration)
+        return transitionDuration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
