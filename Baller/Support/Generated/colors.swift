@@ -21,22 +21,16 @@ internal struct ColorName {
 
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#11090c"></span>
   /// Alpha: 100% <br/> (0x11090cff)
-  internal static let animatedBackgroundDark1 = ColorName(rgbaValue: 0x11090cff)
+  internal static let animatedBackgroundPrimaryDark = ColorName(rgbaValue: 0x11090cff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#7177ea"></span>
+  /// Alpha: 100% <br/> (0x7177eaff)
+  internal static let animatedBackgroundPrimaryLight = ColorName(rgbaValue: 0x7177eaff)
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#212121"></span>
   /// Alpha: 100% <br/> (0x212121ff)
-  internal static let animatedBackgroundDark2 = ColorName(rgbaValue: 0x212121ff)
-  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#424242"></span>
-  /// Alpha: 100% <br/> (0x424242ff)
-  internal static let animatedBackgroundDark3 = ColorName(rgbaValue: 0x424242ff)
-  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#b4ffff"></span>
-  /// Alpha: 100% <br/> (0xb4ffffff)
-  internal static let animatedBackgroundLight1 = ColorName(rgbaValue: 0xb4ffffff)
-  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#73fbd5"></span>
-  /// Alpha: 100% <br/> (0x73fbd5ff)
-  internal static let animatedBackgroundLight2 = ColorName(rgbaValue: 0x73fbd5ff)
-  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#6684ff"></span>
-  /// Alpha: 100% <br/> (0x6684ffff)
-  internal static let animatedBackgroundLight3 = ColorName(rgbaValue: 0x6684ffff)
+  internal static let animatedBackgroundSecondaryDark = ColorName(rgbaValue: 0x212121ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ea6060"></span>
+  /// Alpha: 100% <br/> (0xea6060ff)
+  internal static let animatedBackgroundSecondaryLight = ColorName(rgbaValue: 0xea6060ff)
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ff2d55"></span>
   /// Alpha: 100% <br/> (0xff2d55ff)
   internal static let customRed = ColorName(rgbaValue: 0xff2d55ff)

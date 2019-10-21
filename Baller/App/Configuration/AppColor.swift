@@ -10,27 +10,24 @@ import UIKit
 
 enum AppColor {
 
-    static let primeColor = ColorName.indigo.color
+    static let primeColor = UIColor.forInterfaceStyle(light: .yellow,
+                                                      dark: ColorName.indigo.color)
 
     static var globalTint: UIColor {
-        return UIColor.forInterfaceStyle(light: .blue,
+        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundPrimaryLight.color,
                                          dark: ColorName.customRed.color)
     }
 
-    //Colors used for background gradient animation:
+    // Colors used for background gradient animation:
 
-    static var animatedColor1: UIColor {
-        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundLight1.color,
-                                         dark: ColorName.animatedBackgroundDark1.color)
+    static var animatedBackgroundPrimary: UIColor {
+        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundPrimaryLight.color,
+                                         dark: ColorName.animatedBackgroundPrimaryDark.color)
     }
 
-    static var animatedColor2: UIColor {
-        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundLight2.color,
-                                         dark: ColorName.animatedBackgroundDark2.color)
+    static var animatedBackgroundSecondary: UIColor {
+        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundSecondaryLight.color,
+                                         dark: ColorName.animatedBackgroundSecondaryDark.color)
     }
 
-    static var animatedColor3: UIColor {
-        return UIColor.forInterfaceStyle(light: ColorName.animatedBackgroundLight3.color,
-                                         dark: ColorName.animatedBackgroundDark3.color)
-    }
 }
