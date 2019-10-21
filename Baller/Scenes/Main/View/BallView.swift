@@ -29,10 +29,11 @@ final class BallView: UIView {
             if interactionIsInProcess {
                 setLabelsVisibility(to: false)
                 activityIndicator.startAnimating()
-                eightBall.roll()
+                eightBall.shake()
             } else {
                 setLabelsVisibility(to: true)
                 activityIndicator.stopAnimating()
+                eightBall.resetState()
             }
         }
     }
@@ -134,16 +135,15 @@ final class BallView: UIView {
 
         animatedBackground.startPastelPoint = .bottomLeft
         animatedBackground.endPastelPoint = .topRight
-        animatedBackground.animationDuration = 3
+        animatedBackground.animationDuration = 5
 
         updateAnimatedBackground()
         self.insertSubview(animatedBackground, at: 0)
     }
 
     private func updateAnimatedBackground() {
-        animatedBackground.setColors([AppColor.animatedColor1,
-                                      AppColor.animatedColor2,
-                                      AppColor.animatedColor3
+        animatedBackground.setColors([AppColor.animatedBackgroundPrimary,
+                                      AppColor.animatedBackgroundSecondary
         ])
         animatedBackground.startAnimation()
     }

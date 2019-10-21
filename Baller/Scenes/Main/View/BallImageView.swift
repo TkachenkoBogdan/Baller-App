@@ -36,8 +36,16 @@ final class BallImageView: UIImageView {
         DispatchQueue.main.async {
             self.hover()
             self.layer.animateOpacityChange(withDuration: 1)
+            self.updateShadowColorToDefault(withDuration: 2)
             self.flutter(duration: 1)
         }
+    }
+
+    func resetState(withDelay delay: DispatchTime = .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: delay, execute: {
+            self.updateShadowColorToDefault()
+            self.pulse()
+        })
     }
 
     func updateShadowColor(with color: UIColor, duration: CFTimeInterval = 0.6) {
@@ -56,8 +64,8 @@ final class BallImageView: UIImageView {
         }
     }
 
-    private func updateShadowColorToDefault() {
-        layer.updateShadowColor(with: AppColor.primeColor, duration: 0.7)
+    private func updateShadowColorToDefault(withDuration duration: CFTimeInterval = 0.7) {
+        layer.updateShadowColor(with: AppColor.primeColor, duration: duration)
     }
 
     private func setUpBallGestureRecognizer() {
@@ -71,26 +79,22 @@ final class BallImageView: UIImageView {
 
 extension BallImageView {
 
-    func roll(withIntensity intensity: CGFloat = 100,
-              scaledBy scale: Double = 0.5,
-              completion: (() -> Void)? = nil) {
+    func shake(withIntensity intensity: CGFloat = 150) {
 
         let rotationRange = CGFloat.random(in: (CGFloat.pi/1.5)...CGFloat.pi)
 
         self.transform = CGAffineTransform(rotationAngle: rotationRange)
-            .scaledBy(x: 0.6, y: 0.6)
+            .scaledBy(x: 0.7, y: 0.7)
             .translatedBy(x: CGFloat.random(in: -intensity...intensity),
                           y: CGFloat.random(in: -intensity...intensity))
 
-        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.2,
-                       initialSpringVelocity: 2,
+        UIView.animate(withDuration: 3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 2.5,
                        options: [.curveEaseInOut],
                        animations: {
                         self.transform = CGAffineTransform.identity
-        }, completion: { _ in
-            self.updateShadowColorToDefault()
-            self.pulse()
-            completion?()
         })
     }
 
