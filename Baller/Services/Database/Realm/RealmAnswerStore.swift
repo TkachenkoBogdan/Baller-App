@@ -53,7 +53,9 @@ class RealmAnswerStore {
     var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)?
 
     private var answersToken: NotificationToken?
-    private lazy var internalQueue = DispatchQueue.global(qos: .userInitiated)
+    private lazy var internalQueue = DispatchQueue(label: "com.baller.privateQueue",
+                                                   qos: .userInitiated,
+                                                   attributes: .concurrent)
 
     // MARK: - Init:
 
@@ -95,7 +97,7 @@ extension RealmAnswerStore: AnswerStore {
     }
 
     func appendAnswer(_ answer: Answer) {
-        internalQueue.async {
+        internalQueue.sync {
             do {
                 try self.realm.write {
                     self.realm.add(answer.toRealmAnswer())

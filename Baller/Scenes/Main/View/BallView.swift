@@ -20,7 +20,7 @@ final class BallView: UIView {
 
     private var activityIndicator: UIActivityIndicatorView!
     private var countLabel: UILabel!
-    private var ballHasRolledToScreen = false
+    private var ballHasAppearead = false
     private var animatedBackground: PastelView!
 
     private var interactionIsInProcess: Bool = false {
@@ -29,20 +29,21 @@ final class BallView: UIView {
             if interactionIsInProcess {
                 setLabelsVisibility(to: false)
                 activityIndicator.startAnimating()
-                eightBall.roll()
+                eightBall.shake()
             } else {
                 setLabelsVisibility(to: true)
                 activityIndicator.stopAnimating()
+                eightBall.resetState()
             }
         }
     }
 
     // MARK: - Initialization:
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         setupAnimatedBackground()
+        addObserverForEnteringForeground()
 
         createBallImageView()
         createAnswerLabel()
@@ -79,26 +80,45 @@ final class BallView: UIView {
         countLabel.text = String(count)
     }
 
-    // MARK: - Overrides:
+    // MARK: - Lifecycle and Events:
 
     override func didMoveToWindow() {
-        if !ballHasRolledToScreen {
-            eightBall.rollToScreen()
-            setupAnimatedBackground()
-            ballHasRolledToScreen = true
-        } else if window != nil {
-            eightBall.appearWithAnimation()
-            animatedBackground.startAnimation()
-        }
+        updateViewState()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if animatedBackground.window != nil {
-            updateAnimatedBackground()
-        }
+        updateViewState()
     }
 
     // MARK: - Private:
+
+    @objc private func updateViewState() {
+        putBallOnScreenIfNeeded()
+        if window != nil {
+            startAnimations()
+        }
+    }
+
+    private func startAnimations() {
+        eightBall.startAnimations()
+        animatedBackground.startAnimation()
+    }
+
+    private func putBallOnScreenIfNeeded() {
+        if !ballHasAppearead {
+            eightBall.appearOnScreen()
+            setupAnimatedBackground()
+            ballHasAppearead = true
+        }
+    }
+
+    private func addObserverForEnteringForeground() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateViewState),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil)
+    }
 
     private func setLabelsVisibility(to visible: Bool) {
 
@@ -115,16 +135,15 @@ final class BallView: UIView {
 
         animatedBackground.startPastelPoint = .bottomLeft
         animatedBackground.endPastelPoint = .topRight
-        animatedBackground.animationDuration = 3
+        animatedBackground.animationDuration = 5
 
         updateAnimatedBackground()
         self.insertSubview(animatedBackground, at: 0)
     }
 
     private func updateAnimatedBackground() {
-        animatedBackground.setColors([AppColor.animatedColor1,
-                                      AppColor.animatedColor2,
-                                      AppColor.animatedColor3
+        animatedBackground.setColors([AppColor.animatedBackgroundPrimary,
+                                      AppColor.animatedBackgroundSecondary
         ])
         animatedBackground.startAnimation()
     }
@@ -142,7 +161,7 @@ extension BallView {
         self.addSubview(eightBall)
 
         self.eightBall?.snp.makeConstraints { maker in
-            maker.width.equalTo(self).multipliedBy(0.8)
+            maker.width.equalTo(self).multipliedBy(0.85)
             maker.height.equalTo(self.eightBall.snp.width)
             maker.centerX.equalToSuperview()
             maker.top.lessThanOrEqualTo(safeAreaLayoutGuide.snp.top).inset(50)

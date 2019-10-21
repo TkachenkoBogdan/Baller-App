@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BD0F0A2C2335FEC2005FEEAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */; };
+		BD3E3D382358955600FA26F9 /* BallerTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3E3D372358955600FA26F9 /* BallerTabBarController.swift */; };
+		BD40C24123590A2B00532E61 /* SlideAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD40C24023590A2B00532E61 /* SlideAnimationController.swift */; };
 		BD4B1524234465C300E3562C /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4B1523234465C300E3562C /* UITableView+Extension.swift */; };
 		BD579D12234DAEA900EDE5C7 /* UITableView+RealmChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD579D11234DAEA900EDE5C7 /* UITableView+RealmChanges.swift */; };
 		BD59F344234C449100FFA486 /* RealmAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD59F343234C449100FFA486 /* RealmAnswer.swift */; };
@@ -65,6 +67,8 @@
 		8A4DC504E792239D0430EB90 /* Pods-Baller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baller.release.xcconfig"; path = "Target Support Files/Pods-Baller/Pods-Baller.release.xcconfig"; sourceTree = "<group>"; };
 		B4970B0B04B676558096E7EA /* Pods_Baller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		BD3E3D372358955600FA26F9 /* BallerTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallerTabBarController.swift; sourceTree = "<group>"; };
+		BD40C24023590A2B00532E61 /* SlideAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimationController.swift; sourceTree = "<group>"; };
 		BD4B1523234465C300E3562C /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		BD579D11234DAEA900EDE5C7 /* UITableView+RealmChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+RealmChanges.swift"; sourceTree = "<group>"; };
 		BD59F343234C449100FFA486 /* RealmAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAnswer.swift; sourceTree = "<group>"; };
@@ -146,11 +150,11 @@
 			children = (
 				BD579D11234DAEA900EDE5C7 /* UITableView+RealmChanges.swift */,
 				BD9EA14A2350562100FA5925 /* UIColor+Extension.swift */,
-				BDAA907C234CAF9B00F9007C /* Path.swift */,
 				BDDAFFF6231021AB002B3BEF /* UIView+Extension.swift */,
 				BDE9B82C234705AD00249A87 /* CALayer+Extension.swift */,
 				BD932AC02345A5A400E79028 /* ReusableView.swift */,
 				BD4B1523234465C300E3562C /* UITableView+Extension.swift */,
+				BDAA907C234CAF9B00F9007C /* Path.swift */,
 				BDDAFFF7231021AB002B3BEF /* UIViewController+UIAlerts.swift */,
 			);
 			path = Extensions;
@@ -180,6 +184,7 @@
 		BD0664192350C1F400DDD102 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BD3E3D392358955800FA26F9 /* ViewController */,
 				BD06641A2350C1FF00DDD102 /* View */,
 			);
 			path = Common;
@@ -291,6 +296,23 @@
 				BDAD4821233F4E9C00782B74 /* Futura.ttc */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		BD3E3D392358955800FA26F9 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BD40C23F23590A0A00532E61 /* Transitions */,
+				BD3E3D372358955600FA26F9 /* BallerTabBarController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BD40C23F23590A0A00532E61 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				BD40C24023590A2B00532E61 /* SlideAnimationController.swift */,
+			);
+			path = Transitions;
 			sourceTree = "<group>";
 		};
 		BD7DA85B235861E90040811E /* Utility */ = {
@@ -555,6 +577,7 @@
 				BDA0E4CE233BAFDD00403703 /* colors.swift in Sources */,
 				BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */,
 				BDDAFFFF231024D9002B3BEF /* AnswersListController.swift in Sources */,
+				BD3E3D382358955600FA26F9 /* BallerTabBarController.swift in Sources */,
 				BDE1BF6B233E20D800AFAD63 /* Answer.swift in Sources */,
 				BDA3B76E235834A900D96920 /* AppColor.swift in Sources */,
 				BDE1BF5F233DE8E600AFAD63 /* segues.swift in Sources */,
@@ -585,6 +608,7 @@
 				BD4B1524234465C300E3562C /* UITableView+Extension.swift in Sources */,
 				BDDAFFF423102053002B3BEF /* DatabaseAnswerProvider.swift in Sources */,
 				BD579D12234DAEA900EDE5C7 /* UITableView+RealmChanges.swift in Sources */,
+				BD40C24123590A2B00532E61 /* SlideAnimationController.swift in Sources */,
 				BD9EA14B2350562100FA5925 /* UIColor+Extension.swift in Sources */,
 				BD8C3A68231011A800F8D896 /* DecodableAnswer.swift in Sources */,
 				BD5C3F2623391F380026F1B8 /* strings.swift in Sources */,

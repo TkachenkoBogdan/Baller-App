@@ -2,11 +2,10 @@
     "customRed"       : "ff2d55",
     "indigo"           : "fc0072",
 
-    "animatedBackgroundLight1"           : "B4FFFF",
-    "animatedBackgroundLight2"           : "73FBD5",
-    "animatedBackgroundLight3"           : "6684FF",
+    "animatedBackgroundPrimaryLight"           : "7177ea",
+    "animatedBackgroundSecondaryLight"           : "ea6060",
 
-    "animatedBackgroundDark1"           : "11090C",
-    "animatedBackgroundDark2"           : "212121",
-    "animatedBackgroundDark3"           : "424242",
+    "animatedBackgroundPrimaryDark"           : "11090C",
+    "animatedBackgroundSecondaryDark"           : "212121",
+    
 }
