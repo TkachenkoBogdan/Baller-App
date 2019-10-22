@@ -11,16 +11,20 @@ import RxSwift
 
 final class BallViewModel {
 
+    // MARK: - Properties:
+
     private let ballModel: BallModel
 
-    let vmAnswerSubject: PublishSubject<Answer> = PublishSubject()
+    let vmAnswerSubject: PublishSubject<PresentableAnswer> = PublishSubject()
 
     let vmAttemptsCount: PublishSubject<Int> = PublishSubject()
     let vmRequestInProgressSubject: PublishSubject<Bool> = PublishSubject()
 
-    var vmTriggerShakeEvent: PublishSubject<Void> = PublishSubject()
+    var shakeEventTriggered: PublishSubject<Void> = PublishSubject()
 
     private let disposeBag = DisposeBag()
+
+    // MARK: - Init:
 
     init(model: BallModel) {
         self.ballModel = model
@@ -28,54 +32,34 @@ final class BallViewModel {
         setupBindings()
     }
 
+    // MARK: - Private:
+
     private func setupBindings() {
+        // Answer binding:
 
-        self.vmTriggerShakeEvent
-            .bind(to: ballModel.requestAnswerSubject)
+        ballModel.modelAnswerSubject
+            .map { $0.toPresentableAnswer(uppercased: true)
+        }.bind(to: vmAnswerSubject)
             .disposed(by: disposeBag)
 
-        vmTriggerShakeEvent
-            .asObservable()
-            .subscribe(onNext: {
-                print("Shake here in ViewModel!")
-            })
+        // Shake event triggered:
+
+        self.shakeEventTriggered
+            .bind(to: ballModel.modelAnswerRequestedSubject)
             .disposed(by: disposeBag)
 
-        // MARK: - ShowTime:
+        // Attempts count:
 
-        ballModel.rxAttemptsCount
+        ballModel.attemptsCountRelay
             .bind(to: self.vmAttemptsCount)
-            .disposed(by: disposeBag)
-
-        vmAttemptsCount
-            .asObservable()
-            .subscribe(onNext: { attempts in
-                print("VM received shake count from model \(attempts)")
-            })
             .disposed(by: disposeBag)
 
         // Request in progress:
 
         ballModel.modelRequestInProgressSubject
-                                 .bind(to: vmRequestInProgressSubject)
-                                 .disposed(by: disposeBag)
+            .bind(to: vmRequestInProgressSubject)
+            .disposed(by: disposeBag)
 
-    }
-
-    // MARK: - Observation closures:
-
-//    var requestInProgressHandler: ((Bool) -> Void)? {
-//        didSet {
-//            ballModel.isLoadingDataStateHandler = requestInProgressHandler
-//        }
-//    }
-
-    var answerReceivedHandler: ((PresentableAnswer) -> Void)?
-
-    func shakeDetected() {
-        ballModel.getAnswer { [unowned self] answer in
-            self.answerReceivedHandler?(answer.toPresentableAnswer(uppercased: true))
-        }
     }
 
 }

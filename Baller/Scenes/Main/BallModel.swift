@@ -13,7 +13,7 @@ import RxRelay
 final class BallModel {
 
     private enum Keys: String {
-       case shakeAttempts
+        case shakeAttempts
     }
 
     // MARK: - Dependencies:
@@ -29,21 +29,17 @@ final class BallModel {
         self.secureStorage = secureStorage
         self.store = store
 
-        subscribeIfNeeded()
-
-        self.setupAttemptsCountIfNeeded()
+        setupAttemptsCountIfNeeded()
+        setupRxSubscription()
     }
 
     // MARK: - Properties:
 
-    // MARK: - RxLogic:
-
     let modelAnswerSubject: PublishSubject<Answer> = PublishSubject()
-
-    lazy var rxAttemptsCount: BehaviorRelay<Int> = BehaviorRelay(value: 0)
-
-    let requestAnswerSubject: PublishSubject<Void> = PublishSubject()
+    let modelAnswerRequestedSubject: PublishSubject<Void> = PublishSubject()
     let modelRequestInProgressSubject: PublishSubject<Bool> = PublishSubject()
+
+    private(set) lazy var attemptsCountRelay: BehaviorRelay<Int> = BehaviorRelay(value: 0)
 
     private let disposeBag = DisposeBag()
 
@@ -53,9 +49,9 @@ final class BallModel {
         }
     }
 
-    // MARK: - Logic:
+    // MARK: - Public Logic:
 
-    func getAnswer(completion: @escaping(Answer) -> Void) {
+    func getAnswer() {
         isLoadingData = true
         incrementAttemptsCount()
 
@@ -67,50 +63,34 @@ final class BallModel {
                 if !isLocal {
                     self.store.appendAnswer(answer)
                 }
-                completion(answer)
                 self.modelAnswerSubject.onNext(answer)
             case .failure:
                 preconditionFailure(L10n.FatalErrors.noLocalAnswer)
             }
         }
-
     }
 
     // MARK: - Private:
 
-    // MARK: - RxSubscriptions:
+    private func setupRxSubscription() {
 
-    private var subscribed = false
+        //Subscription to answer subject:
 
-    private func subscribeIfNeeded() {
-        guard subscribed == false else { return }
-
-        rxAttemptsCount
-            .asObservable()
-            .subscribe { (attemptsCount) in
-                print("Model \(attemptsCount)")
-        }
-        .disposed(by: disposeBag)
-
-        requestAnswerSubject
-            .asObservable()
+        modelAnswerRequestedSubject
             .subscribe { _ in
-                print("BallModel has detected shake.")
-        }
-        .disposed(by: disposeBag)
-
-        subscribed = true
+                self.getAnswer()
+        }.disposed(by: disposeBag)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.rxAttemptsCount.accept(self.getAttemptsCount())
+            self.attemptsCountRelay.accept(self.getAttemptsCount())
         }
     }
 
-// MARK: - Attempts count logic:
+    // MARK: - Attempts count logic:
 
     private func incrementAttemptsCount() {
-        secureStorage.set(rxAttemptsCount.value, forKey: Keys.shakeAttempts.rawValue)
-        rxAttemptsCount.accept(rxAttemptsCount.value + 1)
+        secureStorage.set(attemptsCountRelay.value, forKey: Keys.shakeAttempts.rawValue)
+        attemptsCountRelay.accept(attemptsCountRelay.value + 1)
     }
 
     private func getAttemptsCount() -> Int {
