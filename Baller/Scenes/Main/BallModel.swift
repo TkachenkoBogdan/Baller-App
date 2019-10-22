@@ -37,19 +37,21 @@ final class BallModel {
     // MARK: - Properties:
 
     // MARK: - RxLogic:
-    lazy var rxAttemptsCount: BehaviorRelay<Int> = BehaviorRelay(value: getAttemptsCount())
+
+    let modelAnswerSubject: PublishSubject<Answer> = PublishSubject()
+
+    lazy var rxAttemptsCount: BehaviorRelay<Int> = BehaviorRelay(value: 0)
 
     let requestAnswerSubject: PublishSubject<Void> = PublishSubject()
+    let modelRequestInProgressSubject: PublishSubject<Bool> = PublishSubject()
 
     private let disposeBag = DisposeBag()
 
     private var isLoadingData = false {
         didSet {
-            isLoadingDataStateHandler?(isLoadingData)
+            modelRequestInProgressSubject.onNext(isLoadingData)
         }
     }
-
-    var isLoadingDataStateHandler: ((Bool) -> Void)?
 
     // MARK: - Logic:
 
@@ -66,6 +68,7 @@ final class BallModel {
                     self.store.appendAnswer(answer)
                 }
                 completion(answer)
+                self.modelAnswerSubject.onNext(answer)
             case .failure:
                 preconditionFailure(L10n.FatalErrors.noLocalAnswer)
             }
@@ -74,6 +77,8 @@ final class BallModel {
     }
 
     // MARK: - Private:
+
+    // MARK: - RxSubscriptions:
 
     private var subscribed = false
 
@@ -95,7 +100,13 @@ final class BallModel {
         .disposed(by: disposeBag)
 
         subscribed = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.rxAttemptsCount.accept(self.getAttemptsCount())
+        }
     }
+
+// MARK: - Attempts count logic:
 
     private func incrementAttemptsCount() {
         secureStorage.set(rxAttemptsCount.value, forKey: Keys.shakeAttempts.rawValue)

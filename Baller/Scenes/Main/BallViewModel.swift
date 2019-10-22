@@ -13,19 +13,17 @@ final class BallViewModel {
 
     private let ballModel: BallModel
 
-    var vmAttemptsCount: PublishSubject<Int> = PublishSubject()
+    let vmAnswerSubject: PublishSubject<Answer> = PublishSubject()
+
+    let vmAttemptsCount: PublishSubject<Int> = PublishSubject()
+    let vmRequestInProgressSubject: PublishSubject<Bool> = PublishSubject()
+
     var vmTriggerShakeEvent: PublishSubject<Void> = PublishSubject()
 
     private let disposeBag = DisposeBag()
 
     init(model: BallModel) {
         self.ballModel = model
-
-//        self.attemptsCountSub = ballModel
-//            .rxAttemptsCount
-//            .subscribe(onNext: { value in
-//                print(value)
-//            })
 
         setupBindings()
     }
@@ -46,7 +44,6 @@ final class BallViewModel {
         // MARK: - ShowTime:
 
         ballModel.rxAttemptsCount
-            //.filter { $0 % 2 == 0 }
             .bind(to: self.vmAttemptsCount)
             .disposed(by: disposeBag)
 
@@ -57,15 +54,21 @@ final class BallViewModel {
             })
             .disposed(by: disposeBag)
 
+        // Request in progress:
+
+        ballModel.modelRequestInProgressSubject
+                                 .bind(to: vmRequestInProgressSubject)
+                                 .disposed(by: disposeBag)
+
     }
 
     // MARK: - Observation closures:
 
-    var requestInProgressHandler: ((Bool) -> Void)? {
-        didSet {
-            ballModel.isLoadingDataStateHandler = requestInProgressHandler
-        }
-    }
+//    var requestInProgressHandler: ((Bool) -> Void)? {
+//        didSet {
+//            ballModel.isLoadingDataStateHandler = requestInProgressHandler
+//        }
+//    }
 
     var answerReceivedHandler: ((PresentableAnswer) -> Void)?
 

@@ -21,7 +21,7 @@ final class BallView: UIView {
     private var statusLabel: UILabel!
 
     private var activityIndicator: UIActivityIndicatorView!
-    private var countLabel: UILabel!
+     var countLabel: UILabel!
     private var ballHasAppearead = false
     private var animatedBackground: PastelView!
 

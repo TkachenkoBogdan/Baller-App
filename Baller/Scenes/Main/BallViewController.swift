@@ -16,7 +16,9 @@ final class BallViewController: UIViewController {
     private var viewModel: BallViewModel
     private lazy var ballView: BallView = BallView()
 
+    private let vcAnswerSubject: PublishSubject<PresentableAnswer> = PublishSubject()
     private let attemptsCount: PublishSubject<Int> = PublishSubject()
+    private let requestInProgressSubject: PublishSubject<Bool> = PublishSubject()
     private let triggerShakeEvent: PublishSubject<Void> = PublishSubject()
 
     //private var attemptsCountSub: Disposable
@@ -28,7 +30,7 @@ final class BallViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
 
-        setupBindings()
+        setupRxBindings()
 
     }
 
@@ -36,13 +38,11 @@ final class BallViewController: UIViewController {
         fatalError(L10n.FatalErrors.initCoder)
     }
 
-    // MARK: - Lifecycle:
+   // MARK: - RxBindings:
 
-    private func setupBindings () {
-
-        // MARK: - Good binding:
-
+    private func setupRxBindings () {
         // Shake event:
+
         self.triggerShakeEvent
             .bind(to: viewModel.vmTriggerShakeEvent)
             .disposed(by: disposeBag)
@@ -55,6 +55,7 @@ final class BallViewController: UIViewController {
             .disposed(by: disposeBag)
 
         // Attempts count:
+
         viewModel.vmAttemptsCount
                    .bind(to: attemptsCount)
                    .disposed(by: disposeBag)
@@ -62,12 +63,33 @@ final class BallViewController: UIViewController {
         attemptsCount
             .asObservable()
             .subscribe(onNext: { count in
-            print("Count has been received in ViewController: \(count)")
+//            print("Count has been received in ViewController: \(count)")
                 self.ballView.updateCountLabel(with: count)
         })
             .disposed(by: disposeBag)
 
+        // Request in progreess:
+
+        viewModel.vmRequestInProgressSubject
+                          .bind(to: requestInProgressSubject)
+                          .disposed(by: disposeBag)
+
+        requestInProgressSubject
+            .asObservable()
+            .subscribe(onNext: { isInProgress in
+                print("Request in progress == \(isInProgress)")
+
+                if isInProgress {
+                    DispatchQueue.main.async {
+                        self.ballView.startInteraction()
+                    }
+                }
+
+            })
+        .disposed(by: disposeBag)
     }
+
+    // MARK: - Lifecycle:
 
     override func loadView() {
         self.view = ballView
@@ -99,14 +121,6 @@ final class BallViewController: UIViewController {
 extension BallViewController {
 
     private func setUpObservationClosures() {
-
-        viewModel.requestInProgressHandler = { [unowned self] isInProgress in
-            if isInProgress {
-                DispatchQueue.main.async {
-                    self.ballView.startInteraction()
-                }
-            }
-        }
 
         viewModel.answerReceivedHandler = { [unowned self] answer in
 
