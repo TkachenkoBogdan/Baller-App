@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 final class BallModel {
 
@@ -27,18 +29,19 @@ final class BallModel {
         self.secureStorage = secureStorage
         self.store = store
 
-        self.attemptsCount = setupAttemptsCount()
+        subscribeIfNeeded()
+
+        self.setupAttemptsCountIfNeeded()
     }
 
     // MARK: - Properties:
 
-    private var attemptsCount: Int = 0
+    // MARK: - RxLogic:
+    lazy var rxAttemptsCount: BehaviorRelay<Int> = BehaviorRelay(value: getAttemptsCount())
 
-    var countUpdatedHandler: ((Int) -> Void)? {
-        didSet {
-            countUpdatedHandler?(attemptsCount)
-        }
-    }
+    let requestAnswerSubject: PublishSubject<Void> = PublishSubject()
+
+    private let disposeBag = DisposeBag()
 
     private var isLoadingData = false {
         didSet {
@@ -72,18 +75,45 @@ final class BallModel {
 
     // MARK: - Private:
 
-    private func incrementAttemptsCount() {
-        attemptsCount += 1
-        secureStorage.set(attemptsCount, forKey: Keys.shakeAttempts.rawValue)
-        countUpdatedHandler?(attemptsCount)
+    private var subscribed = false
+
+    private func subscribeIfNeeded() {
+        guard subscribed == false else { return }
+
+        rxAttemptsCount
+            .asObservable()
+            .subscribe { (attemptsCount) in
+                print("Model \(attemptsCount)")
+        }
+        .disposed(by: disposeBag)
+
+        requestAnswerSubject
+            .asObservable()
+            .subscribe { _ in
+                print("BallModel has detected shake.")
+        }
+        .disposed(by: disposeBag)
+
+        subscribed = true
     }
 
-    private func setupAttemptsCount() -> Int {
+    private func incrementAttemptsCount() {
+        secureStorage.set(rxAttemptsCount.value, forKey: Keys.shakeAttempts.rawValue)
+        rxAttemptsCount.accept(rxAttemptsCount.value + 1)
+    }
+
+    private func getAttemptsCount() -> Int {
         guard let count = secureStorage.value(forKey: Keys.shakeAttempts.rawValue) else {
-            secureStorage.set(0, forKey: Keys.shakeAttempts.rawValue)
             return 0
         }
         return count
+    }
+
+    private func setupAttemptsCountIfNeeded() {
+        guard (secureStorage.value(forKey: Keys.shakeAttempts.rawValue)) != nil else {
+            secureStorage.set(0, forKey: Keys.shakeAttempts.rawValue)
+            return
+        }
     }
 
 }

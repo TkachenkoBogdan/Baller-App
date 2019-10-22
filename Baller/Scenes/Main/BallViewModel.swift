@@ -7,13 +7,56 @@
 //
 
 import Foundation
+import RxSwift
 
 final class BallViewModel {
 
     private let ballModel: BallModel
 
+    var vmAttemptsCount: PublishSubject<Int> = PublishSubject()
+    var vmTriggerShakeEvent: PublishSubject<Void> = PublishSubject()
+
+    private let disposeBag = DisposeBag()
+
     init(model: BallModel) {
         self.ballModel = model
+
+//        self.attemptsCountSub = ballModel
+//            .rxAttemptsCount
+//            .subscribe(onNext: { value in
+//                print(value)
+//            })
+
+        setupBindings()
+    }
+
+    private func setupBindings() {
+
+        self.vmTriggerShakeEvent
+            .bind(to: ballModel.requestAnswerSubject)
+            .disposed(by: disposeBag)
+
+        vmTriggerShakeEvent
+            .asObservable()
+            .subscribe(onNext: {
+                print("Shake here in ViewModel!")
+            })
+            .disposed(by: disposeBag)
+
+        // MARK: - ShowTime:
+
+        ballModel.rxAttemptsCount
+            //.filter { $0 % 2 == 0 }
+            .bind(to: self.vmAttemptsCount)
+            .disposed(by: disposeBag)
+
+        vmAttemptsCount
+            .asObservable()
+            .subscribe(onNext: { attempts in
+                print("VM received shake count from model \(attempts)")
+            })
+            .disposed(by: disposeBag)
+
     }
 
     // MARK: - Observation closures:
@@ -21,12 +64,6 @@ final class BallViewModel {
     var requestInProgressHandler: ((Bool) -> Void)? {
         didSet {
             ballModel.isLoadingDataStateHandler = requestInProgressHandler
-        }
-    }
-
-    var countUpdatedHandler: ((Int) -> Void)? {
-        didSet {
-            ballModel.countUpdatedHandler = countUpdatedHandler
         }
     }
 

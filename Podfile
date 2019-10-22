@@ -8,8 +8,11 @@ target 'Baller' do
   # Pods for Baller
   pod 'Alamofire', '~> 5.0.0-beta.5'
   pod "RealmSwift", '~> 3.19.0'
-  pod 'SwiftGen', '~> 6.0'
+  pod 'RxSwift', '~> 5'
+  pod 'RxCocoa', '~> 5'
   pod 'SnapKit', '~> 5.0.0'
+
+  pod 'SwiftGen', '~> 6.0'
   pod 'SwiftKeychainWrapper', '~> 3.0'
   pod 'Pastel', '~> 0.6'
 

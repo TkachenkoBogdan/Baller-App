@@ -8,18 +8,28 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class BallViewController: UIViewController {
 
     private var viewModel: BallViewModel
-
     private lazy var ballView: BallView = BallView()
+
+    private let attemptsCount: PublishSubject<Int> = PublishSubject()
+    private let triggerShakeEvent: PublishSubject<Void> = PublishSubject()
+
+    //private var attemptsCountSub: Disposable
+    private let disposeBag = DisposeBag()
 
     // MARK: - Initialization:
 
     init(viewModel: BallViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+
+        setupBindings()
+
     }
 
     required init?(coder: NSCoder) {
@@ -27,6 +37,37 @@ final class BallViewController: UIViewController {
     }
 
     // MARK: - Lifecycle:
+
+    private func setupBindings () {
+
+        // MARK: - Good binding:
+
+        // Shake event:
+        self.triggerShakeEvent
+            .bind(to: viewModel.vmTriggerShakeEvent)
+            .disposed(by: disposeBag)
+
+        triggerShakeEvent
+            .asObservable()
+            .subscribe(onNext: {
+                print("Shake detected in ViewController")
+            })
+            .disposed(by: disposeBag)
+
+        // Attempts count:
+        viewModel.vmAttemptsCount
+                   .bind(to: attemptsCount)
+                   .disposed(by: disposeBag)
+
+        attemptsCount
+            .asObservable()
+            .subscribe(onNext: { count in
+            print("Count has been received in ViewController: \(count)")
+                self.ballView.updateCountLabel(with: count)
+        })
+            .disposed(by: disposeBag)
+
+    }
 
     override func loadView() {
         self.view = ballView
@@ -44,6 +85,7 @@ final class BallViewController: UIViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         viewModel.shakeDetected()
+        triggerShakeEvent.onNext(())
     }
 
     override var canBecomeFirstResponder: Bool {
@@ -63,12 +105,6 @@ extension BallViewController {
                 DispatchQueue.main.async {
                     self.ballView.startInteraction()
                 }
-            }
-        }
-
-        viewModel.countUpdatedHandler = { count in
-            DispatchQueue.main.async {
-                self.ballView.updateCountLabel(with: count)
             }
         }
 

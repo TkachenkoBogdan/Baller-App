@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 typealias Changes = (deletions: [Int], insertions: [Int], modifications: [Int])
 
