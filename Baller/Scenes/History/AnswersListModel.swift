@@ -13,15 +13,24 @@ final class AnswerListModel {
 
     private let store: AnswerStore
 
+    // MARK: - Rx:
+    let answerQueryResponse: PublishSubject<AnswerQueryResponse> = PublishSubject()
+
+    let changeListSubject: PublishSubject<ChangeSet<Answer>> = PublishSubject()
+    let modelChangeActionSubject: PublishSubject<AnswerAction> = PublishSubject()
+
+    private let disposeBag = DisposeBag()
+
+    // MARK: - Init:
+
     init(store: AnswerStore) {
         self.store = store
+        store.answerListUpdateHandler = self.answerListUpdateHandler
+        setupRxSubscriptions()
     }
 
-    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? {
-        didSet {
-            store.answerListUpdateHandler = self.answerListUpdateHandler
-        }
-
+    lazy var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? = { changeSet in
+        self.changeListSubject.onNext(changeSet)
     }
 
     func numberOfAnswers() -> Int {
@@ -32,17 +41,30 @@ final class AnswerListModel {
         return store.answer(at: index)
     }
 
-    func appendAnswer(with title: String) {
-        let answer = Answer(title: title)
-        self.store.appendAnswer(answer)
-    }
+    // MARK: - Private:
 
-    func remove(at index: Int) {
-        self.store.removeAnswer(at: index)
-    }
+    private func setupRxSubscriptions() {
 
-    func removeAllAnswers() {
-        store.removeAllAnswers()
-    }
+        //Changes:
+        modelChangeActionSubject
+            .subscribe(onNext: { action in
 
+                switch action {
+                case .appendAnswer(let title):
+                    self.store.appendAnswer(Answer(title: title))
+                case .deleteAnswer(let index):
+                    self.store.removeAnswer(at: index)
+                case .deleteAllAnswers:
+                    self.store.removeAllAnswers()
+
+                case .getCount:
+                    self.answerQueryResponse
+                        .onNext(.count(self.store.count))
+                default:
+                    print("default has been hit")
+                }
+
+            })
+            .disposed(by: disposeBag)
+    }
 }

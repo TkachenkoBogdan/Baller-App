@@ -14,27 +14,45 @@ final class AnswersListController: UITableViewController {
 
     private let viewModel: AnswersListViewModel
 
+    private let vcChangeActionSubject: PublishSubject<AnswerAction> = PublishSubject()
+    private let disposeBag = DisposeBag()
+
     // MARK: - Initialization:
 
     init(viewModel: AnswersListViewModel) {
         self.viewModel = viewModel
         super.init(style: .plain)
-        setupObservationClosures()
+
+        setupRxBindings()
     }
 
     required init?(coder: NSCoder) {
         fatalError(L10n.FatalErrors.initCoder)
     }
 
-    private func setupObservationClosures() {
+    // MARK: - RxBindings:
 
-        viewModel.answerListUpdateHandler = { [unowned self] changeSet in
-            if case .change(_, let deletions, let insertions, let updates) = changeSet {
-                self.tableView.applyChanges(deletions: deletions,
-                                            insertions: insertions,
-                                            updates: updates)
-            }
-        }
+    private func setupRxBindings() {
+
+        //Delete all answers:
+
+        vcChangeActionSubject
+            .bind(to: viewModel.actionsSubject)
+            .disposed(by: disposeBag)
+
+        //Changes:
+        viewModel.vmChangesSubject
+            .subscribe(onNext: { changeSet in
+                if case .change(_, let deletions, let insertions, let updates) = changeSet {
+                    self.tableView.applyChanges(deletions: deletions,
+                                                            insertions: insertions,
+                                                            updates: updates)
+                            }
+            })
+            .disposed(by: disposeBag )
+
+//        viewModel.vmAnswerQueryResponse
+
     }
 
     // MARK: - Lifecycle:
@@ -47,12 +65,29 @@ final class AnswersListController: UITableViewController {
 
     // MARK: - Private:
 
+    @objc private func addButtonPressed(_ sender: Any) {
+
+        presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (text) in
+            guard let self = self else { return }
+            //self.viewModel.appendAnswer(withTitle: answerString)
+            self.viewModel.actionsSubject.onNext(.appendAnswer(title: text))
+        }
+    }
+
+    @objc private func deleteButtonPressed(_ sender: Any) {
+
+        presentConfirmationAlert(withTitle: L10n.Prompts.DeleteAll.title,
+                                 message: L10n.Prompts.DeleteAll.message) {
+                                    self.viewModel.actionsSubject.onNext(AnswerAction.deleteAllAnswers)
+        }
+    }
+
     private func configureTableView() {
-         tableView.register(AnswerCell.self)
-         tableView.rowHeight = UITableView.automaticDimension
-         tableView.estimatedRowHeight = 80
-         tableView.allowsSelection = false
-     }
+        tableView.register(AnswerCell.self)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
+        tableView.allowsSelection = false
+    }
 
     private func setupNavigationItems() {
         navigationItem.title = L10n.Titles.answerList
@@ -62,23 +97,6 @@ final class AnswersListController: UITableViewController {
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash,
                                                            target: self, action: #selector(deleteButtonPressed(_:)))
-    }
-
-    // Actions:
-    @objc private func addButtonPressed(_ sender: Any) {
-
-        presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (answerString) in
-            guard let self = self else { return }
-            self.viewModel.appendAnswer(withTitle: answerString)
-        }
-    }
-
-    @objc private func deleteButtonPressed(_ sender: Any) {
-
-        presentConfirmationAlert(withTitle: L10n.Prompts.DeleteAll.title,
-                                 message: L10n.Prompts.DeleteAll.message) {
-                                    self.viewModel.deleteAllAnswers()
-        }
     }
 }
 
@@ -109,7 +127,7 @@ extension AnswersListController {
                             forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {
-            viewModel.remove(at: indexPath.row)
+            viewModel.actionsSubject.onNext(.deleteAnswer(index: indexPath.row))
         }
     }
 }

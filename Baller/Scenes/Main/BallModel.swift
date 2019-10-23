@@ -89,8 +89,8 @@ final class BallModel {
     // MARK: - Attempts count logic:
 
     private func incrementAttemptsCount() {
-        secureStorage.set(attemptsCountRelay.value, forKey: Keys.shakeAttempts.rawValue)
         attemptsCountRelay.accept(attemptsCountRelay.value + 1)
+        secureStorage.set(attemptsCountRelay.value, forKey: Keys.shakeAttempts.rawValue)
     }
 
     private func getAttemptsCount() -> Int {

@@ -56,7 +56,7 @@ final class BallViewController: UIViewController {
     }
 
     // MARK: - RxBindings:
-    
+
     private func setupRxBindings () {
         // Shake event:
         self.shakeEventTrigger

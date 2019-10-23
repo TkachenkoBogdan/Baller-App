@@ -9,7 +9,21 @@
 import Foundation
 import RxSwift
 
-typealias Changes = (deletions: [Int], insertions: [Int], modifications: [Int])
+enum AnswerAction {
+    //pure actions:
+    case appendAnswer(title: String)
+    case deleteAnswer(index: Int)
+    case deleteAllAnswers
+
+    //queries:
+    case getCount
+    case getAnswerAt(index: Int)
+}
+
+enum AnswerQueryResponse {
+    case answerAt(Answer)
+    case count(Int)
+}
 
 final class AnswersListViewModel {
 
@@ -21,41 +35,46 @@ final class AnswersListViewModel {
         return formatter
     }()
 
+    let vmAnswerQueryResponse: PublishSubject<AnswerQueryResponse> = PublishSubject()
+    let vmChangesSubject: PublishSubject<ChangeSet<Answer>> = PublishSubject()
+    let actionsSubject: PublishSubject<AnswerAction> = PublishSubject()
+
+    private let disposeBag = DisposeBag()
+
     // MARK: - Init:
 
     init(model: AnswerListModel) {
         self.model = model
-    }
-
-    // MARK: - Logic:
-
-    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? {
-        didSet {
-            model.answerListUpdateHandler = self.answerListUpdateHandler
-        }
-
+        setupRxBindings()
     }
 
     // MARK: - Public:
+
+    func answer(at index: Int) -> PresentableAnswer? {
+         return model.answer(at: index)?.toPresentableAnswer(withDateFormatter: dateFormatter)
+     }
 
     func count() -> Int {
         return model.numberOfAnswers()
     }
 
-    func answer(at index: Int) -> PresentableAnswer? {
-        return model.answer(at: index)?.toPresentableAnswer(withDateFormatter: dateFormatter)
-    }
+    // MARK: - Private:
 
-    func appendAnswer(withTitle title: String) {
-        model.appendAnswer(with: title)
-    }
+    private func setupRxBindings() {
 
-    func remove(at index: Int) {
-        model.remove(at: index)
-    }
+        //Changes ----> VC:
+        model.changeListSubject
+            .bind(to: vmChangesSubject)
+            .disposed(by: disposeBag)
 
-    func deleteAllAnswers() {
-        model.removeAllAnswers()
-    }
+        //Actions <--- VC:
 
+        actionsSubject
+            .bind(to: model.modelChangeActionSubject)
+            .disposed(by: disposeBag)
+
+        model.answerQueryResponse
+            .bind(to: vmAnswerQueryResponse)
+            .disposed(by: disposeBag)
+    }
 }
