@@ -16,11 +16,7 @@ final class BallViewController: UIViewController {
     private let viewModel: BallViewModel
     private lazy var ballView: BallView = BallView()
 
-    private let vcAnswerSubject: PublishSubject<PresentableAnswer> = PublishSubject()
-    private let attemptsCountSubject: PublishSubject<Int> = PublishSubject()
-    private let requestInProgressSubject: PublishSubject<Bool> = PublishSubject()
-    private let triggerShakeEvent: PublishSubject<Void> = PublishSubject()
-
+    private let shakeEventTrigger: PublishSubject<Void> = PublishSubject()
     private let disposeBag = DisposeBag()
 
     // MARK: - Initialization:
@@ -52,7 +48,7 @@ final class BallViewController: UIViewController {
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        triggerShakeEvent.onNext(())
+        shakeEventTrigger.onNext(())
     }
 
     override var canBecomeFirstResponder: Bool {
@@ -60,57 +56,36 @@ final class BallViewController: UIViewController {
     }
 
     // MARK: - RxBindings:
-
+    
     private func setupRxBindings () {
-
-        //Getting an answer:
-
-        viewModel.vmAnswerSubject
-            .bind(to: vcAnswerSubject)
-            .disposed(by: disposeBag)
-
-        vcAnswerSubject
-            .subscribe(onNext: { answer in
-                DispatchQueue.main.async {
-                    self.ballView.updateTextLabel(with: answer.text)
-                    self.ballView.updateShadow(with: answer.semanticColor)
-                    self.ballView.stopInteraction()
-                }
-            })
-            .disposed(by: disposeBag)
-
         // Shake event:
-
-        self.triggerShakeEvent
+        self.shakeEventTrigger
             .bind(to: viewModel.shakeEventTriggered)
             .disposed(by: disposeBag)
 
-        // Attempts count:
+        // Request in progress:
+        viewModel.vmRequestInProgressSubject
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { requestIsInProgress in
+                self.ballView.interactionIsInProcess = requestIsInProgress
+            })
+            .disposed(by: disposeBag)
+
+        // MARK: - UI Bindings:
 
         viewModel.vmAttemptsCount
-            .bind(to: attemptsCountSubject)
+            .map(String.init)
+            .bind(to: ballView.countLabel.rx.text)
             .disposed(by: disposeBag)
 
-        attemptsCountSubject
-            .subscribe(onNext: { count in
-                self.ballView.updateCountLabel(with: count)
-            })
+        viewModel.vmAnswerSubject
+            .map { $0.text }
+            .bind(to: ballView.answerLabel.rx.text)
             .disposed(by: disposeBag)
 
-        // Request in progreess:
-
-        viewModel.vmRequestInProgressSubject
-            .bind(to: requestInProgressSubject)
-            .disposed(by: disposeBag)
-
-        requestInProgressSubject
-            .subscribe(onNext: { isInProgress in
-                if isInProgress {
-                    DispatchQueue.main.async {
-                        self.ballView.startInteraction()
-                    }
-                }
-            })
+        viewModel.vmAnswerSubject
+            .map { $0.semanticColor }
+            .bind(to: ballView.rx.shadowColor)
             .disposed(by: disposeBag)
     }
 }
