@@ -10,6 +10,8 @@ target 'Baller' do
   pod "RealmSwift", '~> 3.19.0'
   pod 'RxSwift', '~> 5'
   pod 'RxCocoa', '~> 5'
+  pod 'RxDataSources', '~> 4'
+
   pod 'SnapKit', '~> 5.0.0'
 
   pod 'SwiftGen', '~> 6.0'

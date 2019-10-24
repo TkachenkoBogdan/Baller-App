@@ -202,9 +202,9 @@
 			isa = PBXGroup;
 			children = (
 				BD06641C2350C22200DDD102 /* View */,
-				BDDAFFFA231022E0002B3BEF /* BallViewController.swift */,
-				BDE1BF52233DD1EA00AFAD63 /* BallViewModel.swift */,
 				BDE1BF66233E1CB600AFAD63 /* BallModel.swift */,
+				BDE1BF52233DD1EA00AFAD63 /* BallViewModel.swift */,
+				BDDAFFFA231022E0002B3BEF /* BallViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -222,9 +222,9 @@
 			isa = PBXGroup;
 			children = (
 				BD06641E2350C29B00DDD102 /* View */,
-				BDDAFFFE231024D9002B3BEF /* AnswersListController.swift */,
-				BDE1BF54233DD24100AFAD63 /* AnswersListViewModel.swift */,
 				BDE1BF68233E1CC200AFAD63 /* AnswersListModel.swift */,
+				BDE1BF54233DD24100AFAD63 /* AnswersListViewModel.swift */,
+				BDDAFFFE231024D9002B3BEF /* AnswersListController.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";

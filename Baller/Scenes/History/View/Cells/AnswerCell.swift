@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class AnswerCell: UITableViewCell {
 
@@ -33,6 +34,7 @@ final class AnswerCell: UITableViewCell {
     }
 
     func configure(with answer: PresentableAnswer) {
+
         answerLabel.text = answer.text
         dateLabel.text = answer.formattedDate
     }

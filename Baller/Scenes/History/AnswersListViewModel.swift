@@ -10,19 +10,10 @@ import Foundation
 import RxSwift
 
 enum AnswerAction {
-    //pure actions:
+
     case appendAnswer(title: String)
     case deleteAnswer(index: Int)
     case deleteAllAnswers
-
-    //queries:
-    case getCount
-    case getAnswerAt(index: Int)
-}
-
-enum AnswerQueryResponse {
-    case answerAt(Answer)
-    case count(Int)
 }
 
 final class AnswersListViewModel {
@@ -35,9 +26,10 @@ final class AnswersListViewModel {
         return formatter
     }()
 
-    let vmAnswerQueryResponse: PublishSubject<AnswerQueryResponse> = PublishSubject()
     let vmChangesSubject: PublishSubject<ChangeSet<Answer>> = PublishSubject()
     let actionsSubject: PublishSubject<AnswerAction> = PublishSubject()
+
+    let vmAnswersSubject: PublishSubject<[SectionOfPresentableAnswer]> = PublishSubject()
 
     private let disposeBag = DisposeBag()
 
@@ -50,17 +42,19 @@ final class AnswersListViewModel {
 
     // MARK: - Public:
 
-    func answer(at index: Int) -> PresentableAnswer? {
-         return model.answer(at: index)?.toPresentableAnswer(withDateFormatter: dateFormatter)
-     }
-
-    func count() -> Int {
-        return model.numberOfAnswers()
-    }
-
     // MARK: - Private:
 
     private func setupRxBindings() {
+
+        // Answers -->
+        model.answerSubject
+        .map({ answers -> [SectionOfPresentableAnswer] in
+            let answers = answers.map {$0.toPresentableAnswer(withDateFormatter: nil, uppercased: true)}
+            let sections = [SectionOfPresentableAnswer(header: "History", items: answers)]
+            return sections
+        })
+        .bind(to: self.vmAnswersSubject)
+        .disposed(by: disposeBag)
 
         //Changes ----> VC:
         model.changeListSubject
@@ -71,10 +65,6 @@ final class AnswersListViewModel {
 
         actionsSubject
             .bind(to: model.modelChangeActionSubject)
-            .disposed(by: disposeBag)
-
-        model.answerQueryResponse
-            .bind(to: vmAnswerQueryResponse)
             .disposed(by: disposeBag)
     }
 }

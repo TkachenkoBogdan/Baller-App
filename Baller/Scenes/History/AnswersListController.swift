@@ -10,11 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+import RxDataSources
+
 final class AnswersListController: UITableViewController {
 
     private let viewModel: AnswersListViewModel
 
-    private let vcChangeActionSubject: PublishSubject<AnswerAction> = PublishSubject()
+    private var dataSource: RxTableViewSectionedAnimatedDataSource<SectionOfPresentableAnswer>!
     private let disposeBag = DisposeBag()
 
     // MARK: - Initialization:
@@ -23,34 +25,12 @@ final class AnswersListController: UITableViewController {
         self.viewModel = viewModel
         super.init(style: .plain)
 
-        setupRxBindings()
+        //setupRxBindings()
+        configureDataSource()
     }
 
     required init?(coder: NSCoder) {
         fatalError(L10n.FatalErrors.initCoder)
-    }
-
-    // MARK: - RxBindings:
-
-    private func setupRxBindings() {
-
-        //Delete all answers:
-
-        vcChangeActionSubject
-            .bind(to: viewModel.actionsSubject)
-            .disposed(by: disposeBag)
-
-        //Changes:
-        viewModel.vmChangesSubject
-            .subscribe(onNext: { changeSet in
-                if case .change(_, let deletions, let insertions, let updates) = changeSet {
-                    self.tableView.applyChanges(deletions: deletions,
-                                                            insertions: insertions,
-                                                            updates: updates)
-                            }
-            })
-            .disposed(by: disposeBag )
-
     }
 
     // MARK: - Lifecycle:
@@ -62,13 +42,22 @@ final class AnswersListController: UITableViewController {
 
     // MARK: - Private:
 
+    // RxBindings:
+
+//    private func setupRxBindings() {
+//
+//    }
+
     private func setupNavigationItems() {
         navigationItem.title = L10n.Titles.answerList
 
         let leftBarItem = UIBarButtonItem(barButtonSystemItem: .trash, target: nil, action: nil)
         leftBarItem.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                self?.viewModel.actionsSubject.onNext(.deleteAllAnswers)
+            .subscribe({ [weak self] _ in
+                self?.presentConfirmationAlert(withTitle: L10n.Prompts.DeleteAll.title,
+                                         message: L10n.Prompts.DeleteAll.message) {
+                                            self?.viewModel.actionsSubject.onNext(.deleteAllAnswers)
+                }
             })
             .disposed(by: disposeBag)
 
@@ -86,41 +75,62 @@ final class AnswersListController: UITableViewController {
     }
 
     private func configureTableView() {
+
         tableView.register(AnswerCell.self)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         tableView.allowsSelection = false
+
+        tableView.rx.itemDeleted
+            .subscribe(onNext: { indexPath in
+                self.viewModel.actionsSubject.onNext(.deleteAnswer(index: indexPath.row))
+        })
+        .disposed(by: disposeBag)
+    }
+
+    private func configureDataSource() {
+
+        self.tableView.dataSource = nil
+        self.tableView.delegate = nil
+
+        dataSource = RxTableViewSectionedAnimatedDataSource<SectionOfPresentableAnswer>(
+            configureCell: { dataSource, tableView, indexPath, item in
+                let cell: AnswerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+                cell.configure(with: item)
+                return cell
+        }, titleForHeaderInSection: { dataSource, index in
+            dataSource.sectionModels[index].header
+        },
+           canEditRowAtIndexPath: { _, _ in true })
+
+        viewModel.vmAnswersSubject
+            .asObservable()
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
     }
 }
 
-extension AnswersListController {
+struct SectionOfPresentableAnswer {
+     var header: String
+     var items: [Item]
+   }
 
-    // MARK: - TableView DataSource:
+extension SectionOfPresentableAnswer: AnimatableSectionModelType {
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.count()
+  typealias Item = PresentableAnswer
+
+    var identity: String {
+        return header
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+   init(original: SectionOfPresentableAnswer, items: [Item]) {
+    self = original
+    self.items = items
+  }
 
-        let cell: AnswerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        guard let answer = self.viewModel.answer(at: indexPath.row) else { return cell }
-        cell.configure(with: answer)
-
-        return cell
-    }
-
-    // MARK: - TablewViewDelegate:
-
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
-                            forRowAt indexPath: IndexPath) {
-
-        if editingStyle == .delete {
-            viewModel.actionsSubject.onNext(.deleteAnswer(index: indexPath.row))
-        }
+}
+extension PresentableAnswer: IdentifiableType {
+    public var identity: String {
+        return UUID().uuidString
     }
 }

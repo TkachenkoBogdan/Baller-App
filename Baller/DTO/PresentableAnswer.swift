@@ -33,3 +33,5 @@ struct PresentableAnswer {
     }
 
 }
+extension PresentableAnswer: Equatable {
+}

@@ -8,16 +8,16 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 final class AnswerListModel {
 
     private let store: AnswerStore
 
-    // MARK: - Rx:
-    let answerQueryResponse: PublishSubject<AnswerQueryResponse> = PublishSubject()
-
     let changeListSubject: PublishSubject<ChangeSet<Answer>> = PublishSubject()
     let modelChangeActionSubject: PublishSubject<AnswerAction> = PublishSubject()
+
+    let answerSubject: BehaviorRelay<[Answer]> = BehaviorRelay(value: [])
 
     private let disposeBag = DisposeBag()
 
@@ -30,16 +30,21 @@ final class AnswerListModel {
     }
 
     lazy var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? = { changeSet in
-        self.changeListSubject.onNext(changeSet)
+       // self.changeListSubject.onNext(changeSet)
+        self.answerSubject.accept(self.store.allAnswers())
     }
 
-    func numberOfAnswers() -> Int {
-        return store.count
-    }
+    // MARK: - To solve:
 
-    func answer(at index: Int) -> Answer? {
-        return store.answer(at: index)
-    }
+//    func numberOfAnswers() -> Int {
+//        return store.count
+//    }
+//
+//    func answer(at index: Int) -> Answer? {
+//        return store.answer(at: index)
+//    }
+
+    ///////////////////////
 
     // MARK: - Private:
 
@@ -56,14 +61,7 @@ final class AnswerListModel {
                     self.store.removeAnswer(at: index)
                 case .deleteAllAnswers:
                     self.store.removeAllAnswers()
-
-                case .getCount:
-                    self.answerQueryResponse
-                        .onNext(.count(self.store.count))
-                default:
-                    print("default has been hit")
                 }
-
             })
             .disposed(by: disposeBag)
     }
