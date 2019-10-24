@@ -51,35 +51,38 @@ final class AnswersListController: UITableViewController {
             })
             .disposed(by: disposeBag )
 
-//        viewModel.vmAnswerQueryResponse
-
     }
 
     // MARK: - Lifecycle:
 
     override func viewDidLoad() {
-
         setupNavigationItems()
         configureTableView()
     }
 
     // MARK: - Private:
 
-    @objc private func addButtonPressed(_ sender: Any) {
+    private func setupNavigationItems() {
+        navigationItem.title = L10n.Titles.answerList
 
-        presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (text) in
-            guard let self = self else { return }
-            //self.viewModel.appendAnswer(withTitle: answerString)
-            self.viewModel.actionsSubject.onNext(.appendAnswer(title: text))
-        }
-    }
+        let leftBarItem = UIBarButtonItem(barButtonSystemItem: .trash, target: nil, action: nil)
+        leftBarItem.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.actionsSubject.onNext(.deleteAllAnswers)
+            })
+            .disposed(by: disposeBag)
 
-    @objc private func deleteButtonPressed(_ sender: Any) {
+        let rightBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
+        rightBarItem.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (text) in
+                    self?.viewModel.actionsSubject.onNext(.appendAnswer(title: text))
+                }
+            })
+            .disposed(by: disposeBag)
 
-        presentConfirmationAlert(withTitle: L10n.Prompts.DeleteAll.title,
-                                 message: L10n.Prompts.DeleteAll.message) {
-                                    self.viewModel.actionsSubject.onNext(AnswerAction.deleteAllAnswers)
-        }
+        navigationItem.leftBarButtonItem = leftBarItem
+        navigationItem.rightBarButtonItem = rightBarItem
     }
 
     private func configureTableView() {
@@ -87,16 +90,6 @@ final class AnswersListController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         tableView.allowsSelection = false
-    }
-
-    private func setupNavigationItems() {
-        navigationItem.title = L10n.Titles.answerList
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self, action: #selector(addButtonPressed(_:)))
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash,
-                                                           target: self, action: #selector(deleteButtonPressed(_:)))
     }
 }
 

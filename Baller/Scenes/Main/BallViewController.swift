@@ -65,8 +65,8 @@ final class BallViewController: UIViewController {
 
         // Request in progress:
         viewModel.vmRequestInProgressSubject
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { requestIsInProgress in
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { requestIsInProgress in
                 self.ballView.interactionIsInProcess = requestIsInProgress
             })
             .disposed(by: disposeBag)
