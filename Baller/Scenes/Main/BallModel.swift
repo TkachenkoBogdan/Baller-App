@@ -9,8 +9,9 @@
 import Foundation
 import RxSwift
 import RxRelay
+import NSObject_Rx
 
-final class BallModel {
+final class BallModel: HasDisposeBag {
 
     private enum Keys: String {
         case shakeAttempts
@@ -35,17 +36,15 @@ final class BallModel {
 
     // MARK: - Properties:
 
-    let modelAnswerSubject: PublishSubject<Answer> = PublishSubject()
-    let modelAnswerRequestedSubject: PublishSubject<Void> = PublishSubject()
-    let modelRequestInProgressSubject: PublishSubject<Bool> = PublishSubject()
+    let answer: PublishSubject<Answer> = PublishSubject()
+    let answerRequested: PublishSubject<Void> = PublishSubject()
+    let isRequestInProgress: PublishSubject<Bool> = PublishSubject()
 
     private(set) lazy var attemptsCountRelay: BehaviorRelay<Int> = BehaviorRelay(value: 0)
 
-    private let disposeBag = DisposeBag()
-
     private var isLoadingData = false {
         didSet {
-            modelRequestInProgressSubject.onNext(isLoadingData)
+            isRequestInProgress.onNext(isLoadingData)
         }
     }
 
@@ -63,7 +62,7 @@ final class BallModel {
                 if !isLocal {
                     self.store.appendAnswer(answer)
                 }
-                self.modelAnswerSubject.onNext(answer)
+                self.answer.onNext(answer)
             case .failure:
                 preconditionFailure(L10n.FatalErrors.noLocalAnswer)
             }
@@ -74,16 +73,10 @@ final class BallModel {
 
     private func setupRxSubscription() {
 
-        //Subscription to answer subject:
-
-        modelAnswerRequestedSubject
+        answerRequested
             .subscribe { _ in
                 self.getAnswer()
         }.disposed(by: disposeBag)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.attemptsCountRelay.accept(self.getAttemptsCount())
-        }
     }
 
     // MARK: - Attempts count logic:
@@ -104,6 +97,10 @@ final class BallModel {
         guard (secureStorage.value(forKey: Keys.shakeAttempts.rawValue)) != nil else {
             secureStorage.set(0, forKey: Keys.shakeAttempts.rawValue)
             return
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.attemptsCountRelay.accept(self.getAttemptsCount())
         }
     }
 

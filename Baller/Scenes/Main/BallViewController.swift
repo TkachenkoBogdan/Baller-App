@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 
 final class BallViewController: UIViewController {
 
@@ -17,7 +18,6 @@ final class BallViewController: UIViewController {
     private lazy var ballView: BallView = BallView()
 
     private let shakeEventTrigger: PublishSubject<Void> = PublishSubject()
-    private let disposeBag = DisposeBag()
 
     // MARK: - Initialization:
 
@@ -25,7 +25,7 @@ final class BallViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
 
-        setupRxBindings()
+        setupBindings()
     }
 
     required init?(coder: NSCoder) {
@@ -49,7 +49,7 @@ final class BallViewController: UIViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         if !ballView.interactionIsInProcess {
-            shakeEventTrigger.onNext(())
+            self.viewModel.shakeEventTriggered.onNext(())
         }
     }
 
@@ -59,37 +59,32 @@ final class BallViewController: UIViewController {
 
     // MARK: - RxBindings:
 
-    private func setupRxBindings () {
-        // Shake event:
-        self.shakeEventTrigger
-            .throttle(.seconds(2), latest: true, scheduler: MainScheduler.instance)
-            .bind(to: viewModel.shakeEventTriggered)
-            .disposed(by: disposeBag)
+    private func setupBindings () {
 
         // Request in progress:
 
-        viewModel.vmRequestInProgressSubject
+        viewModel.isRequestInProgress
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { requestIsInProgress in
                 self.ballView.interactionIsInProcess = requestIsInProgress
             })
-            .disposed(by: disposeBag)
+            .disposed(by: rx.disposeBag)
 
         // MARK: - UI Bindings:
 
-        viewModel.vmAttemptsCount
+        viewModel.attemptsCount
             .map(String.init)
             .bind(to: ballView.countLabel.rx.text)
-            .disposed(by: disposeBag)
+            .disposed(by: rx.disposeBag)
 
-        viewModel.vmAnswerSubject
+        viewModel.answer
             .map { $0.text }
             .bind(to: ballView.answerLabel.rx.text)
-            .disposed(by: disposeBag)
+            .disposed(by: rx.disposeBag)
 
-        viewModel.vmAnswerSubject
+        viewModel.answer
             .map { $0.semanticColor }
             .bind(to: ballView.rx.shadowColor)
-            .disposed(by: disposeBag)
+            .disposed(by: rx.disposeBag)
     }
 }

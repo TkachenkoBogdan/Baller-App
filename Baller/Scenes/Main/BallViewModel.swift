@@ -8,21 +8,19 @@
 
 import Foundation
 import RxSwift
+import NSObject_Rx
 
-final class BallViewModel {
+final class BallViewModel: HasDisposeBag {
 
     // MARK: - Properties:
 
     private let ballModel: BallModel
 
-    let vmAnswerSubject: PublishSubject<PresentableAnswer> = PublishSubject()
+    let answer: PublishSubject<PresentableAnswer> = PublishSubject()
+    let attemptsCount: PublishSubject<Int> = PublishSubject()
 
-    let vmAttemptsCount: PublishSubject<Int> = PublishSubject()
-    let vmRequestInProgressSubject: PublishSubject<Bool> = PublishSubject()
-
-    var shakeEventTriggered: PublishSubject<Void> = PublishSubject()
-
-    private let disposeBag = DisposeBag()
+    let isRequestInProgress: PublishSubject<Bool> = PublishSubject()
+    let shakeEventTriggered: PublishSubject<Void> = PublishSubject()
 
     // MARK: - Init:
 
@@ -35,29 +33,31 @@ final class BallViewModel {
     // MARK: - Private:
 
     private func setupBindings() {
+
         // Answer binding:
 
-        ballModel.modelAnswerSubject
+        ballModel.answer
             .map { $0.toPresentableAnswer(uppercased: true)
-        }.bind(to: vmAnswerSubject)
+        }.bind(to: answer)
             .disposed(by: disposeBag)
 
         // Shake event triggered:
 
         self.shakeEventTriggered
-            .bind(to: ballModel.modelAnswerRequestedSubject)
+            .throttle(.seconds(2), latest: true, scheduler: MainScheduler.instance)
+            .bind(to: ballModel.answerRequested)
             .disposed(by: disposeBag)
 
         // Attempts count:
 
         ballModel.attemptsCountRelay
-            .bind(to: self.vmAttemptsCount)
+            .bind(to: self.attemptsCount)
             .disposed(by: disposeBag)
 
         // Request in progress:
 
-        ballModel.modelRequestInProgressSubject
-            .bind(to: vmRequestInProgressSubject)
+        ballModel.isRequestInProgress
+            .bind(to: isRequestInProgress)
             .disposed(by: disposeBag)
 
     }
