@@ -1,6 +1,8 @@
 PODS:
   - Alamofire (5.0.0-rc.2)
   - Differentiator (4.0.1)
+  - "NSObject+Rx (5.0.2)":
+    - RxSwift (~> 5.0)
   - Pastel (0.6.0)
   - Realm (3.19.0):
     - Realm/Headers (= 3.19.0)
@@ -23,6 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.5)
+  - "NSObject+Rx (~> 5)"
   - Pastel (~> 0.6)
   - RealmSwift (~> 3.19.0)
   - RxCocoa (~> 5)
@@ -36,6 +39,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Differentiator
+    - "NSObject+Rx"
     - Pastel
     - Realm
     - RealmSwift
@@ -50,6 +54,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  "NSObject+Rx": 2eb2cf51fd1c554118449a7fbc36e4cd620b9e94
   Pastel: 814f081efbe2859c37e65ee44f396e6e5be88619
   Realm: 995d585bcf699aaff226715886c849a29dd3d07f
   RealmSwift: 35f284a537989f2187b413e5917091948cb87a3f
@@ -61,6 +66,6 @@ SPEC CHECKSUMS:
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: c0368cc6889873d2a3813a79b76177c624e73df3
+PODFILE CHECKSUM: 44f042ef4ae0a4b8bddf491451801abe0a22f760
 
 COCOAPODS: 1.8.3

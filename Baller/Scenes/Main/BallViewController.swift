@@ -48,7 +48,9 @@ final class BallViewController: UIViewController {
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        shakeEventTrigger.onNext(())
+        if !ballView.interactionIsInProcess {
+            shakeEventTrigger.onNext(())
+        }
     }
 
     override var canBecomeFirstResponder: Bool {
@@ -60,10 +62,12 @@ final class BallViewController: UIViewController {
     private func setupRxBindings () {
         // Shake event:
         self.shakeEventTrigger
+            .throttle(.seconds(2), latest: true, scheduler: MainScheduler.instance)
             .bind(to: viewModel.shakeEventTriggered)
             .disposed(by: disposeBag)
 
         // Request in progress:
+
         viewModel.vmRequestInProgressSubject
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { requestIsInProgress in

@@ -16,6 +16,7 @@
 		BD5C3F2623391F380026F1B8 /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C3F2423391F380026F1B8 /* strings.swift */; };
 		BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C3F2523391F380026F1B8 /* assets-images.swift */; };
 		BD60A8DD2345C63E0045AF7F /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD60A8DC2345C63E0045AF7F /* AppConstants.swift */; };
+		BD6FD98223658F39009F4BF2 /* PresentableAnswer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FD98123658F39009F4BF2 /* PresentableAnswer+.swift */; };
 		BD779EF52347757C00685688 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD779EF42347757C00685688 /* SecureStorage.swift */; };
 		BD7DA85D235862140040811E /* AnswerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7DA85C235862140040811E /* AnswerType.swift */; };
 		BD8A8C772355882A00800CF3 /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8A8C762355882A00800CF3 /* MigrationManager.swift */; };
@@ -75,6 +76,7 @@
 		BD5C3F2423391F380026F1B8 /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
 		BD5C3F2523391F380026F1B8 /* assets-images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "assets-images.swift"; sourceTree = "<group>"; };
 		BD60A8DC2345C63E0045AF7F /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		BD6FD98123658F39009F4BF2 /* PresentableAnswer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresentableAnswer+.swift"; sourceTree = "<group>"; };
 		BD779EF42347757C00685688 /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		BD7DA85C235862140040811E /* AnswerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerType.swift; sourceTree = "<group>"; };
 		BD8A8C762355882A00800CF3 /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 			children = (
 				BD8C3A67231011A700F8D896 /* DecodableAnswer.swift */,
 				BD7DA85C235862140040811E /* AnswerType.swift */,
+				BD6FD98123658F39009F4BF2 /* PresentableAnswer+.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				BDA0E4CE233BAFDD00403703 /* colors.swift in Sources */,
 				BD5C3F2723391F380026F1B8 /* assets-images.swift in Sources */,
 				BDDAFFFF231024D9002B3BEF /* AnswersListController.swift in Sources */,
+				BD6FD98223658F39009F4BF2 /* PresentableAnswer+.swift in Sources */,
 				BD3E3D382358955600FA26F9 /* BallerTabBarController.swift in Sources */,
 				BDE1BF6B233E20D800AFAD63 /* Answer.swift in Sources */,
 				BDA3B76E235834A900D96920 /* AppColor.swift in Sources */,

@@ -9,15 +9,13 @@
 import UIKit
 import RxSwift
 import RxCocoa
-
+import NSObject_Rx
 import RxDataSources
 
 final class AnswersListController: UITableViewController {
 
     private let viewModel: AnswersListViewModel
-
-    private var dataSource: RxTableViewSectionedAnimatedDataSource<SectionOfPresentableAnswer>!
-    private let disposeBag = DisposeBag()
+    private var dataSource: RxTableViewSectionedAnimatedDataSource<AnswerSection>!
 
     // MARK: - Initialization:
 
@@ -25,7 +23,6 @@ final class AnswersListController: UITableViewController {
         self.viewModel = viewModel
         super.init(style: .plain)
 
-        //setupRxBindings()
         configureDataSource()
     }
 
@@ -42,11 +39,23 @@ final class AnswersListController: UITableViewController {
 
     // MARK: - Private:
 
-    // RxBindings:
+    private func configureDataSource() {
 
-//    private func setupRxBindings() {
-//
-//    }
+        dataSource = RxTableViewSectionedAnimatedDataSource<AnswerSection>(
+            configureCell: { dataSource, tableView, indexPath, item in
+                let cell: AnswerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+                cell.configure(with: item)
+                return cell
+        }, titleForHeaderInSection: { dataSource, index in
+            dataSource.sectionModels[index].model
+        },
+           canEditRowAtIndexPath: { _, _ in true })
+
+        viewModel.vmAnswersSubject
+                       .asObservable()
+                       .bind(to: tableView.rx.items(dataSource: dataSource))
+                       .disposed(by: rx.disposeBag)
+    }
 
     private func setupNavigationItems() {
         navigationItem.title = L10n.Titles.answerList
@@ -55,11 +64,11 @@ final class AnswersListController: UITableViewController {
         leftBarItem.rx.tap
             .subscribe({ [weak self] _ in
                 self?.presentConfirmationAlert(withTitle: L10n.Prompts.DeleteAll.title,
-                                         message: L10n.Prompts.DeleteAll.message) {
-                                            self?.viewModel.actionsSubject.onNext(.deleteAllAnswers)
+                                               message: L10n.Prompts.DeleteAll.message) {
+                                                self?.viewModel.actionsSubject.onNext(.deleteAllAnswers)
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: rx.disposeBag)
 
         let rightBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
         rightBarItem.rx.tap
@@ -68,7 +77,7 @@ final class AnswersListController: UITableViewController {
                     self?.viewModel.actionsSubject.onNext(.appendAnswer(title: text))
                 }
             })
-            .disposed(by: disposeBag)
+            .disposed(by: rx.disposeBag)
 
         navigationItem.leftBarButtonItem = leftBarItem
         navigationItem.rightBarButtonItem = rightBarItem
@@ -80,57 +89,14 @@ final class AnswersListController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         tableView.allowsSelection = false
+        self.tableView.dataSource = nil
 
         tableView.rx.itemDeleted
-            .subscribe(onNext: { indexPath in
-                self.viewModel.actionsSubject.onNext(.deleteAnswer(index: indexPath.row))
-        })
-        .disposed(by: disposeBag)
+            .map { indexPath in
+                return AnswerAction.deleteAnswer(index: indexPath.row)
+        }
+        .bind(to: viewModel.actionsSubject)
+        .disposed(by: rx.disposeBag)
     }
 
-    private func configureDataSource() {
-
-        self.tableView.dataSource = nil
-        self.tableView.delegate = nil
-
-        dataSource = RxTableViewSectionedAnimatedDataSource<SectionOfPresentableAnswer>(
-            configureCell: { dataSource, tableView, indexPath, item in
-                let cell: AnswerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-                cell.configure(with: item)
-                return cell
-        }, titleForHeaderInSection: { dataSource, index in
-            dataSource.sectionModels[index].header
-        },
-           canEditRowAtIndexPath: { _, _ in true })
-
-        viewModel.vmAnswersSubject
-            .asObservable()
-            .bind(to: tableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
-    }
-}
-
-struct SectionOfPresentableAnswer {
-     var header: String
-     var items: [Item]
-   }
-
-extension SectionOfPresentableAnswer: AnimatableSectionModelType {
-
-  typealias Item = PresentableAnswer
-
-    var identity: String {
-        return header
-    }
-
-   init(original: SectionOfPresentableAnswer, items: [Item]) {
-    self = original
-    self.items = items
-  }
-
-}
-extension PresentableAnswer: IdentifiableType {
-    public var identity: String {
-        return UUID().uuidString
-    }
 }

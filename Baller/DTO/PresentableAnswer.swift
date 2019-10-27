@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import RxDataSources
 
-struct PresentableAnswer {
+struct PresentableAnswer: Equatable {
 
     let text: String
+
     let formattedDate: String
-    let type: AnswerType
+    private let type: AnswerType
+
+    // MARK: - Init:
 
     init(title: String, formattedDate: String, type: AnswerType) {
         self.text = title
         self.formattedDate = formattedDate
         self.type = type
     }
+
+    // MARK: - Public:
 
     var semanticColor: UIColor {
 
@@ -31,7 +37,4 @@ struct PresentableAnswer {
             return .black
         }
     }
-
-}
-extension PresentableAnswer: Equatable {
 }

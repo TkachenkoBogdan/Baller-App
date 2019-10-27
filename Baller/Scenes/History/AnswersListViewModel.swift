@@ -8,6 +8,9 @@
 
 import Foundation
 import RxSwift
+import RxRelay
+import RxDataSources
+import NSObject_Rx
 
 enum AnswerAction {
 
@@ -16,52 +19,40 @@ enum AnswerAction {
     case deleteAllAnswers
 }
 
-final class AnswersListViewModel {
+typealias AnswerSection = AnimatableSectionModel<String, PresentableAnswer>
+
+final class AnswersListViewModel: HasDisposeBag {
 
     private let model: AnswerListModel
 
     private var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
+        formatter.setLocalizedDateFormatFromTemplate("MMM d HH:mm:ss")
         return formatter
     }()
 
-    let vmChangesSubject: PublishSubject<ChangeSet<Answer>> = PublishSubject()
     let actionsSubject: PublishSubject<AnswerAction> = PublishSubject()
-
-    let vmAnswersSubject: PublishSubject<[SectionOfPresentableAnswer]> = PublishSubject()
-
-    private let disposeBag = DisposeBag()
+    let vmAnswersSubject: PublishSubject<[AnswerSection]> = PublishSubject()
 
     // MARK: - Init:
 
     init(model: AnswerListModel) {
         self.model = model
-        setupRxBindings()
+        setupBindings()
     }
-
-    // MARK: - Public:
 
     // MARK: - Private:
 
-    private func setupRxBindings() {
+    private func setupBindings() {
 
-        // Answers -->
         model.answerSubject
-        .map({ answers -> [SectionOfPresentableAnswer] in
-            let answers = answers.map {$0.toPresentableAnswer(withDateFormatter: nil, uppercased: true)}
-            let sections = [SectionOfPresentableAnswer(header: "History", items: answers)]
+        .map({ answers -> [AnswerSection] in
+            let answers = answers.map {$0.toPresentableAnswer(withDateFormatter: self.dateFormatter, uppercased: true)}
+            let sections = [AnswerSection(model: "History", items: answers)]
             return sections
         })
         .bind(to: self.vmAnswersSubject)
-        .disposed(by: disposeBag)
-
-        //Changes ----> VC:
-        model.changeListSubject
-            .bind(to: vmChangesSubject)
             .disposed(by: disposeBag)
-
-        //Actions <--- VC:
 
         actionsSubject
             .bind(to: model.modelChangeActionSubject)

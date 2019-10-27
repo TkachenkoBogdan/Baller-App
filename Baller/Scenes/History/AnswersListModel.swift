@@ -9,51 +9,33 @@
 import Foundation
 import RxSwift
 import RxRelay
+import NSObject_Rx
 
-final class AnswerListModel {
+final class AnswerListModel: HasDisposeBag {
 
     private let store: AnswerStore
 
-    let changeListSubject: PublishSubject<ChangeSet<Answer>> = PublishSubject()
-    let modelChangeActionSubject: PublishSubject<AnswerAction> = PublishSubject()
-
     let answerSubject: BehaviorRelay<[Answer]> = BehaviorRelay(value: [])
-
-    private let disposeBag = DisposeBag()
+    let modelChangeActionSubject: PublishSubject<AnswerAction> = PublishSubject()
 
     // MARK: - Init:
 
     init(store: AnswerStore) {
         self.store = store
-        store.answerListUpdateHandler = self.answerListUpdateHandler
-        setupRxSubscriptions()
+        store.answersDidUpdateHandler = storeDidUpdateAnswers
+        setupSubscriptions()
     }
 
-    lazy var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? = { changeSet in
-       // self.changeListSubject.onNext(changeSet)
-        self.answerSubject.accept(self.store.allAnswers())
+    private func storeDidUpdateAnswers(_ answers: [Answer]) {
+        self.answerSubject.accept(answers)
     }
-
-    // MARK: - To solve:
-
-//    func numberOfAnswers() -> Int {
-//        return store.count
-//    }
-//
-//    func answer(at index: Int) -> Answer? {
-//        return store.answer(at: index)
-//    }
-
-    ///////////////////////
 
     // MARK: - Private:
 
-    private func setupRxSubscriptions() {
+    private func setupSubscriptions() {
 
-        //Changes:
         modelChangeActionSubject
             .subscribe(onNext: { action in
-
                 switch action {
                 case .appendAnswer(let title):
                     self.store.appendAnswer(Answer(title: title))
