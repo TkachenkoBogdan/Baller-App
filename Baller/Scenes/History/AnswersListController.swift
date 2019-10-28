@@ -51,10 +51,9 @@ final class AnswersListController: UITableViewController {
         },
            canEditRowAtIndexPath: { _, _ in true })
 
-        viewModel.vmAnswersSubject
-                       .asObservable()
-                       .bind(to: tableView.rx.items(dataSource: dataSource))
-                       .disposed(by: rx.disposeBag)
+        viewModel.answerSection
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: rx.disposeBag)
     }
 
     private func setupNavigationItems() {
@@ -65,7 +64,7 @@ final class AnswersListController: UITableViewController {
             .subscribe({ [weak self] _ in
                 self?.presentConfirmationAlert(withTitle: L10n.Prompts.DeleteAll.title,
                                                message: L10n.Prompts.DeleteAll.message) {
-                                                self?.viewModel.actionsSubject.onNext(.deleteAllAnswers)
+                                                self?.viewModel.actions.onNext(.deleteAllAnswers)
                 }
             })
             .disposed(by: rx.disposeBag)
@@ -74,7 +73,7 @@ final class AnswersListController: UITableViewController {
         rightBarItem.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.presentUserInputAlert(L10n.Prompts.newAnswer) { [weak self] (text) in
-                    self?.viewModel.actionsSubject.onNext(.appendAnswer(title: text))
+                    self?.viewModel.actions.onNext(.appendAnswer(title: text))
                 }
             })
             .disposed(by: rx.disposeBag)
@@ -95,7 +94,7 @@ final class AnswersListController: UITableViewController {
             .map { indexPath in
                 return AnswerAction.deleteAnswer(index: indexPath.row)
         }
-        .bind(to: viewModel.actionsSubject)
+        .bind(to: viewModel.actions)
         .disposed(by: rx.disposeBag)
     }
 

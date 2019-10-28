@@ -11,6 +11,13 @@ import RxSwift
 import RxRelay
 import NSObject_Rx
 
+enum AnswerAction {
+
+    case appendAnswer(title: String)
+    case deleteAnswer(index: Int)
+    case deleteAllAnswers
+}
+
 final class AnswerListModel: HasDisposeBag {
 
     private let store: AnswerStore

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol BallViewControllerFactory {
     func makeBallViewController() -> BallViewController

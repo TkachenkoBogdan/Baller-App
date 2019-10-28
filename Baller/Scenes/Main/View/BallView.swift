@@ -32,10 +32,10 @@ final class BallView: UIView {
         }
     }
 
-    var interactionIsInProcess: Bool = false {
+    fileprivate(set) var interactionIsInProgress: Bool = false {
 
         didSet {
-            if interactionIsInProcess {
+            if interactionIsInProgress {
                 setLabelsVisibility(to: false)
                 activityIndicator.startAnimating()
                 eightBall.shake()
@@ -223,6 +223,12 @@ extension Reactive where Base: BallView {
     var shadowColor: Binder<UIColor> {
         return Binder(self.base) { ballView, color in
             ballView.ballShadowColor = color
+        }
+    }
+
+    var isInProgress: Binder<Bool> {
+        return Binder(self.base) { ballView, isInProgress in
+            ballView.interactionIsInProgress = isInProgress
         }
     }
 }

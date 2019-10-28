@@ -12,13 +12,6 @@ import RxRelay
 import RxDataSources
 import NSObject_Rx
 
-enum AnswerAction {
-
-    case appendAnswer(title: String)
-    case deleteAnswer(index: Int)
-    case deleteAllAnswers
-}
-
 typealias AnswerSection = AnimatableSectionModel<String, PresentableAnswer>
 
 final class AnswersListViewModel: HasDisposeBag {
@@ -31,13 +24,14 @@ final class AnswersListViewModel: HasDisposeBag {
         return formatter
     }()
 
-    let actionsSubject: PublishSubject<AnswerAction> = PublishSubject()
-    let vmAnswersSubject: PublishSubject<[AnswerSection]> = PublishSubject()
+    let actions: PublishSubject<AnswerAction> = PublishSubject()
+    let answerSection: PublishSubject<[AnswerSection]> = PublishSubject()
 
     // MARK: - Init:
 
     init(model: AnswerListModel) {
         self.model = model
+
         setupBindings()
     }
 
@@ -46,15 +40,16 @@ final class AnswersListViewModel: HasDisposeBag {
     private func setupBindings() {
 
         model.answerSubject
-        .map({ answers -> [AnswerSection] in
-            let answers = answers.map {$0.toPresentableAnswer(withDateFormatter: self.dateFormatter, uppercased: true)}
+        .map({ [weak self] answers -> [AnswerSection] in
+            let answers = answers.map {$0.toPresentableAnswer(withDateFormatter: self?.dateFormatter,
+                                                              uppercased: true)}
             let sections = [AnswerSection(model: "History", items: answers)]
             return sections
         })
-        .bind(to: self.vmAnswersSubject)
+        .bind(to: self.answerSection)
             .disposed(by: disposeBag)
 
-        actionsSubject
+        actions
             .bind(to: model.modelChangeActionSubject)
             .disposed(by: disposeBag)
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD05893D2367411000DC1661 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD05893C2367411000DC1661 /* ViewController.swift */; };
 		BD0F0A2C2335FEC2005FEEAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */; };
 		BD3E3D382358955600FA26F9 /* BallerTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3E3D372358955600FA26F9 /* BallerTabBarController.swift */; };
 		BD40C24123590A2B00532E61 /* SlideAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD40C24023590A2B00532E61 /* SlideAnimationController.swift */; };
@@ -67,6 +68,7 @@
 		202D93FE5383D1FD526622EB /* Pods-Baller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baller.debug.xcconfig"; path = "Target Support Files/Pods-Baller/Pods-Baller.debug.xcconfig"; sourceTree = "<group>"; };
 		8A4DC504E792239D0430EB90 /* Pods-Baller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baller.release.xcconfig"; path = "Target Support Files/Pods-Baller/Pods-Baller.release.xcconfig"; sourceTree = "<group>"; };
 		B4970B0B04B676558096E7EA /* Pods_Baller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD05893C2367411000DC1661 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		BD3E3D372358955600FA26F9 /* BallerTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallerTabBarController.swift; sourceTree = "<group>"; };
 		BD40C24023590A2B00532E61 /* SlideAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimationController.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			children = (
 				BD40C23F23590A0A00532E61 /* Transitions */,
 				BD3E3D372358955600FA26F9 /* BallerTabBarController.swift */,
+				BD05893C2367411000DC1661 /* ViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */,
 				BDAD481C233F313200782B74 /* DependencyContainer.swift in Sources */,
 				BDAA907B234CAEAA00F9007C /* RealmProvider.swift in Sources */,
+				BD05893D2367411000DC1661 /* ViewController.swift in Sources */,
 				BDAA9079234CACC200F9007C /* RealmAnswerStore.swift in Sources */,
 				BDE9B82D234705AD00249A87 /* CALayer+Extension.swift in Sources */,
 				BDE1BF69233E1CC200AFAD63 /* AnswersListModel.swift in Sources */,

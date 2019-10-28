@@ -12,12 +12,9 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-final class BallViewController: UIViewController {
+final class BallViewController: ViewController<BallView> {
 
     private let viewModel: BallViewModel
-    private lazy var ballView: BallView = BallView()
-
-    private let shakeEventTrigger: PublishSubject<Void> = PublishSubject()
 
     // MARK: - Initialization:
 
@@ -35,12 +32,11 @@ final class BallViewController: UIViewController {
     // MARK: - Lifecycle:
 
     override func loadView() {
-        self.view = ballView
+        view = BallView()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
@@ -48,7 +44,7 @@ final class BallViewController: UIViewController {
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        if !ballView.interactionIsInProcess {
+        if !rootView.interactionIsInProgress {
             self.viewModel.shakeEventTriggered.onNext(())
         }
     }
@@ -59,32 +55,27 @@ final class BallViewController: UIViewController {
 
     // MARK: - RxBindings:
 
-    private func setupBindings () {
+    private func setupBindings() {
 
-        // Request in progress:
-
-        viewModel.isRequestInProgress
-            .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { requestIsInProgress in
-                self.ballView.interactionIsInProcess = requestIsInProgress
-            })
-            .disposed(by: rx.disposeBag)
-
-        // MARK: - UI Bindings:
-
-        viewModel.attemptsCount
-            .map(String.init)
-            .bind(to: ballView.countLabel.rx.text)
-            .disposed(by: rx.disposeBag)
+        // UI Bindings:
 
         viewModel.answer
             .map { $0.text }
-            .bind(to: ballView.answerLabel.rx.text)
+            .bind(to: rootView.answerLabel.rx.text)
+            .disposed(by: rx.disposeBag)
+
+        viewModel.isRequestInProgress
+            .bind(to: rootView.rx.isInProgress)
+            .disposed(by: rx.disposeBag)
+
+        viewModel.attemptsCount
+            .map(String.init)
+            .bind(to: rootView.countLabel.rx.text)
             .disposed(by: rx.disposeBag)
 
         viewModel.answer
             .map { $0.semanticColor }
-            .bind(to: ballView.rx.shadowColor)
+            .bind(to: rootView.rx.shadowColor)
             .disposed(by: rx.disposeBag)
     }
 }

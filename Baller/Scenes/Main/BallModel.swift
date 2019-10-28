@@ -31,13 +31,11 @@ final class BallModel: HasDisposeBag {
         self.store = store
 
         setupAttemptsCountIfNeeded()
-        setupRxSubscription()
     }
 
     // MARK: - Properties:
 
     let answer: PublishSubject<Answer> = PublishSubject()
-    let answerRequested: PublishSubject<Void> = PublishSubject()
     let isRequestInProgress: PublishSubject<Bool> = PublishSubject()
 
     private(set) lazy var attemptsCountRelay: BehaviorRelay<Int> = BehaviorRelay(value: 0)
@@ -70,16 +68,6 @@ final class BallModel: HasDisposeBag {
     }
 
     // MARK: - Private:
-
-    private func setupRxSubscription() {
-
-        answerRequested
-            .subscribe { _ in
-                self.getAnswer()
-        }.disposed(by: disposeBag)
-    }
-
-    // MARK: - Attempts count logic:
 
     private func incrementAttemptsCount() {
         attemptsCountRelay.accept(attemptsCountRelay.value + 1)

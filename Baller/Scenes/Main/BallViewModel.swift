@@ -34,18 +34,20 @@ final class BallViewModel: HasDisposeBag {
 
     private func setupBindings() {
 
-        // Answer binding:
+        // Answer:
 
         ballModel.answer
             .map { $0.toPresentableAnswer(uppercased: true)
         }.bind(to: answer)
             .disposed(by: disposeBag)
 
-        // Shake event triggered:
+        // Shake event:
 
         self.shakeEventTriggered
             .throttle(.seconds(2), latest: true, scheduler: MainScheduler.instance)
-            .bind(to: ballModel.answerRequested)
+            .subscribe({ [weak self] _ in
+                self?.ballModel.getAnswer()
+            })
             .disposed(by: disposeBag)
 
         // Attempts count:
@@ -54,7 +56,7 @@ final class BallViewModel: HasDisposeBag {
             .bind(to: self.attemptsCount)
             .disposed(by: disposeBag)
 
-        // Request in progress:
+        // Request status:
 
         ballModel.isRequestInProgress
             .bind(to: isRequestInProgress)
