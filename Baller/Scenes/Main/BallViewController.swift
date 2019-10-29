@@ -31,10 +31,6 @@ final class BallViewController: ViewController<BallView> {
 
     // MARK: - Lifecycle:
 
-    override func loadView() {
-        view = BallView()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -45,12 +41,8 @@ final class BallViewController: ViewController<BallView> {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
         if !rootView.interactionIsInProgress {
-            self.viewModel.shakeEventTriggered.onNext(())
+            self.viewModel.shakeEvent.onNext(())
         }
-    }
-
-    override var canBecomeFirstResponder: Bool {
-        return true
     }
 
     // MARK: - RxBindings:

@@ -32,7 +32,7 @@ final class BallModel: NavigationNode, HasDisposeBag {
 
         super.init(parent: parent)
 
-        setupAttemptsCountIfNeeded()
+        setupAttemptsCount()
     }
 
     // MARK: - Properties:
@@ -40,7 +40,7 @@ final class BallModel: NavigationNode, HasDisposeBag {
     let answer: PublishSubject<Answer> = PublishSubject()
     let isRequestInProgress: PublishSubject<Bool> = PublishSubject()
 
-    private(set) lazy var attemptsCountRelay: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    private(set) var attemptsCountRelay: BehaviorRelay<Int> = BehaviorRelay(value: 0)
 
     private var isLoadingData = false {
         didSet {
@@ -83,7 +83,7 @@ final class BallModel: NavigationNode, HasDisposeBag {
         return count
     }
 
-    private func setupAttemptsCountIfNeeded() {
+    private func setupAttemptsCount() {
         guard (secureStorage.value(forKey: Keys.shakeAttempts.rawValue)) != nil else {
             secureStorage.set(0, forKey: Keys.shakeAttempts.rawValue)
             return

@@ -20,7 +20,7 @@ final class BallViewModel: HasDisposeBag {
     let attemptsCount: PublishSubject<Int> = PublishSubject()
 
     let isRequestInProgress: PublishSubject<Bool> = PublishSubject()
-    let shakeEventTriggered: PublishSubject<Void> = PublishSubject()
+    let shakeEvent: PublishSubject<Void> = PublishSubject()
 
     // MARK: - Init:
 
@@ -43,7 +43,7 @@ final class BallViewModel: HasDisposeBag {
 
         // Shake event:
 
-        self.shakeEventTriggered
+        self.shakeEvent
             .throttle(.seconds(2), latest: true, scheduler: MainScheduler.instance)
             .subscribe({ [weak self] _ in
                 self?.ballModel.getAnswer()
