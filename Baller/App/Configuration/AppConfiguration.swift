@@ -8,8 +8,11 @@
 
 import UIKit
 
-enum AppConstants {
+enum AppConfiguration {
 
     ///Realm model version:
     static let appModelVersion: UInt64 = 5
+
+    ///Dependency Container:
+    static let dependencyContainer = DependencyContainer()
 }

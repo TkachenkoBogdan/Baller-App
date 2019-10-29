@@ -14,20 +14,20 @@ final class BallFlowCoordinator: NavigationNode, FlowCoordinator {
 
     weak var containerViewController: UIViewController?
 
-    private let factory: BallViewControllerFactory
+    private let controllerFactory: BallViewControllerFactory
 
     // MARK: - Init:
 
-    init(factory: BallViewControllerFactory, parent: NavigationNode?) {
+    init(controllerFactory: BallViewControllerFactory, parent: NavigationNode?) {
 
-        self.factory = factory
+        self.controllerFactory = controllerFactory
         super.init(parent: parent)
     }
 
     // MARK: - Public:
 
     func createFlow() -> UIViewController {
-        let ballViewController = factory.makeBallViewController(withParent: self)
+        let ballViewController = controllerFactory.makeBallViewController(withParent: self)
         let navigationController = UINavigationController(rootViewController: ballViewController)
         self.containerViewController = navigationController
 

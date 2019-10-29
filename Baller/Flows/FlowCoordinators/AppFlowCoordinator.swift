@@ -24,18 +24,18 @@ final class AppFlowCoordinator: NavigationNode, FlowCoordinator {
 
     weak var containerViewController: UIViewController?
 
-    private let factory: ViewControllerFactory
+    private let controllerFactory: ViewControllerFactory
 
     // MARK: - Init:
 
-    init(factory: ViewControllerFactory, parent: NavigationNode?) {
+    init(controllerFactory: ViewControllerFactory, parent: NavigationNode?) {
 
-        self.factory = factory
+        self.controllerFactory = controllerFactory
         super.init(parent: parent)
     }
 
-    convenience init(factory: ViewControllerFactory = DependencyContainer()) {
-        self.init(factory: factory, parent: nil)
+    convenience init(controllerFactory: ViewControllerFactory = AppConfiguration.dependencyContainer) {
+        self.init(controllerFactory: controllerFactory, parent: nil)
     }
 
     // MARK: - Public:
@@ -45,10 +45,10 @@ final class AppFlowCoordinator: NavigationNode, FlowCoordinator {
         let tabBarViewController = BallerTabBarController()
         containerViewController = tabBarViewController
 
-        let ballFlowCoordinator = BallFlowCoordinator(factory: factory, parent: self)
+        let ballFlowCoordinator = BallFlowCoordinator(controllerFactory: controllerFactory, parent: self)
         let ballViewController = ballFlowCoordinator.createFlow()
 
-        let historyFlowCoordinator = HistoryFlowCoordinator(factory: factory, parent: self)
+        let historyFlowCoordinator = HistoryFlowCoordinator(controllerFactory: controllerFactory, parent: self)
         let historyViewController = historyFlowCoordinator.createFlow()
 
         tabBarViewController.viewControllers = [ballViewController, historyViewController]

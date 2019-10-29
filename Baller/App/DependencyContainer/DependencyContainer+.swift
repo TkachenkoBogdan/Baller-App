@@ -1,12 +1,14 @@
 //
-//  DependencyContainer.swift
+//  DependencyContainer+.swift
 //  Baller
 //
-//  Created by Богдан Ткаченко on 9/28/19.
+//  Created by Богдан Ткаченко on 29.10.2019.
 //  Copyright © 2019 Богдан Ткаченко. All rights reserved.
 //
 
-import UIKit
+import Foundation
+
+// MARK: - Interfaces:
 
 protocol BallViewControllerFactory {
     func makeBallViewController(withParent parent: NavigationNode?) -> BallViewController
@@ -18,15 +20,7 @@ protocol AnswersHistoryViewControllerFactory {
 
 protocol ViewControllerFactory: BallViewControllerFactory, AnswersHistoryViewControllerFactory {}
 
-final class DependencyContainer {
-
-    private lazy var answerService: AnswerProvider =
-        AnswerService(onlineProvider: NetworkAnswerProvider(),
-                      offlineProvider: DatabaseAnswerProvider(store: answerStore))
-
-    private lazy var answerStore: AnswerStore = RealmAnswerStore(realmProvider: .default)
-    private lazy var secureStorage: SecureStoring = SecureStorage()
-}
+// MARK: - ViewControllerFactory:
 
 extension DependencyContainer: ViewControllerFactory {
 

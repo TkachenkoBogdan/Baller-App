@@ -14,20 +14,20 @@ final class HistoryFlowCoordinator: NavigationNode, FlowCoordinator {
 
     weak var containerViewController: UIViewController?
 
-    private let factory: AnswersHistoryViewControllerFactory
+    private let controllerFactory: AnswersHistoryViewControllerFactory
 
     // MARK: - Init:
 
-    init(factory: AnswersHistoryViewControllerFactory, parent: NavigationNode?) {
+    init(controllerFactory: AnswersHistoryViewControllerFactory, parent: NavigationNode?) {
 
-        self.factory = factory
+        self.controllerFactory = controllerFactory
         super.init(parent: parent)
     }
 
     // MARK: - Public:
 
     func createFlow() -> UIViewController {
-        let historyViewController = factory.makeAnswersHistoryController(withParent: self)
+        let historyViewController = controllerFactory.makeAnswersHistoryController(withParent: self)
         let navigationController = UINavigationController(rootViewController: historyViewController)
         self.containerViewController = navigationController
 
