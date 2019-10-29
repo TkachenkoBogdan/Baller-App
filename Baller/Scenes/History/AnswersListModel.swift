@@ -18,7 +18,7 @@ enum AnswerAction {
     case deleteAllAnswers
 }
 
-final class AnswerListModel: HasDisposeBag {
+final class AnswerListModel: NavigationNode, HasDisposeBag {
 
     private let store: AnswerStore
 
@@ -27,10 +27,13 @@ final class AnswerListModel: HasDisposeBag {
 
     // MARK: - Init:
 
-    init(store: AnswerStore) {
+    init(store: AnswerStore, parent: NavigationNode?) {
         self.store = store
+
+        super.init(parent: parent)
         store.answersDidUpdateHandler = storeDidUpdateAnswers
         setupSubscriptions()
+
     }
 
     private func storeDidUpdateAnswers(_ answers: [Answer]) {

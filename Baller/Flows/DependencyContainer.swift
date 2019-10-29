@@ -9,11 +9,11 @@
 import UIKit
 
 protocol BallViewControllerFactory {
-    func makeBallViewController() -> BallViewController
+    func makeBallViewController(withParent parent: NavigationNode?) -> BallViewController
 }
 
 protocol AnswersListViewControllerFactory {
-    func makeAnswersListController() -> AnswersListController
+    func makeAnswersListController(withParent parent: NavigationNode?) -> AnswersListController
 }
 
 protocol ViewControllerFactory: BallViewControllerFactory, AnswersListViewControllerFactory {}
@@ -30,19 +30,13 @@ final class DependencyContainer {
 
 extension DependencyContainer: ViewControllerFactory {
 
-    func makeRootViewController() -> UITabBarController {
-        let rootViewController = BallerTabBarController()
+    func makeBallViewController(withParent parent: NavigationNode?) -> BallViewController {
 
-        let firstTabController = UINavigationController(rootViewController: makeBallViewController())
-        let secondTabController = UINavigationController(rootViewController: makeAnswersListController())
+        let ballModel = BallModel(provider: answerService,
+                                  store: answerStore,
+                                  secureStorage: secureStorage,
+                                  parent: parent)
 
-        rootViewController.viewControllers = [firstTabController, secondTabController]
-        return rootViewController
-    }
-
-    func makeBallViewController() -> BallViewController {
-
-        let ballModel = BallModel(provider: answerService, store: answerStore, secureStorage: secureStorage)
         let ballViewModel = BallViewModel(model: ballModel)
 
         let ballViewController = BallViewController(viewModel: ballViewModel)
@@ -52,9 +46,9 @@ extension DependencyContainer: ViewControllerFactory {
         return ballViewController
     }
 
-    func makeAnswersListController() -> AnswersListController {
+    func makeAnswersListController(withParent parent: NavigationNode?) -> AnswersListController {
 
-        let answersListModel = AnswerListModel(store: answerStore)
+        let answersListModel = AnswerListModel(store: answerStore, parent: parent)
         let answersListViewModel = AnswersListViewModel(model: answersListModel)
 
         let answersController = AnswersListController(viewModel: answersListViewModel)

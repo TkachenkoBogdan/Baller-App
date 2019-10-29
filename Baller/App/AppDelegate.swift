@@ -16,12 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidFinishLaunching(_ application: UIApplication) {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-
-        let container = DependencyContainer()
-        let mainViewController = container.makeRootViewController()
-
-        window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
         window?.tintColor = AppColor.globalTint
+
+        let coordinator = AppFlowCoordinator()
+        let viewController = coordinator.createFlow()
+
+        window?.rootViewController = viewController
+
     }
 }

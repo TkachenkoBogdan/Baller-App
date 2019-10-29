@@ -11,7 +11,7 @@ import RxSwift
 import RxRelay
 import NSObject_Rx
 
-final class BallModel: HasDisposeBag {
+final class BallModel: NavigationNode, HasDisposeBag {
 
     private enum Keys: String {
         case shakeAttempts
@@ -25,10 +25,12 @@ final class BallModel: HasDisposeBag {
 
     // MARK: - Init:
 
-    init(provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring) {
+    init(provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring, parent: NavigationNode?) {
         self.answerService = provider
         self.secureStorage = secureStorage
         self.store = store
+
+        super.init(parent: parent)
 
         setupAttemptsCountIfNeeded()
     }
