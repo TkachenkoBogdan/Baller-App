@@ -11,6 +11,6 @@ import RxDataSources
  // Animated changes with RxDataSources:
 extension PresentableAnswer: IdentifiableType {
     public var identity: String {
-        return text + formattedDate
+        return identifier
     }
 }
