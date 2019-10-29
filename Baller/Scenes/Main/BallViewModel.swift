@@ -12,9 +12,9 @@ import NSObject_Rx
 
 final class BallViewModel: HasDisposeBag {
 
-    // MARK: - Properties:
-
     private let ballModel: BallModel
+
+    // MARK: - Properties:
 
     let answer: PublishSubject<PresentableAnswer> = PublishSubject()
     let attemptsCount: PublishSubject<Int> = PublishSubject()

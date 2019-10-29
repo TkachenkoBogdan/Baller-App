@@ -33,8 +33,7 @@ final class AnswersHistoryModel: NavigationNode, HasDisposeBag {
 
         super.init(parent: parent)
         store.answersDidUpdateHandler = storeDidUpdateAnswers
-        setupSubscriptions()
-
+        setupActionsSubscription()
     }
 
     // MARK: - Private:
@@ -43,21 +42,20 @@ final class AnswersHistoryModel: NavigationNode, HasDisposeBag {
         self.answers.accept(answers)
     }
 
-    private func setupSubscriptions() {
+    private func setupActionsSubscription() {
+        actions.subscribe(onNext: { [weak self] action in
 
-        actions
-            .subscribe(onNext: { action in
-                switch action {
-                case .appendAnswer(let title):
-                    self.store.appendAnswer(Answer(title: title))
-                case .deleteAnswer(let index):
-                    self.store.removeAnswer(at: index)
-                case .deleteAllAnswers:
-                    self.store.removeAllAnswers()
-                case .triggerUpdate:
-                    self.store.provideUpdates()
-                }
-            })
+            switch action {
+            case .appendAnswer(let title):
+                self?.store.appendAnswer(Answer(title: title))
+            case .deleteAnswer(let index):
+                self?.store.removeAnswer(at: index)
+            case .deleteAllAnswers:
+                self?.store.removeAllAnswers()
+            case .triggerUpdate:
+                self?.store.provideUpdates()
+            }
+        })
             .disposed(by: disposeBag)
     }
 }

@@ -104,7 +104,7 @@ final class AnswersHistoryController: UITableViewController {
 
         tableView.register(AnswerCell.self)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 80
+        tableView.estimatedRowHeight = 70
         tableView.allowsSelection = false
         self.tableView.dataSource = nil
 

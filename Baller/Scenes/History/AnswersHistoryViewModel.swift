@@ -42,8 +42,7 @@ final class AnswersHistoryViewModel: HasDisposeBag {
         model.answers
             .map({ [weak self] answers -> [AnswerSection] in
                 let answers = answers
-                    .map {$0.toPresentableAnswer(withDateFormatter: self?.dateFormatter,
-                                                 uppercased: true)}
+                    .map {$0.toPresentableAnswer(withDateFormatter: self?.dateFormatter)}
                 let sections = [AnswerSection(model: L10n.SectionHeader.history, items: answers)]
                 return sections
             })

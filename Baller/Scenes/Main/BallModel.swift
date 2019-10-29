@@ -23,18 +23,6 @@ final class BallModel: NavigationNode, HasDisposeBag {
     private let secureStorage: SecureStoring
     private let store: AnswerStore
 
-    // MARK: - Init:
-
-    init(provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring, parent: NavigationNode?) {
-        self.answerService = provider
-        self.secureStorage = secureStorage
-        self.store = store
-
-        super.init(parent: parent)
-
-        setupAttemptsCount()
-    }
-
     // MARK: - Properties:
 
     let answer: PublishSubject<Answer> = PublishSubject()
@@ -48,7 +36,18 @@ final class BallModel: NavigationNode, HasDisposeBag {
         }
     }
 
-    // MARK: - Public Logic:
+    // MARK: - Init:
+
+    init(provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring, parent: NavigationNode?) {
+        self.answerService = provider
+        self.secureStorage = secureStorage
+        self.store = store
+
+        super.init(parent: parent)
+        setupAttemptsCount()
+    }
+
+    // MARK: - Public:
 
     func getAnswer() {
         isLoadingData = true

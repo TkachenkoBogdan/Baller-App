@@ -49,8 +49,6 @@ final class BallViewController: ViewController<BallView> {
 
     private func setupBindings() {
 
-        // UI Bindings:
-
         viewModel.answer
             .map { $0.text }
             .bind(to: rootView.answerLabel.rx.text)

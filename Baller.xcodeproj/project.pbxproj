@@ -49,6 +49,7 @@
 		BDB8DE5B23683A96009AD78E /* FlowCoordinator+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8DE5A23683A96009AD78E /* FlowCoordinator+.swift */; };
 		BDB8DE5D23683AEA009AD78E /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8DE5C23683AE9009AD78E /* DependencyContainer.swift */; };
 		BDB8DE6123686303009AD78E /* DependencyContainer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8DE6023686303009AD78E /* DependencyContainer+.swift */; };
+		BDCEF2A92368682500A78A45 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BDCEF2A82368682500A78A45 /* README.md */; };
 		BDDAFFEA23101721002B3BEF /* AnswerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFE923101721002B3BEF /* AnswerService.swift */; };
 		BDDAFFEC231017E1002B3BEF /* NetworkAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */; };
 		BDDAFFF423102053002B3BEF /* DatabaseAnswerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */; };
@@ -117,6 +118,7 @@
 		BDB8DE5A23683A96009AD78E /* FlowCoordinator+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FlowCoordinator+.swift"; sourceTree = "<group>"; };
 		BDB8DE5C23683AE9009AD78E /* DependencyContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		BDB8DE6023686303009AD78E /* DependencyContainer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DependencyContainer+.swift"; sourceTree = "<group>"; };
+		BDCEF2A82368682500A78A45 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BDDAFFE923101721002B3BEF /* AnswerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerService.swift; sourceTree = "<group>"; };
 		BDDAFFEB231017E1002B3BEF /* NetworkAnswerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnswerProvider.swift; sourceTree = "<group>"; };
 		BDDAFFF323102053002B3BEF /* DatabaseAnswerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseAnswerProvider.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 		BDFA23A22306528300807EB8 = {
 			isa = PBXGroup;
 			children = (
+				BDCEF2A82368682500A78A45 /* README.md */,
 				BDFA23AD2306528400807EB8 /* Baller */,
 				BDFA23AC2306528400807EB8 /* Products */,
 				DDD3DE25050FE0836CDC411D /* Pods */,
@@ -547,6 +550,7 @@
 				BD9C61972350C49700005151 /* swiftgen.yml in Resources */,
 				BD8C3A6323100F1500F8D896 /* LaunchScreen.storyboard in Resources */,
 				BD0F0A2C2335FEC2005FEEAD /* Localizable.strings in Resources */,
+				BDCEF2A92368682500A78A45 /* README.md in Resources */,
 				BDFA23B62306528500807EB8 /* Assets.xcassets in Resources */,
 				BDA0E4D0233BB06800403703 /* colors.json in Resources */,
 			);
