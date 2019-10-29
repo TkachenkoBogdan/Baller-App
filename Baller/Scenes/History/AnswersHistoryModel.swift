@@ -16,14 +16,15 @@ enum AnswerAction {
     case appendAnswer(title: String)
     case deleteAnswer(index: Int)
     case deleteAllAnswers
+    case triggerUpdate
 }
 
 final class AnswersHistoryModel: NavigationNode, HasDisposeBag {
 
     private let store: AnswerStore
 
-    let answerSubject: BehaviorRelay<[Answer]> = BehaviorRelay(value: [])
-    let modelChangeActionSubject: PublishSubject<AnswerAction> = PublishSubject()
+    let answers: BehaviorRelay<[Answer]> = BehaviorRelay(value: [])
+    let actions: PublishSubject<AnswerAction> = PublishSubject()
 
     // MARK: - Init:
 
@@ -36,15 +37,15 @@ final class AnswersHistoryModel: NavigationNode, HasDisposeBag {
 
     }
 
-    private func storeDidUpdateAnswers(_ answers: [Answer]) {
-        self.answerSubject.accept(answers)
-    }
-
     // MARK: - Private:
+
+    private func storeDidUpdateAnswers(_ answers: [Answer]) {
+        self.answers.accept(answers)
+    }
 
     private func setupSubscriptions() {
 
-        modelChangeActionSubject
+        actions
             .subscribe(onNext: { action in
                 switch action {
                 case .appendAnswer(let title):
@@ -53,6 +54,8 @@ final class AnswersHistoryModel: NavigationNode, HasDisposeBag {
                     self.store.removeAnswer(at: index)
                 case .deleteAllAnswers:
                     self.store.removeAllAnswers()
+                case .triggerUpdate:
+                    self.store.provideUpdates()
                 }
             })
             .disposed(by: disposeBag)

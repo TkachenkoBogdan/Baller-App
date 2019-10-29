@@ -303,6 +303,7 @@
 		BD0F0A282335FDD7005FEEAD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BDAA907E234CB8B000F9007C /* bundledAnswers.realm */,
 				BD0F0A2B2335FEC2005FEEAD /* Localizable.strings */,
 				BDFA23B52306528500807EB8 /* Assets.xcassets */,
 				BDA0E4CF233BB06800403703 /* colors.json */,
@@ -354,7 +355,6 @@
 			children = (
 				BD0F0A282335FDD7005FEEAD /* Resources */,
 				BD0F0A1F2335FB47005FEEAD /* Generated */,
-				BDAA907E234CB8B000F9007C /* bundledAnswers.realm */,
 				BD9C61932350C49700005151 /* .gitignore */,
 				BD9C61922350C49700005151 /* .swiftlint.yml */,
 				BD9C61942350C49700005151 /* swiftgen.yml */,

@@ -89,6 +89,11 @@ internal enum L10n {
     }
   }
 
+  internal enum SectionHeader {
+    /// History
+    internal static let history = L10n.tr("Localizable", "SectionHeader.History")
+  }
+
   internal enum Titles {
     /// 
     internal static let answerHistory = L10n.tr("Localizable", "Titles.AnswerHistory")

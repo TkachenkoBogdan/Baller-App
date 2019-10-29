@@ -15,15 +15,15 @@ import RxDataSources
 final class AnswersHistoryController: UITableViewController {
 
     private let viewModel: AnswersHistoryViewModel
+
     private var dataSource: RxTableViewSectionedAnimatedDataSource<AnswerSection>!
+    private var sectionHasBeenBound = false
 
     // MARK: - Initialization:
 
     init(viewModel: AnswersHistoryViewModel) {
         self.viewModel = viewModel
         super.init(style: .plain)
-
-        configureDataSource()
     }
 
     required init?(coder: NSCoder) {
@@ -35,12 +35,17 @@ final class AnswersHistoryController: UITableViewController {
     override func viewDidLoad() {
         setupNavigationItems()
         configureTableView()
+        configureDataSource()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
+        bindAnswersSectionIfNeeded()
     }
 
     // MARK: - Private:
 
     private func configureDataSource() {
-
         dataSource = RxTableViewSectionedAnimatedDataSource<AnswerSection>(
             configureCell: { dataSource, tableView, indexPath, item in
                 let cell: AnswerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
@@ -51,13 +56,26 @@ final class AnswersHistoryController: UITableViewController {
         },
            canEditRowAtIndexPath: { _, _ in true })
 
-        viewModel.answerSection
-            .bind(to: tableView.rx.items(dataSource: dataSource))
-            .disposed(by: rx.disposeBag)
+        dataSource.animationConfiguration = AnimationConfiguration(
+            insertAnimation: .right,
+            reloadAnimation: .automatic,
+            deleteAnimation: .fade)
+    }
+
+    private func bindAnswersSectionIfNeeded() {
+        if !sectionHasBeenBound {
+            viewModel.answersSection
+                .bind(to: tableView.rx.items(dataSource: dataSource))
+                .disposed(by: rx.disposeBag)
+
+            viewModel.actions.onNext(.triggerUpdate)
+            sectionHasBeenBound = true
+        }
     }
 
     private func setupNavigationItems() {
 
+        //Delete all answers:
         let leftBarItem = UIBarButtonItem(barButtonSystemItem: .trash, target: nil, action: nil)
         leftBarItem.rx.tap
             .subscribe({ [weak self] _ in
@@ -68,6 +86,7 @@ final class AnswersHistoryController: UITableViewController {
             })
             .disposed(by: rx.disposeBag)
 
+        //Add a new answer:
         let rightBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
         rightBarItem.rx.tap
             .subscribe(onNext: { [weak self] _ in

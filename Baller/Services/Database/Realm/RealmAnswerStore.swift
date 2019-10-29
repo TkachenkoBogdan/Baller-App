@@ -16,6 +16,7 @@ protocol AnswerStore: AnyObject {
     var count: Int { get }
     var isEmpty: Bool { get }
 
+    func provideUpdates()
     var answersDidUpdateHandler: (([Answer]) -> Void)? { get set }
 
     func appendAnswer(_ answer: Answer)
@@ -55,8 +56,12 @@ class RealmAnswerStore {
 
     private func setupObservationToken() {
         observationToken = answers.observe { [unowned self]  _ in
-            self.answersDidUpdateHandler?(self.allAnswers())
+            self.propagateUpdates()
         }
+    }
+
+    private func propagateUpdates() {
+        self.answersDidUpdateHandler?(self.allAnswers())
     }
 
     private func allAnswers() -> [Answer] {
@@ -71,6 +76,10 @@ extension RealmAnswerStore: AnswerStore {
     func answer(at index: Int) -> Answer? {
         let answer = answers[index].toAnswer()
         return answer
+    }
+
+    func provideUpdates() {
+        propagateUpdates()
     }
 
     var count: Int {
