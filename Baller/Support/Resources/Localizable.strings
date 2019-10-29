@@ -30,7 +30,7 @@
 
 
 //Titles and labels:
-"Titles.AnswerList" = "Defaults";
+"Titles.AnswerHistory" = "";
 
 "Labels.statusLabel" = "Shake";
 

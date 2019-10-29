@@ -12,11 +12,11 @@ protocol BallViewControllerFactory {
     func makeBallViewController(withParent parent: NavigationNode?) -> BallViewController
 }
 
-protocol AnswersListViewControllerFactory {
-    func makeAnswersListController(withParent parent: NavigationNode?) -> AnswersListController
+protocol AnswersHistoryViewControllerFactory {
+    func makeAnswersHistoryController(withParent parent: NavigationNode?) -> AnswersHistoryController
 }
 
-protocol ViewControllerFactory: BallViewControllerFactory, AnswersListViewControllerFactory {}
+protocol ViewControllerFactory: BallViewControllerFactory, AnswersHistoryViewControllerFactory {}
 
 final class DependencyContainer {
 
@@ -46,12 +46,12 @@ extension DependencyContainer: ViewControllerFactory {
         return ballViewController
     }
 
-    func makeAnswersListController(withParent parent: NavigationNode?) -> AnswersListController {
+    func makeAnswersHistoryController(withParent parent: NavigationNode?) -> AnswersHistoryController {
 
-        let answersListModel = AnswerListModel(store: answerStore, parent: parent)
-        let answersListViewModel = AnswersListViewModel(model: answersListModel)
+        let answersListModel = AnswersHistoryModel(store: answerStore, parent: parent)
+        let answersListViewModel = AnswersHistoryViewModel(model: answersListModel)
 
-        let answersController = AnswersListController(viewModel: answersListViewModel)
+        let answersController = AnswersHistoryController(viewModel: answersListViewModel)
         answersController.tabBarItem.image = Asset.defaultAnswers.image
         answersController.tabBarItem.title = L10n.BarItemTitles.history
         return answersController

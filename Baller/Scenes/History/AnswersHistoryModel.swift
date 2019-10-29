@@ -18,7 +18,7 @@ enum AnswerAction {
     case deleteAllAnswers
 }
 
-final class AnswerListModel: NavigationNode, HasDisposeBag {
+final class AnswersHistoryModel: NavigationNode, HasDisposeBag {
 
     private let store: AnswerStore
 

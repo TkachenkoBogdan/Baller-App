@@ -14,9 +14,9 @@ import NSObject_Rx
 
 typealias AnswerSection = AnimatableSectionModel<String, PresentableAnswer>
 
-final class AnswersListViewModel: HasDisposeBag {
+final class AnswersHistoryViewModel: HasDisposeBag {
 
-    private let model: AnswerListModel
+    private let model: AnswersHistoryModel
 
     private var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -29,7 +29,7 @@ final class AnswersListViewModel: HasDisposeBag {
 
     // MARK: - Init:
 
-    init(model: AnswerListModel) {
+    init(model: AnswersHistoryModel) {
         self.model = model
 
         setupBindings()

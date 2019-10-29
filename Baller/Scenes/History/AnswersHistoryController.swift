@@ -12,14 +12,14 @@ import RxCocoa
 import NSObject_Rx
 import RxDataSources
 
-final class AnswersListController: UITableViewController {
+final class AnswersHistoryController: UITableViewController {
 
-    private let viewModel: AnswersListViewModel
+    private let viewModel: AnswersHistoryViewModel
     private var dataSource: RxTableViewSectionedAnimatedDataSource<AnswerSection>!
 
     // MARK: - Initialization:
 
-    init(viewModel: AnswersListViewModel) {
+    init(viewModel: AnswersHistoryViewModel) {
         self.viewModel = viewModel
         super.init(style: .plain)
 
@@ -57,7 +57,6 @@ final class AnswersListController: UITableViewController {
     }
 
     private func setupNavigationItems() {
-        navigationItem.title = L10n.Titles.answerList
 
         let leftBarItem = UIBarButtonItem(barButtonSystemItem: .trash, target: nil, action: nil)
         leftBarItem.rx.tap

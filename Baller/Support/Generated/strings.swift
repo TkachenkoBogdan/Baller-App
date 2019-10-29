@@ -90,8 +90,8 @@ internal enum L10n {
   }
 
   internal enum Titles {
-    /// Defaults
-    internal static let answerList = L10n.tr("Localizable", "Titles.AnswerList")
+    /// 
+    internal static let answerHistory = L10n.tr("Localizable", "Titles.AnswerHistory")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
