@@ -1,0 +1,25 @@
+xcassets:
+  inputs:
+    - Baller/Support/Resources/Assets.xcassets
+  outputs:
+    - templateName: swift4
+      output: Baller/Support/Generated/assets-images.swift
+
+strings:
+  inputs: Baller/Support/Resources/
+  filter: .+\.strings$
+  outputs:
+    - templateName: structured-swift4
+      output: Baller/Support/Generated/strings.swift
+
+colors:
+    inputs:  Baller/Support/Resources/colors.json
+    outputs:
+    - templateName: swift4
+      output: Baller/Support/Generated/colors.swift
+
+fonts:
+    inputs: Baller/Support/Resources/Futura.ttc
+    outputs:
+    - templateName: swift4
+      output: Baller/Support/Generated/fonts.swift
