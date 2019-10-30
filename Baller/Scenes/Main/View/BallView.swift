@@ -9,30 +9,40 @@
 import UIKit
 import SnapKit
 import Pastel
+import RxSwift
+import RxCocoa
 
 final class BallView: UIView {
 
     // MARK: - Properties:
 
     private var eightBall: BallImageView!
-    private var answerLabel: UILabel!
-    private var statusLabel: UILabel!
+    private(set) var answerLabel: BallerLabel!
+    private(set) var countLabel: BallerLabel!
 
+    private var statusLabel: BallerLabel!
     private var activityIndicator: UIActivityIndicatorView!
-    private var countLabel: UILabel!
-    private var ballHasAppearead = false
     private var animatedBackground: PastelView!
 
-    private var interactionIsInProcess: Bool = false {
+    private var ballHasAppearead = false
+
+    fileprivate var ballShadowColor: UIColor = .black {
+        didSet {
+            eightBall.updateShadowColor(with: ballShadowColor)
+        }
+    }
+
+    fileprivate(set) var interactionIsInProgress: Bool = false {
 
         didSet {
-            if interactionIsInProcess {
+            if interactionIsInProgress {
                 setLabelsVisibility(to: false)
                 activityIndicator.startAnimating()
                 eightBall.shake()
             } else {
                 setLabelsVisibility(to: true)
                 activityIndicator.stopAnimating()
+                clearTextLabel()
                 eightBall.resetState()
             }
         }
@@ -54,30 +64,6 @@ final class BallView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError(L10n.FatalErrors.initCoder)
-    }
-
-    // MARK: - Public:
-
-    func startInteraction() {
-        interactionIsInProcess = true
-
-    }
-
-    func stopInteraction() {
-        interactionIsInProcess = false
-    }
-
-    func updateTextLabel(with text: String) {
-        answerLabel?.text = text
-    }
-
-    func updateShadow(with color: UIColor) {
-        eightBall.updateShadowColor(with: color)
-    }
-
-    func updateCountLabel(with count: Int) {
-        countLabel.pushTransition(0.3)
-        countLabel.text = String(count)
     }
 
     // MARK: - Lifecycle and Events:
@@ -128,6 +114,10 @@ final class BallView: UIView {
         })
     }
 
+    private func clearTextLabel() {
+        answerLabel?.text = nil
+    }
+
     // MARK: - Animated Background:
 
     private func setupAnimatedBackground() {
@@ -171,6 +161,8 @@ extension BallView {
     private func createAnswerLabel() {
         answerLabel = BallerLabel(fontSize: AppFont.Size.answerLabel)
         answerLabel.textColor = .white
+        answerLabel.animatesTextChanges = true
+        answerLabel.animationDuration = 1
 
         eightBall.addSubview(answerLabel)
 
@@ -212,6 +204,9 @@ extension BallView {
         countLabel = BallerLabel(text: "",
                                  numberOfLines: 1,
                                  fontSize: AppFont.Size.statusLabel)
+        countLabel.animatesTextChanges = true
+        countLabel.animationType = .push
+
            self.addSubview(countLabel)
 
            countLabel?.snp.makeConstraints { maker in
@@ -219,4 +214,21 @@ extension BallView {
             maker.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(25)
            }
        }
+}
+
+// MARK: - Binder extension:
+
+extension Reactive where Base: BallView {
+
+    var shadowColor: Binder<UIColor> {
+        return Binder(self.base) { ballView, color in
+            ballView.ballShadowColor = color
+        }
+    }
+
+    var isInProgress: Binder<Bool> {
+        return Binder(self.base) { ballView, isInProgress in
+            ballView.interactionIsInProgress = isInProgress
+        }
+    }
 }

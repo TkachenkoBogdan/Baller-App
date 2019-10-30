@@ -16,26 +16,13 @@ protocol AnswerStore: AnyObject {
     var count: Int { get }
     var isEmpty: Bool { get }
 
-    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)? { get set }
+    func provideUpdates()
+    var answersDidUpdateHandler: (([Answer]) -> Void)? { get set }
 
     func appendAnswer(_ answer: Answer)
     func removeAnswer(at index: Int)
 
     func removeAllAnswers()
-}
-
-enum ChangeSet<T> {
-
-     typealias ModelChange = (
-            objects: [T]?,
-            deletions: [Int],
-            insertions: [Int],
-            modifications: [Int]
-        )
-
-        case initial([T])
-        case change(ModelChange)
-        case error(Error)
 }
 
 class RealmAnswerStore {
@@ -48,11 +35,12 @@ class RealmAnswerStore {
     }
 
     private lazy var answers: Results<RealmAnswer> = realm.objects(RealmAnswer.self)
-                                                    .sorted(byKeyPath: RealmAnswer.Property.date.rawValue,
-                                                            ascending: false)
-    var answerListUpdateHandler: ((ChangeSet<Answer>) -> Void)?
+        .sorted(byKeyPath: RealmAnswer.Property.date.rawValue,
+                ascending: false)
 
-    private var answersToken: NotificationToken?
+    var answersDidUpdateHandler: (([Answer]) -> Void)?
+
+    private var observationToken: NotificationToken?
     private lazy var internalQueue = DispatchQueue(label: "com.baller.privateQueue",
                                                    qos: .userInitiated,
                                                    attributes: .concurrent)
@@ -67,25 +55,31 @@ class RealmAnswerStore {
     // MARK: - Private:
 
     private func setupObservationToken() {
-        answersToken = answers.observe {  changes in
-
-            if case .update(_, let deletions, let insertions, let updates) = changes {
-
-                let changeSet = ChangeSet<Answer>.change((objects: nil,
-                                                          deletions: deletions,
-                                                          insertions: insertions,
-                                                          modifications: updates))
-                self.answerListUpdateHandler?(changeSet)
-            }
+        observationToken = answers.observe { [unowned self]  _ in
+            self.propagateUpdates()
         }
     }
+
+    private func propagateUpdates() {
+        self.answersDidUpdateHandler?(self.allAnswers())
+    }
+
+    private func allAnswers() -> [Answer] {
+        return answers.map {$0.toAnswer()}
+    }
 }
+
+// MARK: - Answer Store:
 
 extension RealmAnswerStore: AnswerStore {
 
     func answer(at index: Int) -> Answer? {
         let answer = answers[index].toAnswer()
         return answer
+    }
+
+    func provideUpdates() {
+        propagateUpdates()
     }
 
     var count: Int {

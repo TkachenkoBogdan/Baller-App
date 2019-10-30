@@ -7,35 +7,60 @@
 //
 
 import Foundation
+import RxSwift
+import NSObject_Rx
 
-final class BallViewModel {
+final class BallViewModel: HasDisposeBag {
 
     private let ballModel: BallModel
 
+    // MARK: - Properties:
+
+    let answer = PublishSubject<PresentableAnswer>()
+    let attemptsCount = PublishSubject<Int>()
+
+    let isRequestInProgress = PublishSubject<Bool>()
+    let shakeEvent = PublishSubject<Void>()
+
+    // MARK: - Init:
+
     init(model: BallModel) {
         self.ballModel = model
+
+        setupBindings()
     }
 
-    // MARK: - Observation closures:
+    // MARK: - Private:
 
-    var requestInProgressHandler: ((Bool) -> Void)? {
-        didSet {
-            ballModel.isLoadingDataStateHandler = requestInProgressHandler
-        }
-    }
+    private func setupBindings() {
 
-    var countUpdatedHandler: ((Int) -> Void)? {
-        didSet {
-            ballModel.countUpdatedHandler = countUpdatedHandler
-        }
-    }
+        // Answer:
 
-    var answerReceivedHandler: ((PresentableAnswer) -> Void)?
+        ballModel.answer
+            .map { $0.toPresentableAnswer(uppercased: true)}
+            .bind(to: answer)
+            .disposed(by: disposeBag)
 
-    func shakeDetected() {
-        ballModel.getAnswer { [unowned self] answer in
-            self.answerReceivedHandler?(answer.toPresentableAnswer(uppercased: true))
-        }
+        // Shake event:
+
+        shakeEvent
+            .throttle(.seconds(2), latest: true, scheduler: MainScheduler.instance)
+            .subscribe(onNext: {[weak self] _ in
+                self?.ballModel.getAnswer()
+            })
+            .disposed(by: disposeBag)
+
+        // Attempts count:
+
+        ballModel.attemptsCountRelay
+            .bind(to: self.attemptsCount)
+            .disposed(by: disposeBag)
+
+        // Request status:
+
+        ballModel.isRequestInProgress
+            .bind(to: isRequestInProgress)
+            .disposed(by: disposeBag)
     }
 
 }

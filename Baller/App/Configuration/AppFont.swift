@@ -21,7 +21,7 @@ enum AppFont {
         static let statusLabel: CGFloat = 37
         static let answerLabel: CGFloat = 22
 
-        static let cellAnswerLabel: CGFloat = 15
+        static let cellAnswerLabel: CGFloat = 17
         static let cellDateLabel: CGFloat = 12
     }
 }

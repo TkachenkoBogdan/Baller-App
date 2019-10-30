@@ -8,17 +8,24 @@
 
 import UIKit
 
-struct PresentableAnswer {
+struct PresentableAnswer: Equatable {
 
     let text: String
     let formattedDate: String
-    let type: AnswerType
+    let identifier: String
 
-    init(title: String, formattedDate: String, type: AnswerType) {
+    private let type: AnswerType
+
+    // MARK: - Init:
+
+    init(title: String, formattedDate: String, identifier: String, type: AnswerType) {
         self.text = title
         self.formattedDate = formattedDate
+        self.identifier = identifier
         self.type = type
     }
+
+    // MARK: - Public:
 
     var semanticColor: UIColor {
 
@@ -31,5 +38,4 @@ struct PresentableAnswer {
             return .black
         }
     }
-
 }

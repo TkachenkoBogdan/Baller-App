@@ -48,6 +48,6 @@ import RealmSwift
 extension RealmAnswer {
 
     func toAnswer() -> Answer {
-        return Answer(title: text, date: date, type: type)
+        return Answer(title: text, date: date, identifier: id, type: type)
     }
 }

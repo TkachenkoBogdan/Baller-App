@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
+import NSObject_Rx
 
-final class BallModel {
+final class BallModel: NavigationNode, HasDisposeBag {
 
     private enum Keys: String {
-       case shakeAttempts
+        case shakeAttempts
     }
 
     // MARK: - Dependencies:
@@ -20,37 +23,33 @@ final class BallModel {
     private let secureStorage: SecureStoring
     private let store: AnswerStore
 
+    // MARK: - Properties:
+
+    let answer = PublishSubject<Answer>()
+    let isRequestInProgress = PublishSubject<Bool>()
+
+    private(set) var attemptsCountRelay = BehaviorRelay<Int>(value: 0)
+
+    private var isLoadingData = false {
+        didSet {
+            isRequestInProgress.onNext(isLoadingData)
+        }
+    }
+
     // MARK: - Init:
 
-    init(provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring) {
+    init(parent: NavigationNode?, provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring) {
         self.answerService = provider
         self.secureStorage = secureStorage
         self.store = store
 
-        self.attemptsCount = setupAttemptsCount()
+        super.init(parent: parent)
+        setupAttemptsCount()
     }
 
-    // MARK: - Properties:
+    // MARK: - Public:
 
-    private var attemptsCount: Int = 0
-
-    var countUpdatedHandler: ((Int) -> Void)? {
-        didSet {
-            countUpdatedHandler?(attemptsCount)
-        }
-    }
-
-    private var isLoadingData = false {
-        didSet {
-            isLoadingDataStateHandler?(isLoadingData)
-        }
-    }
-
-    var isLoadingDataStateHandler: ((Bool) -> Void)?
-
-    // MARK: - Logic:
-
-    func getAnswer(completion: @escaping(Answer) -> Void) {
+    func getAnswer() {
         isLoadingData = true
         incrementAttemptsCount()
 
@@ -62,28 +61,36 @@ final class BallModel {
                 if !isLocal {
                     self.store.appendAnswer(answer)
                 }
-                completion(answer)
+                self.answer.onNext(answer)
             case .failure:
                 preconditionFailure(L10n.FatalErrors.noLocalAnswer)
             }
         }
-
     }
 
     // MARK: - Private:
 
     private func incrementAttemptsCount() {
-        attemptsCount += 1
-        secureStorage.set(attemptsCount, forKey: Keys.shakeAttempts.rawValue)
-        countUpdatedHandler?(attemptsCount)
+        attemptsCountRelay.accept(attemptsCountRelay.value + 1)
+        secureStorage.set(attemptsCountRelay.value, forKey: Keys.shakeAttempts.rawValue)
     }
 
-    private func setupAttemptsCount() -> Int {
+    private func getAttemptsCount() -> Int {
         guard let count = secureStorage.value(forKey: Keys.shakeAttempts.rawValue) else {
-            secureStorage.set(0, forKey: Keys.shakeAttempts.rawValue)
             return 0
         }
         return count
+    }
+
+    private func setupAttemptsCount() {
+        guard (secureStorage.value(forKey: Keys.shakeAttempts.rawValue)) != nil else {
+            secureStorage.set(0, forKey: Keys.shakeAttempts.rawValue)
+            return
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.attemptsCountRelay.accept(self.getAttemptsCount())
+        }
     }
 
 }

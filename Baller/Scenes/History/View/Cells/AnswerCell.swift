@@ -33,6 +33,7 @@ final class AnswerCell: UITableViewCell {
     }
 
     func configure(with answer: PresentableAnswer) {
+
         answerLabel.text = answer.text
         dateLabel.text = answer.formattedDate
     }

@@ -10,11 +10,34 @@ import UIKit
 
 final class BallerLabel: UILabel {
 
-    convenience init(text: String? = nil,
-                     numberOfLines: Int = 0,
-                     fontSize: CGFloat = AppFont.Size.default) {
-        self.init()
+    // MARK: - Init:
 
+    init(text: String? = nil,
+         numberOfLines: Int = 0,
+         fontSize: CGFloat = AppFont.Size.default) {
+        super.init(frame: CGRect.zero)
+        configure(text, numberOfLines, fontSize)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(L10n.FatalErrors.initCoder)
+    }
+
+    // MARK: - Public Logic:
+
+    var animatesTextChanges = false
+    var animationDuration: CFTimeInterval = 0.3
+    var animationType: CATransitionType = .fade
+
+    override var text: String? {
+        willSet {
+            animatesTextChanges ? animatedTransition(withType: animationType, duration: animationDuration) : ()
+        }
+    }
+
+    // MARK: - Private:
+
+    private func configure(_ text: String?, _ numberOfLines: Int, _ fontSize: CGFloat) {
         self.text = text
         self.numberOfLines = numberOfLines
         font = AppFont.standard(withSize: fontSize)
@@ -27,15 +50,5 @@ final class BallerLabel: UILabel {
         } else {
             textColor = .black
         }
-
     }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError(L10n.FatalErrors.initCoder)
-    }
-
 }

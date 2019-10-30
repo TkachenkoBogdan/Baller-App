@@ -8,18 +8,21 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import NSObject_Rx
 
-final class BallViewController: UIViewController {
+final class BallViewController: ViewController<BallView> {
 
-    private var viewModel: BallViewModel
-
-    private lazy var ballView: BallView = BallView()
+    private let viewModel: BallViewModel
 
     // MARK: - Initialization:
 
     init(viewModel: BallViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+
+        setupBindings()
     }
 
     required init?(coder: NSCoder) {
@@ -28,59 +31,41 @@ final class BallViewController: UIViewController {
 
     // MARK: - Lifecycle:
 
-    override func loadView() {
-        self.view = ballView
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        setUpObservationClosures()
     }
 
     // MARK: - Events:
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        viewModel.shakeDetected()
-    }
-
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-
-}
-
-// MARK: - Private:
-
-extension BallViewController {
-
-    private func setUpObservationClosures() {
-
-        viewModel.requestInProgressHandler = { [unowned self] isInProgress in
-            if isInProgress {
-                DispatchQueue.main.async {
-                    self.ballView.startInteraction()
-                }
-            }
-        }
-
-        viewModel.countUpdatedHandler = { count in
-            DispatchQueue.main.async {
-                self.ballView.updateCountLabel(with: count)
-            }
-        }
-
-        viewModel.answerReceivedHandler = { [unowned self] answer in
-
-            DispatchQueue.main.async {
-                self.ballView.updateTextLabel(with: answer.text)
-                self.ballView.updateShadow(with: answer.semanticColor)
-                self.ballView.stopInteraction()
-            }
-
+        if !rootView.interactionIsInProgress {
+            self.viewModel.shakeEvent.onNext(())
         }
     }
 
+    // MARK: - RxBindings:
+
+    private func setupBindings() {
+
+        viewModel.answer
+            .map { $0.text }
+            .bind(to: rootView.answerLabel.rx.text)
+            .disposed(by: rx.disposeBag)
+
+        viewModel.isRequestInProgress
+            .bind(to: rootView.rx.isInProgress)
+            .disposed(by: rx.disposeBag)
+
+        viewModel.attemptsCount
+            .map(String.init)
+            .bind(to: rootView.countLabel.rx.text)
+            .disposed(by: rx.disposeBag)
+
+        viewModel.answer
+            .map { $0.semanticColor }
+            .bind(to: rootView.rx.shadowColor)
+            .disposed(by: rx.disposeBag)
+    }
 }

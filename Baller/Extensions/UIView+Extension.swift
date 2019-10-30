@@ -12,12 +12,14 @@ protocol Animatable {}
 
 extension UIView {
 
-    func pushTransition(_ duration: CFTimeInterval) {
+    func animatedTransition(withType type: CATransitionType,
+                            subtype: CATransitionSubtype = .fromTop,
+                            duration: CFTimeInterval) {
 
         let animation: CATransition = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        animation.type = CATransitionType.push
-        animation.subtype = CATransitionSubtype.fromTop
+        animation.type = type
+        animation.subtype = subtype
         animation.duration = duration
         layer.add(animation, forKey: CATransitionType.push.rawValue)
     }

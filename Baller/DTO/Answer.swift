@@ -12,11 +12,17 @@ struct Answer {
 
     let text: String
     let date: Date
+    let identifier: String
     let type: AnswerType
 
-    init(title: String, date: Date = Date(), type: AnswerType = .neutral) {
+    init(title: String,
+         date: Date = Date(),
+         identifier: String = "",
+         type: AnswerType = .neutral) {
+
         self.text = title
         self.date = date
+        self.identifier = identifier
         self.type = type
     }
 }
@@ -32,6 +38,10 @@ extension Answer {
 
         let title =  uppercased ? self.text.uppercased() : self.text
         let formattedDate = dateFormatter?.string(from: self.date) ?? ""
-        return PresentableAnswer(title: title, formattedDate: formattedDate, type: type)
+
+        return PresentableAnswer(title: title,
+                                 formattedDate: formattedDate,
+                                 identifier: identifier,
+                                 type: type)
     }
 }

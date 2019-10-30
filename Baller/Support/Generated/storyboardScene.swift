@@ -15,7 +15,7 @@ internal enum StoryboardScene {
   internal enum Main: StoryboardType {
     internal static let storyboardName = "main"
 
-    internal static let answersListController = SceneType<Baller.AnswersListController>(storyboard: Main.self, identifier: "AnswersListController")
+    internal static let answersListController = SceneType<Baller.AnswersHistoryController>(storyboard: Main.self, identifier: "AnswersListController")
 
     internal static let ballViewController = SceneType<Baller.BallViewController>(storyboard: Main.self, identifier: "BallViewController")
   }
