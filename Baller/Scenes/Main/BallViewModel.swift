@@ -16,11 +16,11 @@ final class BallViewModel: HasDisposeBag {
 
     // MARK: - Properties:
 
-    let answer: PublishSubject<PresentableAnswer> = PublishSubject()
-    let attemptsCount: PublishSubject<Int> = PublishSubject()
+    let answer = PublishSubject<PresentableAnswer>()
+    let attemptsCount = PublishSubject<Int>()
 
-    let isRequestInProgress: PublishSubject<Bool> = PublishSubject()
-    let shakeEvent: PublishSubject<Void> = PublishSubject()
+    let isRequestInProgress = PublishSubject<Bool>()
+    let shakeEvent = PublishSubject<Void>()
 
     // MARK: - Init:
 
@@ -37,15 +37,15 @@ final class BallViewModel: HasDisposeBag {
         // Answer:
 
         ballModel.answer
-            .map { $0.toPresentableAnswer(uppercased: true)
-        }.bind(to: answer)
+            .map { $0.toPresentableAnswer(uppercased: true)}
+            .bind(to: answer)
             .disposed(by: disposeBag)
 
         // Shake event:
 
-        self.shakeEvent
+        shakeEvent
             .throttle(.seconds(2), latest: true, scheduler: MainScheduler.instance)
-            .subscribe({ [weak self] _ in
+            .subscribe(onNext: {[weak self] _ in
                 self?.ballModel.getAnswer()
             })
             .disposed(by: disposeBag)
@@ -61,7 +61,6 @@ final class BallViewModel: HasDisposeBag {
         ballModel.isRequestInProgress
             .bind(to: isRequestInProgress)
             .disposed(by: disposeBag)
-
     }
 
 }

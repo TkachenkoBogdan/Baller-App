@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxDataSources
 
 struct PresentableAnswer: Equatable {
 

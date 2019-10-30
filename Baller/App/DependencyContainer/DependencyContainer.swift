@@ -12,9 +12,10 @@ import UIKit
 
 final class DependencyContainer {
 
-    private(set) lazy var answerService: AnswerProvider =
-        AnswerService(onlineProvider: NetworkAnswerProvider(),
-                      offlineProvider: DatabaseAnswerProvider(store: answerStore))
+    private(set) lazy var answerService: AnswerProvider = AnswerService(
+        onlineProvider: NetworkAnswerProvider(),
+        offlineProvider: DatabaseAnswerProvider(store: answerStore)
+    )
 
     private(set) lazy var answerStore: AnswerStore = RealmAnswerStore(realmProvider: .default)
     private(set) lazy var secureStorage: SecureStoring = SecureStorage()

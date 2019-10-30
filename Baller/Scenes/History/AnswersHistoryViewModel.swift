@@ -24,8 +24,8 @@ final class AnswersHistoryViewModel: HasDisposeBag {
         return formatter
     }()
 
-    let answersSection: PublishSubject<[AnswerSection]> = PublishSubject()
-    let actions: PublishSubject<AnswerAction> = PublishSubject()
+    let answersSection = PublishSubject<[AnswerSection]>()
+    let actions = PublishSubject<AnswerAction>()
 
     // MARK: - Init:
 
@@ -42,10 +42,9 @@ final class AnswersHistoryViewModel: HasDisposeBag {
         model.answers
             .map({ [weak self] answers -> [AnswerSection] in
                 let answers = answers
-                    .map {$0.toPresentableAnswer(withDateFormatter: self?.dateFormatter)}
+                    .map {$0.toPresentableAnswer(withDateFormatter: self?.dateFormatter) }
                 let sections = [AnswerSection(model: L10n.SectionHeader.history, items: answers)]
-                return sections
-            })
+                return sections })
             .bind(to: self.answersSection)
             .disposed(by: disposeBag)
 

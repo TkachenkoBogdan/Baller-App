@@ -26,10 +26,10 @@ extension DependencyContainer: ViewControllerFactory {
 
     func makeBallViewController(withParent parent: NavigationNode?) -> BallViewController {
 
-        let ballModel = BallModel(provider: answerService,
+        let ballModel = BallModel(parent: parent,
+                                  provider: answerService,
                                   store: answerStore,
-                                  secureStorage: secureStorage,
-                                  parent: parent)
+                                  secureStorage: secureStorage)
 
         let ballViewModel = BallViewModel(model: ballModel)
 
@@ -42,7 +42,7 @@ extension DependencyContainer: ViewControllerFactory {
 
     func makeAnswersHistoryController(withParent parent: NavigationNode?) -> AnswersHistoryController {
 
-        let answersListModel = AnswersHistoryModel(store: answerStore, parent: parent)
+        let answersListModel = AnswersHistoryModel(parent: parent, store: answerStore)
         let answersListViewModel = AnswersHistoryViewModel(model: answersListModel)
 
         let answersController = AnswersHistoryController(viewModel: answersListViewModel)

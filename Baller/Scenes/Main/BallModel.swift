@@ -25,10 +25,10 @@ final class BallModel: NavigationNode, HasDisposeBag {
 
     // MARK: - Properties:
 
-    let answer: PublishSubject<Answer> = PublishSubject()
-    let isRequestInProgress: PublishSubject<Bool> = PublishSubject()
+    let answer = PublishSubject<Answer>()
+    let isRequestInProgress = PublishSubject<Bool>()
 
-    private(set) var attemptsCountRelay: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    private(set) var attemptsCountRelay = BehaviorRelay<Int>(value: 0)
 
     private var isLoadingData = false {
         didSet {
@@ -38,7 +38,7 @@ final class BallModel: NavigationNode, HasDisposeBag {
 
     // MARK: - Init:
 
-    init(provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring, parent: NavigationNode?) {
+    init(parent: NavigationNode?, provider: AnswerProvider, store: AnswerStore, secureStorage: SecureStoring) {
         self.answerService = provider
         self.secureStorage = secureStorage
         self.store = store

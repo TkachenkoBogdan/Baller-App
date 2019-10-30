@@ -14,7 +14,7 @@ extension UIView {
 
     func animatedTransition(withType type: CATransitionType,
                             subtype: CATransitionSubtype = .fromTop,
-                            _ duration: CFTimeInterval) {
+                            duration: CFTimeInterval) {
 
         let animation: CATransition = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)

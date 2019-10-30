@@ -23,12 +23,12 @@ final class AnswersHistoryModel: NavigationNode, HasDisposeBag {
 
     private let store: AnswerStore
 
-    let answers: BehaviorRelay<[Answer]> = BehaviorRelay(value: [])
-    let actions: PublishSubject<AnswerAction> = PublishSubject()
+    let answers = BehaviorRelay<[Answer]>(value: [])
+    let actions = PublishSubject<AnswerAction>()
 
     // MARK: - Init:
 
-    init(store: AnswerStore, parent: NavigationNode?) {
+    init(parent: NavigationNode?, store: AnswerStore) {
         self.store = store
 
         super.init(parent: parent)

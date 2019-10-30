@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxSwift
 
 final class AnswerCell: UITableViewCell {
 

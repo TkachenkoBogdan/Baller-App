@@ -12,17 +12,11 @@ final class BallerLabel: UILabel {
 
     // MARK: - Init:
 
-    convenience init(text: String? = nil,
-                     numberOfLines: Int = 0,
-                     fontSize: CGFloat = AppFont.Size.default) {
-        self.init()
-
+    init(text: String? = nil,
+         numberOfLines: Int = 0,
+         fontSize: CGFloat = AppFont.Size.default) {
+        super.init(frame: CGRect.zero)
         configure(text, numberOfLines, fontSize)
-
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
     }
 
     required init?(coder: NSCoder) {
@@ -37,7 +31,7 @@ final class BallerLabel: UILabel {
 
     override var text: String? {
         willSet {
-            animatesTextChanges ? animatedTransition(withType: animationType, animationDuration) : ()
+            animatesTextChanges ? animatedTransition(withType: animationType, duration: animationDuration) : ()
         }
     }
 
